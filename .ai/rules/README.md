@@ -4,9 +4,9 @@ This directory contains the shared rules for the project.
 
 ## Source of Truth
 
-`rules.md` is the single source of truth for all shared AI CLI behavior.
+`rules.md` is the single source of truth for Codex, Claude Code, and Gemini CLI behavior.
 
-Root files such as `CLAUDE.md`, `AGENTS.md`, and `GEMINI.md` are adapters. Tool-specific files such as `.cursor/rules/rules.md`, `.windsurf/rules/rules.md`, and `.github/copilot-instructions.md` are also adapters.
+Root files such as `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` are adapters. They should point agents back to `rules.md` instead of duplicating rules.
 
 ## Extension Policy
 

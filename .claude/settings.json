@@ -16,7 +16,7 @@
   "workspace": {
     "root": "d:/development/_templates/ai_tool",
     "ai_system": ".ai/",
-    "rules_file": ".ai/.cursorrules"
+    "rules_file": ".ai/rules/rules.md"
   },
   "context": {
     "ai_system_enabled": true,

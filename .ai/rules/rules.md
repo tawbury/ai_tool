@@ -1,5 +1,5 @@
 ---
-description: "Master system rules for multi-agent orchestration across Codex, Claude Code, Gemini CLI, Cursor, GitHub Copilot, Windsurf, and future AI CLI tools"
+description: "Master system rules for multi-agent orchestration across Codex, Claude Code, and Gemini CLI"
 globs: "**/*"
 alwaysApply: true
 ---
@@ -12,7 +12,7 @@ alwaysApply: true
 
 - `.ai/rules/rules.md` is the single source of truth for shared project rules.
 - Root AI CLI files such as `CLAUDE.md`, `AGENTS.md`, and `GEMINI.md` are adapters that point agents back to this file.
-- Tool-specific files such as `.cursor/rules/rules.md`, `.windsurf/rules/rules.md`, and `.github/copilot-instructions.md` are adapters, not rule sources.
+- The active root adapters are `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md`.
 - Symbolic links are prohibited for rules files and rule directories. Use normal files and directories only.
 - Domain-specific rule files may be added later only when there is a real maintenance need. Do not pre-create or reserve extension filenames.
 
@@ -121,7 +121,7 @@ alwaysApply: true
 - **Finance Agent**: Refer to `.ai/agents/finance.agent.md`
 - **PM Agent**: Refer to `.ai/agents/pm.agent.md`
 
-**System Rules SSoT**: `.ai/rules/rules.md` is the single source of truth for system rules. All tool-specific configurations (Cursor `.cursorrules`, Copilot instructions, Claude project file, Windsurf rules) MUST be physically synchronized via mcp-cli. **Symbolic links (symlinks) are STRICTLY PROHIBITED** due to cross-platform compatibility and AI native parsing issues.
+**System Rules SSoT**: `.ai/rules/rules.md` is the single source of truth for system rules. Codex, Claude Code, and Gemini CLI adapters MUST point back to this file. **Symbolic links (symlinks) are STRICTLY PROHIBITED** due to cross-platform compatibility and AI native parsing issues.
 
 ## 5. L1/L2 Agent System
 
@@ -146,7 +146,7 @@ alwaysApply: true
 ## 6. Constraint Enforcement
 
 ### System Constraints
-- **File Integrity**: Do not manually edit generated rule files at the project root (e.g., `.cursorrules`, `.github/copilot-instructions.md`, `.claude/project.md`, `.windsurfrules`). Always edit `.ai/rules/rules.md` and use the MCP sync command to physically distribute updates. Do not use symlinks to connect these files.
+- **File Integrity**: Do not duplicate shared rules into tool-specific files. Always edit `.ai/rules/rules.md`, and keep `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` as thin adapters. Do not use symlinks to connect these files.
 - **Agent Boundaries**: Each agent operates within defined scope and constraints
 - **Language Compliance**: Enforce language rules for all document creation and modification
 

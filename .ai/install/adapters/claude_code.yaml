@@ -7,7 +7,7 @@ description: Claude Code project context adapter
 
 # Output file configuration
 output:
-  path: .claude/project.md
+  path: CLAUDE.md
   format: markdown
   encoding: utf-8
 

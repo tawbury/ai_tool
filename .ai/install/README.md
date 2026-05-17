@@ -1,19 +1,17 @@
 # Install Directory
 
-이 디렉토리는 통합 시스템을 다양한 AI 환경 및 로컬 환경에 구성(Setup)하기 위한 설치 관리 스크립트, 어댑터, 템플릿들을 보관합니다.
+This directory contains install mapping metadata for the currently supported AI CLI tools.
 
----
+## Supported Tools
 
-## 📂 디렉토리 및 파일 구성
+- Codex
+- Claude Code
+- Gemini CLI
 
-| 파일/디렉토리명 | 목적 및 사용 대상 |
-|-----------------|-------------------|
-| `adapters/` | 각기 다른 AI 클라이언트(Claude, Cursor, Windsurf 등) 환경의 설정과 통합 시스템을 이어주는 브릿지(Adapter) 스크립트 |
-| `templates/` | 초기 설정 시 각 환경별로 복사되거나 참조될 설정 파일(보일러플레이트) 보관 |
-| `mapping_rules.yaml` | 원본 `.ai/rules` 및 설정 값들이 각각의 AI 클라이언트 로컬 설정 파일에 어떻게 매핑(Mapping)되는지 정의한 규칙 파일 |
+## Files
 
----
-
-## 💡 운영 로직
-- 초기화(Installation) 스크립트 구동 시, `mapping_rules.yaml`을 읽어 `adapters/` 로직에 따라 `.claude`, `.cursor` 등의 설정 디렉토리에 알맞은 규칙 템플릿을 자동으로 배포 및 연동합니다.
-- 시스템 전역 규칙과 개별 AI 툴의 규칙 간 동기화를 자동화하는 MCP-cli 부가 기능 폴더입니다.
+| Path | Purpose |
+|---|---|
+| `mapping_rules.yaml` | Maps `.ai/` sources to supported root adapter files |
+| `adapters/claude_code.yaml` | Claude Code adapter metadata |
+| `templates/claude_template.md` | Claude Code template |
