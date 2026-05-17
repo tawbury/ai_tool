@@ -1,0 +1,1 @@
+D:/development/_templates/ai_tool/.ai/rules/rules.mdc

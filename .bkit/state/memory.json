@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-05-04T15:15:18.293Z",
+  "platform": "gemini",
+  "data": {
+    "session": {
+      "sessionCount": 4,
+      "lastSessionStarted": "2026-05-04T06:56:19.674Z",
+      "lastSessionEnded": "2026-05-04T15:15:18.293Z"
+    },
+    "pdca": {
+      "lastFeature": null,
+      "preferredLevel": "Starter",
+      "outputStyle": null
+    },
+    "preferences": {
+      "language": "en"
+    },
+    "custom": {}
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(ls -la \"d:\\\\development\\\\_templates\\\\aI_tool\\\\.ai\\\\*\" 2>/dev/null || ls -la \"d:/development/_templates/aI_tool/.ai/*\" 2>/dev/null)",
+      "ReadFile:.ai/**",
+      "WriteToFile:.ai/**",
+      "EditFile:.ai/**",
+      "Bash(if not exist \".ai\\\\workflows\\\\backup\" mkdir \".ai\\\\workflows\\\\backup\")",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx:*)",
+      "Bash(./node_modules/.bin/tsc:*)"
+    ]
+  },
+  "ai_system": {
+    "enabled": true,
+    "context_aware": true,
+    "agent_integration": true
+  }
+}
