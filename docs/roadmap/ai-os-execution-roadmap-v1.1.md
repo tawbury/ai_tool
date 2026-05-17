@@ -213,21 +213,6 @@ active_set:
     - l2-review-validator
 ```
 
-## Appendix C: mapping_rules.yaml Example
-```yaml
-# ~/.ai/install/mapping_rules.yaml
-- client: cursor
-  source: ~/.ai/rules/coding_style.md
-  target: .cursor/rules/style.md
-  format: markdown
-  merge_strategy: overwrite_block
-  encoding: utf-8-no-bom
-  managed_block:
-    begin: "<!-- BEGIN AIOS -->"
-    end: "<!-- END AIOS -->"
-  validation: schema_check
-```
-
 ## Appendix D: Managed Block Format
 모든 동기화 대상 파일은 다음 형식을 준수해야 합니다.
 ```markdown

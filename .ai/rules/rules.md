@@ -79,11 +79,6 @@ alwaysApply: true
 - **Validators**: `.ai/validators/`
 - **Workflows**: `.ai/workflows/`
 
-### Excluded Folders (MCP-cli Only)
-- **export/**: MCP-cli export functionality (not AI system)
-- **install/**: MCP-cli installation management (not AI system)
-- **spec/**: MCP-cli specification documents (not AI system)
-
 ## 3. Workflow System v2 Rules
 
 ### Metadata-First Linking (Enforced)

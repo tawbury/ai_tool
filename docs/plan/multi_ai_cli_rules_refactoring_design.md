@@ -314,14 +314,12 @@ Test-Path .cursor/rules/rules.md
 Test-Path .windsurf/rules/rules.md
 Test-Path .github/copilot-instructions.md
 git status --short --branch
-git check-ignore -v mcp-cli
 ```
 
 Git 검증 기준:
 
 - 심볼릭 링크가 Git에 남아 있지 않아야 한다.
 - 새 어댑터 파일은 일반 파일로 추적되어야 한다.
-- `mcp-cli/`는 계속 `.gitignore`에 의해 무시되어야 한다.
 - 작업 결과가 의도한 파일 변경으로만 구성되어야 한다.
 
 ---

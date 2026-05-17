@@ -27,5 +27,3 @@ Rules files and rules directories must be normal files and directories. Do not u
 | `templates/` | Document and workflow templates |
 | `validators/` | Validation rules and validator documents |
 | `workflows/` | Operational workflow definitions |
-| `install/` | Installation mapping for currently supported CLI tools |
-| `export/` | Export helpers for chat or session contexts |
