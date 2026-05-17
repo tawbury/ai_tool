@@ -1,11 +1,19 @@
 ---
 name: PM Agent
 type: agent
-version: 2.2.0
-updated: 2026-04-14
+version: 2.3.0
+updated: 2026-05-17
 role: Product Strategy, Roadmap Planning & Stakeholder Coordination
 level: L2
 tools: [claude-code, codex, gemini-cli]
+domain_rules:
+  - .ai/rules/domains/documentation.rules.md
+operation_rules:
+  - .ai/rules/operations/agent.rules.md
+  - .ai/rules/operations/workflow.rules.md
+  - .ai/rules/operations/validation.rules.md
+validators:
+  - .ai/validators/pm_skill_validator.md
 ---
 
 # PM Agent

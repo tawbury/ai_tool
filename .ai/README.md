@@ -1,6 +1,6 @@
 # AI System Directory
 
-This directory contains shared AI system rules, agents, skills, workflows, validators, and templates.
+This directory contains shared AI system commands, rules, agents, skills, workflows, validators, and templates.
 
 ## Source of Truth
 
@@ -15,6 +15,7 @@ Root adapters are discovery files only. They must not duplicate shared rule bodi
 
 | Path | Purpose |
 |---|---|
+| `commands/` | Reusable multi-CLI command definitions |
 | `rules/rules.md` | Global rule contract |
 | `rules/domains/` | Business or work-domain rules |
 | `rules/operations/` | Execution, validation, workflow, and agent governance rules |
@@ -30,6 +31,7 @@ Root adapters are discovery files only. They must not duplicate shared rule bodi
 | Path | Purpose |
 |---|---|
 | `agents/` | Agent role definitions |
+| `commands/` | Shared command definitions for all AI CLI tools |
 | `rules/` | Layered shared rules |
 | `skills/` | Reusable skill definitions |
 | `templates/` | Document and workflow templates |

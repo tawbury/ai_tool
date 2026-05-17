@@ -1,11 +1,19 @@
 ---
 name: Contents Creator Agent
 type: agent
-version: 2.2.0
-updated: 2026-04-14
+version: 2.3.0
+updated: 2026-05-17
 role: Integrated Content Creation (Visual + Text + Video)
 level: L2
 tools: [claude-code, codex, gemini-cli]
+domain_rules:
+  - .ai/rules/domains/documentation.rules.md
+operation_rules:
+  - .ai/rules/operations/agent.rules.md
+  - .ai/rules/operations/workflow.rules.md
+  - .ai/rules/operations/validation.rules.md
+validators:
+  - .ai/validators/contents_creator_skill_validator.md
 ---
 
 # Contents Creator Agent

@@ -14,6 +14,7 @@ Load this rule when the task involves roadmap work, task documents, run records,
 - Define metadata-first document relationships.
 - Define evidence requirements for completed work.
 - Define recovery behavior after interruption or document issues.
+- Define how shared commands participate in the execution workflow.
 
 ## Rules
 
@@ -33,6 +34,14 @@ Load this rule when the task involves roadmap work, task documents, run records,
 - Run Record is execution evidence and must reference the executed task and relevant roadmap when those documents exist.
 - Roadmap updates must cite run records as evidence when roadmap tracking is used.
 
+### Shared Command Execution
+
+- Shared commands live under `.ai/commands/` and are reusable across AI CLI tools.
+- When executing a shared command, read `.ai/commands/README.md` and the matching `.ai/commands/*.command.md` file before implementation.
+- Treat the command file as the workflow contract for that command.
+- Tool-specific command wrappers may invoke shared commands, but they must reference `.ai/commands/` rather than duplicate workflow bodies.
+- If a shared command requires a report, write the report under `docs/reports/` in Korean unless the command specifies a stricter location.
+
 ### Recovery
 
 - After session interruption, resume from the last valid roadmap, task, and run records when available.
@@ -44,6 +53,8 @@ Load this rule when the task involves roadmap work, task documents, run records,
 - Check that metadata links use real filenames.
 - Check that run records reference executed tasks when run records are created.
 - Check that roadmap updates cite execution evidence when roadmap tracking is used.
+- Check that shared command references point to real `.ai/commands/*.command.md` files.
+- Check that tool-specific command wrappers do not become the canonical source for shared workflow behavior.
 
 ## Related Rules
 

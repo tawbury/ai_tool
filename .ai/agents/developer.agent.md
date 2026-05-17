@@ -1,11 +1,20 @@
 ---
 name: Developer Agent
 type: agent
-version: 2.2.0
-updated: 2026-04-14
+version: 2.3.0
+updated: 2026-05-17
 role: Software Design, Implementation & Maintenance
 level: L2
 tools: [claude-code, codex, gemini-cli]
+domain_rules:
+  - .ai/rules/domains/development.rules.md
+  - .ai/rules/domains/documentation.rules.md
+operation_rules:
+  - .ai/rules/operations/agent.rules.md
+  - .ai/rules/operations/workflow.rules.md
+  - .ai/rules/operations/validation.rules.md
+validators:
+  - .ai/validators/developer_skill_validator.md
 ---
 
 # Developer Agent

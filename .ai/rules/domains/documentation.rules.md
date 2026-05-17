@@ -14,6 +14,7 @@ Load this rule when the task touches document language, document structure, meta
 - Define language and encoding requirements for documentation.
 - Define common template and metadata expectations.
 - Define common Obsidian link rules.
+- Define how embedded Markdown configuration blocks are written in project documents.
 
 This file does not own domain-specific artifact locations. Domain-specific output paths belong to the relevant domain rule, such as `development.rules.md` or `hr.rules.md`.
 
@@ -45,6 +46,26 @@ This file does not own domain-specific artifact locations. Domain-specific outpu
 - Use real Obsidian internal links such as `[[filename.md]]`.
 - Wildcard links such as `[[task_*.md]]` are forbidden.
 
+### Embedded Configuration Blocks
+
+- Use embedded fenced `yaml` blocks as the default format for structured metadata inside Markdown documents.
+- Use embedded fenced `json` blocks only for JSON Schema examples, strict external tool payloads, or API-oriented examples.
+- Do not use JSONL in normal documents. Use JSONL only for append-only execution event logs when a workflow explicitly requires that format.
+- Configuration blocks must be wrapped with HTML comment anchors:
+
+````markdown
+<!-- ai-config:start <name> <version> -->
+```yaml
+source_of_truth: .ai/rules/rules.md
+```
+<!-- ai-config:end -->
+````
+
+- The configuration block must support the nearby human-readable content and must not replace the explanation, rule, or decision rationale.
+- Keep the configuration block synchronized with the document body when editing either one.
+- Prefer embedded configuration blocks over standalone YAML or JSON files unless multiple documents must share the same configuration or an automation tool must read a separate file directly.
+- Standalone `manifest.yml`, `manifest.schema.json`, `*.json`, or `*.jsonl` files require a documented maintenance reason before creation.
+
 ### Common Document Areas
 
 - `docs/plan/`: planning and design documents, written in Korean.
@@ -61,6 +82,8 @@ This file does not own domain-specific artifact locations. Domain-specific outpu
 - Check template structure when a template applies.
 - Check internal links for real filenames.
 - Check that the file is UTF-8 without BOM.
+- Check that embedded configuration blocks have matching `ai-config:start` and `ai-config:end` anchors.
+- Check that fenced YAML or JSON examples are closed and are consistent with the surrounding document body.
 
 ## Related Rules
 

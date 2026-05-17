@@ -6,7 +6,7 @@ alwaysApply: true
 
 # Global Rules
 *Last Updated: 2026-05-17*
-*Version: 3.0.0*
+*Version: 3.2.0*
 
 ## Purpose
 
@@ -42,10 +42,14 @@ When instructions conflict, apply this priority order:
 
 ## Rule Layers
 
-The rule system has three layers:
+The shared AI system has these main layers:
 
 ```text
 .ai/
+  commands/
+    README.md
+    *.command.md
+
   rules/
     README.md
     rules.md
@@ -61,9 +65,18 @@ The rule system has three layers:
       agent.rules.md
 ```
 
+- `commands/` contains reusable multi-CLI command definitions.
 - `rules.md` defines the global contract only.
 - `domains/` contains business or work-domain rules.
 - `operations/` contains execution, validation, workflow, and agent governance rules.
+
+## Shared Command Policy
+
+- Reusable AI commands must be stored under `.ai/commands/`.
+- Tool-specific command systems, such as Claude Code slash commands, may wrap or reference `.ai/commands/` entries, but must not become the canonical command source.
+- When a user asks to run a named shared command, first read `.ai/commands/README.md`, then read the matching `.ai/commands/*.command.md` file.
+- Shared command files define cross-CLI intent, inputs, workflow, validation, and reporting requirements.
+- Tool adapters may describe how to invoke commands in that tool, but shared command behavior belongs only in `.ai/commands/`.
 
 ## Selective Loading
 
@@ -82,6 +95,29 @@ Typical loading examples:
 | Development runtime issue | `development.rules.md` | `validation.rules.md` |
 | HR role evaluation report | `documentation.rules.md`, `hr.rules.md` | `workflow.rules.md`, `validation.rules.md` |
 | Agent collaboration or escalation design | None unless domain-specific | `agent.rules.md`, `workflow.rules.md` |
+| Shared command execution | Domain rules required by the command | `workflow.rules.md`, `validation.rules.md`, and command-specific files in `.ai/commands/` |
+
+## Embedded Configuration Blocks
+
+Markdown documents may include fenced `yaml` or `json` configuration blocks when structured metadata is useful for routing, validation, linking, or automation.
+
+- Prefer fenced `yaml` blocks for project rules, agent routing, plan structure, and validation maps.
+- Use fenced `json` blocks only for JSON Schema examples, strict external tool payloads, or API-oriented examples.
+- Use JSONL only for append-only execution event logs when that data model is explicitly required.
+- Configuration blocks support the surrounding rule or document body; they do not replace human-readable rules, role definitions, or decision rationale.
+- Identify configuration blocks with HTML comment anchors:
+
+````markdown
+<!-- ai-config:start <name> <version> -->
+```yaml
+source_of_truth: .ai/rules/rules.md
+```
+<!-- ai-config:end -->
+````
+
+- `<name>` must use kebab-case, such as `agent-routing`, `plan-structure`, or `validation-map`.
+- `<version>` must use a short version label, such as `v1`.
+- Detailed agent routing belongs in `.ai/rules/operations/agent.rules.md`, not in this global file.
 
 ## Global File and Encoding Requirements
 
@@ -104,6 +140,10 @@ Typical loading examples:
 - Operational rule changes must be checked for impact across all domains.
 - README files are navigation and discovery aids; they must not duplicate rule bodies.
 - New rule files should be added only when repeated maintenance need exists.
+- When recurring improvements are discovered during real project use, update the smallest relevant shared rule file so future agents can apply the improvement without a repeated user instruction.
+- Put project-wide behavior in this file, document behavior in `documentation.rules.md`, agent governance in `agent.rules.md`, workflow behavior in `workflow.rules.md`, and validation behavior in `validation.rules.md`.
+- Keep tool-specific behavior in adapter files only.
+- Record substantial rule changes in a Korean document under `docs/plan/` or `docs/reports/` when the change affects future project operation.
 
 ## Migration Map
 
