@@ -1,5 +1,5 @@
 ---
-description: "Master system rules for multi-agent orchestration (Cursor, GitHub Copilot, Claude Code, Windsurf)"
+description: "Master system rules for multi-agent orchestration across Codex, Claude Code, Gemini CLI, Cursor, GitHub Copilot, Windsurf, and future AI CLI tools"
 globs: "**/*"
 alwaysApply: true
 ---
@@ -7,6 +7,22 @@ alwaysApply: true
 # System Rules v2.1
 *Last Updated: 2026-01-26*
 *Version: 2.1.0*
+
+## 0. Multi AI CLI Rule Source
+
+- `.ai/rules/rules.md` is the single source of truth for shared project rules.
+- Root AI CLI files such as `CLAUDE.md`, `AGENTS.md`, and `GEMINI.md` are adapters that point agents back to this file.
+- Tool-specific files such as `.cursor/rules/rules.md`, `.windsurf/rules/rules.md`, and `.github/copilot-instructions.md` are adapters, not rule sources.
+- Symbolic links are prohibited for rules files and rule directories. Use normal files and directories only.
+- Domain-specific rule files may be added later only when there is a real maintenance need. Do not pre-create or reserve extension filenames.
+
+### Rule Priority
+
+1. Latest explicit user request
+2. Runtime system or developer instructions for the active AI CLI
+3. `.ai/rules/rules.md`
+4. Task-relevant domain-specific rules, if they exist
+5. Root or tool-specific adapter files
 
 ## 1. Language & Content Rules
 

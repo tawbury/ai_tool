@@ -1,55 +1,12 @@
-# CC System (AI Tool)
+# Gemini CLI Instructions
 
-> [!CAUTION]
-> ## ai 자동 컨텍스트 동기화 — 필수 (기본 활성화)
->
-> **이 규칙은 모든 세션, 모든 작업에서 무조건 자동 실행된다. 예외 없음.**
->
-> 너(Claude)는 작업을 시작하기 전, 현재 브랜치의 목적에 맞게 이 파일의 '현재 목표' 섹션을
-> 스스로 수정해야 한다. 또한 새로운 컴포넌트나 함수를 만들면 '코드 일관성 규칙' 섹션에
-> 그 패턴을 기록하여 일관성을 유지하라.
->
-> ### 자동 실행 체크리스트
->
-> | 시점 | 수행 내용 | 필수 |
-> |------|----------|------|
-> | **작업 시작 전** | `git branch --show-current`로 브랜치 확인 → **'현재 목표'** 섹션을 해당 브랜치의 목적, 주요 변경 파일, 완료 조건에 맞게 업데이트 | **필수** |
-> | **코드 생성/수정 중** | 새 컴포넌트/함수/패턴 생성 시 → **'코드 일관성 규칙'** 섹션에 패턴명, 위치, 규칙을 기록 | **필수** |
-> | **작업 완료 시** | '현재 목표' 테이블의 완료 조건을 체크하고 결과 반영 | **필수** |
+This project uses `.ai/rules/rules.md` as the single source of truth for shared AI agent rules.
 
-제미나이(Gemini) 및 클로드(Claude) 에이전트 파이프라인과 프롬프트 시스템을 관리하는 프로젝트입니다.
+Before making changes:
 
-## 프로젝트 구조
+1. Read `.ai/rules/rules.md`.
+2. Follow the latest explicit user request first.
+3. Apply Gemini CLI runtime instructions when they are stricter than project rules.
+4. Treat this file as an adapter, not as the rule source.
 
-- **`prompt/`**: AI 에이전트용 프롬프트 템플릿
-  - `crystalize-prompt.md`: 프롬프트 압축 및 고해상도 토큰화 지침
-  - `design-pipeline.md`: 랜딩 페이지 클론 코딩을 위한 디자인 파이프라인 기획
-- **`docs/cc/`**: 에이전트 확장 기능 문서
-  - `hooks.md`: 셸 명령어를 통한 동작 커스터마이징 (Hooks)
-  - `slash-commands.md`: 커스텀 슬래시 명령어 설정
-  - `sub-agent.md`: 특정 작업에 특화된 하위 에이전트 구성
-
-## 주요 워크플로우
-
-1. **프롬프트 압축**: 긴 지침을 의도 보존 및 핵심 토큰 중심으로 압축하여 컨텍스트 효율화
-2. **랜딩 페이지 클론**: Framer 디자인을 React + TailwindCSS + Motion/React 조합으로 변환
-
-
- ## 핵심 지침
- 
- - 작업 시작 전 모호한 부분은 질문을 통해 명확히 함 (최대 4개)
- - 데이터 전처리는 Python 스크립트 등 코드 레벨에서 우선 처리하여 컨텍스트 절약
- - 이미지 리소스 및 placeholder 추출 필수
- 
- ## 현재 목표
- 
- | 목표 | 상세 내용 | 상태 |
- |------|----------|------|
- | GitHub 연동 | `tawbury/ai_tool` Private 레포 생성 및 로컬 프로젝트 연결 | ✅ 완료 |
- | 초기 코드 푸시 | 현재 프로젝트 파일들을 신규 레포지토리에 업로드 | ✅ 완료 |
- 
- ## 코드 일관성 규칙
- 
- | 패턴명 | 위치 | 규칙 |
- |--------|------|------|
- | (없음) | - | - |
+Do not create symbolic links for rules files. Rules adapters must be normal files or directories.

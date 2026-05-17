@@ -1,11 +1,9 @@
-# Windsurf IDE Configuration
+# Windsurf Directory
 
-이 디렉토리는 Windsurf AI 에디터 전용 설정 및 워크플로우 연동 규칙을 보관합니다.
+This directory contains Windsurf-specific project configuration.
 
-## 역할 및 구조
-- Windsurf의 고유 기능(에이전트 태스크, 자동화 파이프라인 연동)에 맞는 설정 파일들이 위치합니다.
-- 타 AI 툴들과의 충돌을 방지하기 위해 이 폴더 안에서 Windsurf만의 실행 방식을 정의합니다.
+Windsurf rules are exposed through `.windsurf/rules/rules.md`, which is an adapter that points to `.ai/rules/rules.md`.
 
-## 공통 규칙 연동
-- 모든 실제 로직 및 핵심 제약사항은 프로젝트 중앙 룰 저장소인 `.ai/rules/`를 따릅니다.
-- 추후 새로운 AI 도구(Deepseek 등)가 추가될 때에도 이와 동일하게 각 도구별 얇은 래퍼(Wrapper) 폴더를 두고, 실제 코어 룰은 `.ai/rules/`에 통합하여 관리하는 확장이 가능합니다.
+The source of truth for shared rules is `.ai/rules/rules.md`.
+
+Rules files must be normal files or directories. Do not use symbolic links.
