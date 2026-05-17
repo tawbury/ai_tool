@@ -1,4 +1,4 @@
-﻿# Claude Code Instructions
+# Claude Code Instructions
 
 This project uses `.ai/rules/rules.md` as the single source of truth for shared AI agent rules.
 
@@ -10,4 +10,3 @@ Before making changes:
 4. Treat this file as an adapter, not as the rule source.
 
 Do not create symbolic links for rules files. Rules adapters must be normal files or directories.
-
