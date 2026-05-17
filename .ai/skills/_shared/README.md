@@ -34,6 +34,18 @@ Reusable skill frameworks that multiple agents reference to reduce duplication:
 | [[optimization_framework.skill.md]] | Unified optimization patterns | Developer, Finance, Contents-Creator |
 | [[research_framework.skill.md]] | Unified research patterns | PM, Contents-Creator, Finance |
 
+## Shared AI CLI Tooling Skills
+
+Tooling skills adapted from AI CLI-specific folders live under `ai_cli/`.
+
+| Skill | Purpose |
+|---|---|
+| `ai_cli/hook-creator/hook_creator.skill.md` | Create lifecycle hook configurations while preserving Claude Code hook references. |
+| `ai_cli/skill-creator/skill_creator.skill.md` | Create or update reusable AI skills with bundled resources. |
+| `ai_cli/slash-command-creator/slash_command_creator.skill.md` | Create shared command definitions and tool-specific command wrappers. |
+| `ai_cli/subagent-creator/subagent_creator.skill.md` | Create shared `.ai/agents/` definitions or tool-specific subagents. |
+| `ai_cli/youtube-collector/youtube_collector.skill.md` | Collect YouTube channel metadata, transcripts, and summary-ready YAML data. |
+
 ### Framework Usage Pattern
 
 Agent-specific skills **reference** (not duplicate) framework logic:

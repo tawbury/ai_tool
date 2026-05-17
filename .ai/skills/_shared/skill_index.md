@@ -7,6 +7,7 @@ Central index mapping all skills across agents with framework references.
 ## Quick Navigation
 
 - [Shared Frameworks](#shared-frameworks)
+- [Shared AI CLI Tooling Skills](#shared-ai-cli-tooling-skills)
 - [Developer Skills](#developer-skills)
 - [PM Skills](#pm-skills)
 - [HR Skills](#hr-skills)
@@ -40,6 +41,18 @@ Central index mapping all skills across agents with framework references.
 | Analytics Framework | analytics_framework.skill.md | PRODUCT, AUDIENCE, TALENT, FINANCIAL, CONTENT | All |
 | Optimization Framework | optimization_framework.skill.md | PERFORMANCE, COST, CONTENT, PROCESS | Developer, Finance, Contents-Creator |
 | Research Framework | research_framework.skill.md | USER, MARKET, AUDIENCE, TREND | PM, Contents-Creator, Finance |
+
+### Shared AI CLI Tooling Skills
+
+**Location**: `.ai/skills/_shared/ai_cli/`
+
+| Skill | File | Purpose | Source |
+|---|---|---|---|
+| Hook Creator | `ai_cli/hook-creator/hook_creator.skill.md` | Create AI CLI lifecycle hooks and preserve Claude Code hook references. | `.claude/skills/hook-creator` |
+| Skill Creator | `ai_cli/skill-creator/skill_creator.skill.md` | Create or update reusable AI skills with bundled resources. | `.claude/skills/skill-creator` |
+| Slash Command Creator | `ai_cli/slash-command-creator/slash_command_creator.skill.md` | Create shared command definitions and tool-specific command wrappers. | `.claude/skills/slash-command-creator` |
+| Subagent Creator | `ai_cli/subagent-creator/subagent_creator.skill.md` | Create shared agent definitions or tool-specific subagents. | `.claude/skills/subagent-creator` |
+| YouTube Collector | `ai_cli/youtube-collector/youtube_collector.skill.md` | Collect YouTube channel metadata, transcripts, and summary-ready YAML data. | `.claude/skills/youtube-collector` |
 
 ---
 

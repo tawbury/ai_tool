@@ -24,6 +24,7 @@ Load this rule when the task involves agent assignment, L1/L2 review, escalation
 - `contents-creator`: content creation and management.
 - `finance`: financial analysis and management.
 - `pm`: project management and coordination.
+- `brand-logo-finder`: brand logo and visual asset discovery.
 
 Agent context files:
 
@@ -32,6 +33,7 @@ Agent context files:
 - `.ai/agents/contents-creator.agent.md`
 - `.ai/agents/finance.agent.md`
 - `.ai/agents/pm.agent.md`
+- `.ai/agents/brand-logo-finder.agent.md`
 
 ### Agent Routing Configuration
 
@@ -113,6 +115,20 @@ agents:
       - financial analysis
       - budget management
       - financial risk assessment
+  - agent: brand-logo-finder
+    file: .ai/agents/brand-logo-finder.agent.md
+    default_domain_rules:
+      - .ai/rules/domains/documentation.rules.md
+    default_operation_rules:
+      - .ai/rules/operations/agent.rules.md
+      - .ai/rules/operations/workflow.rules.md
+      - .ai/rules/operations/validation.rules.md
+    validators:
+      - .ai/validators/cross_agent_validator.md
+    primary_use_cases:
+      - brand logo lookup
+      - brand asset discovery
+      - Brandfetch research
 ```
 <!-- ai-config:end -->
 

@@ -1,25 +1,39 @@
 # Skills Directory
 
-이 디렉토리는 AI 에이전트들이 특정 작업을 수행할 때 활용하는 **개별 기능 단위(Skill)** 정의 파일(`.skill.md`)들을 보관합니다.
-각 에이전트 도메인에 맞게 분류되어 있으며, 여러 에이전트가 공통으로 사용하는 스킬은 `_shared/` 폴더에서 관리합니다.
+This directory stores reusable AI skills.
 
----
+Skills are grouped by agent domain. Cross-agent skills live under `_shared/`.
 
-## 📂 디렉토리 구조 및 역할
+## Directory Structure
 
-| 디렉토리명 | 목적 및 사용 대상 | 주요 포함 내용 (예시) |
-|------------|-------------------|-----------------------|
-| `_shared/` | **공통 스킬** (모든 에이전트) | 로드맵 관리, Run Record 생성 등 에이전트 공통 운영 루프 스킬 |
-| `pm/` | **PM 에이전트 스킬** | 일정 관리, 요구사항 분석, 리스크 평가 및 마일스톤 설정 스킬 |
-| `developer/` | **Developer 에이전트 스킬** | 코드 리뷰, 기술 스택 검증, 배포 스크립트 작성 및 디버깅 스킬 |
-| `contents-creator/` | **Contents Creator 스킬** | 콘텐츠 퀄리티 검증, SEO 최적화 제안, 톤앤매너 검증 스킬 |
-| `finance/` | **Finance 에이전트 스킬** | 비용 계산, 예산 승인 파이프라인, 재무 위험도 분석 스킬 |
-| `hr/` | **HR 에이전트 스킬** | 온보딩 검증, 레벨 판단 로직, 역량 평가 스킬 |
+| Directory | Purpose |
+|---|---|
+| `_shared/` | Skills and frameworks used by multiple agents. |
+| `_shared/ai_cli/` | Shared AI CLI tooling skills adapted from tool-specific assets. |
+| `pm/` | Product and project management skills. |
+| `developer/` | Software development and technical review skills. |
+| `contents-creator/` | Visual, text, video, and interactive content skills. |
+| `finance/` | Financial analysis and management skills. |
+| `hr/` | HR evaluation, role management, and organization skills. |
 
----
+## Skill File Rules
 
-## 🔗 활용 방식
+- Use `.skill.md` for shared skill entry files.
+- Keep skill entry files concise.
+- Put long examples and references in `references/`.
+- Put deterministic procedures in `scripts/`.
+- Put reusable output resources in `assets/`.
+- Do not copy global rule bodies into skill files.
 
-- **모듈화**: 스킬은 특정 상황(Task)에서만 로드되어 AI의 컨텍스트(Context) 창을 낭비하지 않도록 돕습니다.
-- **Workflow 연동**: 각 스킬은 `.ai/workflows/` 내의 단계별 지침에서 호출되어 실행됩니다.
-- **명세화**: 스킬 파일에는 Input, Output 형식과 구체적인 수행 절차(Process)가 명시되어 있어 다양한 AI 모델에서 일관된 결과를 보장합니다.
+## Shared AI CLI Skills
+
+The `_shared/ai_cli/` folder contains functionality migrated from `.claude/skills/` when the skill can be useful across AI CLI tools.
+
+Tool-specific behavior is preserved as references, scripts, or clearly labeled target behavior, while the canonical shared skill entry lives under `.ai/skills/`.
+
+## Loading Guidance
+
+- Load only the skill required by the current task.
+- Load references only when the skill entry file says they are needed.
+- Prefer scripts for deterministic, repeated operations.
+- Use `.ai/skills/_shared/skill_index.md` for broad skill discovery.

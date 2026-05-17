@@ -1,25 +1,28 @@
 # Agents Directory
 
-이 디렉토리는 시스템 내에서 작동하는 다양한 AI 에이전트들의 정의 파일(`.agent.md`)을 보관합니다.
-각 에이전트는 특정 도메인과 역할에 특화되어 있으며, 상호 협업을 통해 복합적인 워크플로우를 수행합니다.
+This directory stores shared AI agent definition files in `.agent.md` format.
 
----
+Agent files are intended for multi-AI CLI usage. Tool-specific agent systems may wrap or reference these files, but shared agent behavior belongs here.
 
-## 🤖 에이전트 구성 목록
+## Active Agents
 
-현재 시스템에는 5개의 핵심 에이전트가 정의되어 있습니다:
+| File | Agent Role | Primary Responsibility |
+|---|---|---|
+| `pm.agent.md` | Project Manager | Product strategy, roadmap planning, and stakeholder coordination. |
+| `developer.agent.md` | Developer | Software design, implementation, testing, and technical review. |
+| `contents-creator.agent.md` | Contents Creator | Visual, text, video, and interactive content creation. |
+| `finance.agent.md` | Finance | Financial analysis, budgeting, forecasting, and risk assessment. |
+| `hr.agent.md` | Human Resources | HR evaluation, role management, and agent orchestration. |
+| `brand-logo-finder.agent.md` | Brand Logo Finder | Brand domain lookup and Brandfetch-based logo asset discovery. |
 
-| 파일명 | 에이전트 역할 | 주요 책임 및 수행 업무 |
-|--------|---------------|------------------------|
-| `pm.agent.md` | **Project Manager (PM)** | 전체 프로젝트 기획 및 일정 관리, 에이전트 간 업무 조율, 문서 구조 설계 및 리뷰 |
-| `developer.agent.md` | **Developer** | 아키텍처 설계, 코드 구현 및 리뷰, 시스템 성능 최적화, 기술 부채 관리 |
-| `contents-creator.agent.md` | **Contents Creator** | 콘텐츠 전략 수립, 텍스트/멀티미디어 콘텐츠 기획 및 생성, 브랜드 가이드라인 검수 |
-| `finance.agent.md` | **Finance** | 예산 기획 및 비용 분석, 리스크 관리, 트레이딩 전략 검증(특정 워크플로우 한정) |
-| `hr.agent.md` | **Human Resources (HR)** | 팀 구성원(에이전트 포함) 역량 평가, 역할 정의서(Task) 검증, 평가 보고서 작성 |
+## Agent File Requirements
 
----
+- Use YAML frontmatter.
+- Include `domain_rules`, `operation_rules`, and `validators`.
+- Keep detailed rules in `.ai/rules/`, not copied into agent files.
+- Keep executable skills in `.ai/skills/`, not copied into agent files.
+- Use `.ai/rules/operations/agent.rules.md` as the shared routing index.
 
-## 🛠 확장성 및 상호작용
+## Tool-Specific Agent Assets
 
-- **Multi-AI Client 지원**: 모든 에이전트 파일은 Claude, Cursor, Windsurf, Gemini 등 다양한 AI 환경에서 프롬프트 컨텍스트로 주입되어 동일한 정체성(Persona)을 유지하도록 설계되었습니다.
-- **L1/L2 협업**: 각 에이전트는 담당 도메인에서 실무를 수행하는 **Junior (L1)**와 산출물을 검증하고 최종 의사결정을 내리는 **Senior (L2)**의 페르소나를 모두 포함하고 있습니다.
+Tool-specific agent definitions from `.claude/agents/` should be migrated here when they are useful across AI CLI tools. Preserve functionality, but adapt frontmatter and body structure to the shared `.agent.md` format.
