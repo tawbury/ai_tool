@@ -64,7 +64,7 @@ Central index mapping all skills across agents with framework references.
 | Skill | File | Purpose |
 |-------|------|---------|
 | Backend Development | dev_backend.skill.md | Server-side implementation |
-| Frontend Development | dev_frontend.skill.md | Client-side implementation |
+| Frontend Development | dev_frontend_stack_unified.skill.md | Client-side implementation |
 | Testing | dev_testing.skill.md | Unit/integration testing |
 | Documentation | dev_documentation.skill.md | Technical documentation |
 | Code Review | dev_code_review.skill.md | Peer review participation |
@@ -95,22 +95,22 @@ Central index mapping all skills across agents with framework references.
 ### L1 (Junior) Core Skills
 | Skill | File | Purpose |
 |-------|------|---------|
-| Planning | pm_planning.skill.md | Task and sprint planning |
+| Strategy Planning | pm_strategy_unified.skill.md | Task and sprint planning |
 | Requirement Definition | pm_requirement_definition.skill.md | Requirements gathering |
-| Product Analytics | product_analytics.skill.md | Basic metrics analysis |
+| Product Analytics | pm_analytics_unified.skill.md | Basic metrics analysis |
 | Stakeholder Management | stakeholder_management.skill.md | Stakeholder coordination |
-| Market Research | market_research.skill.md | Market analysis |
+| Market Research | research_framework.skill.md | Market analysis |
 
 ### L2 (Senior) Core Skills
 | Skill | File | Framework Reference |
 |-------|------|---------------------|
-| Roadmap Management | pm_roadmap_management.skill.md | - |
-| Product Growth | product_growth.skill.md | - |
-| Product Launch | product_launch.skill.md | - |
-| Global Strategy | global_product_strategy.skill.md | - |
+| Roadmap Management | operational_roadmap_management.skill.md | - |
+| Product Growth | product_retention.skill.md | - |
+| Product Launch | product_lifecycle_management.skill.md | - |
+| Global Strategy | pm_strategy_unified.skill.md | - |
 | Product Monetization | product_monetization.skill.md | - |
-| Data-Driven Decision | data_driven_decision_making.skill.md | analytics_framework (PRODUCT) |
-| User Research | user_research.skill.md | research_framework (USER) |
+| Data-Driven Decision | decision_analysis.skill.md | analytics_framework (PRODUCT) |
+| User Research | research_framework.skill.md | research_framework (USER) |
 
 ---
 

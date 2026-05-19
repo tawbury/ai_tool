@@ -61,7 +61,7 @@ Quick overview below:
 - **Key Stages**: Business planning → Product definition → Parallel execution → Integration testing → Deployment
 
 ### L2 Review Workflow
-- **File**: `l2_review_workflow.md`
+- **File**: `l2_review.workflow.md`
 - **Purpose**: Senior-level work validation and review process
 - **Primary Agents**: All L2 agents, Validators
 - **Key Stages**: L2 work submission → Technical review → Business impact review → Leadership review → Cross-agent integration → Final validation
@@ -76,9 +76,7 @@ workflows/
 ├── financial_management.workflow.md       # Financial management workflow
 ├── project_management.workflow.md         # Project management workflow
 ├── integrated_development.workflow.md     # Integrated development workflow
-├── l2_review_workflow.md                  # Senior review workflow
-└── backup/                                # Archived workflows
-    └── software_development.workflow.md.backup_20260120
+└── l2_review.workflow.md                  # Senior review workflow
 ```
 
 ## Senior Review System
@@ -128,7 +126,7 @@ workflows/
 - **Agent definitions**: [[../agents/]] directory
 - **Operational skills**: [[../skills/_shared/operational_roadmap_management.skill.md]], [[../skills/_shared/operational_run_record_creation.skill.md]]
 - **Templates**: [[../templates/]] directory (especially [[../templates/roadmap_template.md]], [[../templates/run_record_template.md]])
-- **System rules**: [[../.cursorrules]]
+- **System rules**: [[../rules/rules.md]]
 
 ## Junior/Senior Agent Roles
 
