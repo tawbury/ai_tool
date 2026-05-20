@@ -63,12 +63,13 @@ The shared AI system has these main layers:
       workflow.rules.md
       validation.rules.md
       agent.rules.md
+      documentation-governance.rules.md
 ```
 
 - `commands/` contains reusable multi-CLI command definitions.
 - `rules.md` defines the global contract only.
 - `domains/` contains business or work-domain rules.
-- `operations/` contains execution, validation, workflow, and agent governance rules.
+- `operations/` contains execution, validation, workflow, agent governance, and documentation governance rules.
 
 ## Shared Command Policy
 
@@ -96,6 +97,18 @@ Typical loading examples:
 | HR role evaluation report | `documentation.rules.md`, `hr.rules.md` | `workflow.rules.md`, `validation.rules.md` |
 | Agent collaboration or escalation design | None unless domain-specific | `agent.rules.md`, `workflow.rules.md` |
 | Shared command execution | Domain rules required by the command | `workflow.rules.md`, `validation.rules.md`, and command-specific files in `.ai/commands/` |
+| Documentation governance or document authority task | `documentation.rules.md` when editing docs | `documentation-governance.rules.md` |
+
+## Documentation Governance
+
+- `.ai/` is the canonical runtime source of truth.
+- `docs/specs/` contains detailed human-readable specifications. Specs are not always-load context.
+- `docs/adr/` contains decision records, not runtime contracts.
+- `docs/plan/` contains planning artifacts, not runtime contracts.
+- `docs/reports/` contains audits, implementation reports, and cleanup reports, not runtime contracts.
+- Runtime loaders and validators must not automatically consume audits, plans, ADRs, examples, philosophy, or human-review-only criteria.
+- Durable runtime rules discovered in audits or plans become effective only after promotion into the smallest relevant `.ai/` source file or an active normative spec.
+- Load `.ai/rules/operations/documentation-governance.rules.md` for document taxonomy, authority hierarchy, promotion, deprecation, supersession, or runtime consumption boundary tasks.
 
 ## Embedded Configuration Blocks
 
@@ -157,3 +170,4 @@ This map is transitional. It exists to help agents find rules after the layered 
 | Roadmap, Task, Run Record, recovery flow | `.ai/rules/operations/workflow.rules.md` |
 | Template, metadata, link, and execution validation | `.ai/rules/operations/validation.rules.md` |
 | Agent roles, L1/L2 collaboration, context and escalation | `.ai/rules/operations/agent.rules.md` |
+| Documentation taxonomy, authority, promotion, and runtime consumption boundary | `.ai/rules/operations/documentation-governance.rules.md` |
