@@ -4,6 +4,7 @@ from pathlib import Path
 
 from .result import ValidationRun
 from .targets import ValidationTarget
+from .validators.activation import validate_activation
 from .validators.agent import validate_agent
 from .validators.references import validate_validator_index
 from .validators.skill import validate_skill
@@ -22,7 +23,9 @@ def run_validation(root: Path, targets: list[ValidationTarget]) -> ValidationRun
                 path=_target_path(root, target),
             )
             continue
-        if target.kind == "agent":
+        if target.kind == "activation":
+            validate_activation(root, target, run)
+        elif target.kind == "agent":
             validate_agent(root, target, run)
         elif target.kind == "skill":
             validate_skill(root, target, run)

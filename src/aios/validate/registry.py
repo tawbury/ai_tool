@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 VALIDATORS_BY_KIND = {
+    "activation": ["activation"],
     "agent": ["agent"],
     "skill": ["skill"],
     "workflow": ["workflow"],
     "validator-index": ["references"],
-    "repository": ["agent", "skill", "workflow", "references"],
+    "repository": ["activation", "agent", "skill", "workflow", "references"],
 }

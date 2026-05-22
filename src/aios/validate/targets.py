@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from ..filesystem import list_skill_files, rel_path
+from ..filesystem import list_skill_files, read_text, rel_path
 
 
 @dataclass
@@ -54,6 +54,10 @@ def resolve_targets(
             ValidationTarget("workflow", path, path.stem)
             for path in sorted(workflows_root.glob("*.workflow.md"))
         )
+    targets.extend(
+        ValidationTarget("activation", path, path.stem)
+        for path in _list_activation_files(root)
+    )
     targets.append(ValidationTarget("validator-index", root / ".ai" / "validators" / "validator_index.md", "validator-index"))
     return targets
 
@@ -85,4 +89,26 @@ def _kind_for_path(root: Path, path: Path) -> str:
         return "workflow"
     if relative == ".ai/validators/validator_index.md":
         return "validator-index"
+    if path.suffix.lower() in {".yaml", ".yml"} and _is_activation_file(path):
+        return "activation"
     return "file"
+
+
+def _list_activation_files(root: Path) -> list[Path]:
+    ai_root = root / ".ai"
+    if not ai_root.is_dir():
+        return []
+    paths = [*ai_root.glob("**/*.yaml"), *ai_root.glob("**/*.yml")]
+    return sorted(path for path in paths if path.is_file() and _is_activation_file(path))
+
+
+def _is_activation_file(path: Path) -> bool:
+    try:
+        text = read_text(path)
+    except OSError:
+        return False
+    return (
+        "schema_version:" in text
+        and "active_set:" in text
+        and "profiles:" in text
+    )
