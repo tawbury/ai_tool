@@ -5,6 +5,7 @@ import json
 import sys
 import traceback
 
+from .activation import run_activation_check
 from .filesystem import find_repo_root
 from .inspect import run_inspection
 from .inventory import INVENTORY_TYPES, build_inventory
@@ -78,8 +79,17 @@ def main(argv: list[str] | None = None) -> int:
         help="Omit inventory items and emit only summary counts",
     )
 
+    activation_parser = subparsers.add_parser("activation", help="Validate an activation YAML contract")
+    activation_parser.add_argument("path", help="Activation YAML file to validate")
+    activation_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    activation_parser.add_argument(
+        "--summary-only",
+        action="store_true",
+        help="With --json, omit activation body and reference details",
+    )
+
     args = parser.parse_args(argv)
-    if args.command not in {"inspect", "load-context", "validate", "inventory"}:
+    if args.command not in {"inspect", "load-context", "validate", "inventory", "activation"}:
         parser.print_help()
         return EXIT_CRASH
 
@@ -128,6 +138,18 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 _print_inventory_summary(inventory, summary_only=args.summary_only)
             return EXIT_PASS
+
+        if args.command == "activation":
+            activation_path = (root / args.path).resolve()
+            if not activation_path.is_file():
+                print(f"aios activation: target does not exist: {args.path}", file=sys.stderr)
+                return EXIT_FAIL
+            result = run_activation_check(root, activation_path)
+            if args.json:
+                print(json.dumps(result.to_dict(summary_only=args.summary_only), ensure_ascii=False, indent=2))
+            else:
+                _print_activation_summary(result)
+            return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
 
         bundle = load_context(
             root,
@@ -300,3 +322,37 @@ def _print_inventory_summary(inventory, summary_only: bool = False) -> None:
     print("Items:")
     for item in items:
         print(f"- {item['type']} {item['name']} [{item['relative_path']}]")
+
+
+def _print_activation_summary(result) -> None:
+    data = result.to_dict(summary_only=False)
+    summary = data["summary"]
+    print("AIOS Activation v0")
+    print(f"Root: {data['root']}")
+    print(f"Target: {data['path']}")
+    print(f"Status: {data['status']}")
+    print(
+        "Summary: "
+        f"{summary['errors']} error, "
+        f"{summary['warnings']} warning, "
+        f"{summary['info']} info, "
+        f"{summary['resolved_references']}/{summary['references']} references resolved"
+    )
+    print("Inactive Counts:")
+    for item_type, count in summary["inactive_counts"].items():
+        print(f"- {item_type}: {count}")
+
+    if data["issues"]:
+        print()
+        print("Issues:")
+        for issue in data["issues"]:
+            field = f" [{issue['field']}]" if issue.get("field") else ""
+            reference = f" reference={issue['reference']}" if issue.get("reference") else ""
+            print(f"- {issue['severity']} {issue['code']}{field}:{reference} {issue['message']}")
+
+    unresolved = [ref for ref in data.get("references", []) if not ref["resolved"]]
+    if unresolved:
+        print()
+        print("Unknown References:")
+        for ref in unresolved:
+            print(f"- {ref['type']}: {ref['reference']}")

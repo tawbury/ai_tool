@@ -1,0 +1,14 @@
+schema_version: aios.activation.v0
+active_set:
+  agents:
+    - developer
+    - pm
+  skills:
+    - requirements_analysis
+    - system_design
+  workflows:
+    - l2_review
+  validators:
+    - developer_skill_validator
+profiles:
+  default_loader: minimal-worker
