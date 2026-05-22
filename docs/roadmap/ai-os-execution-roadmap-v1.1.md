@@ -1,5 +1,9 @@
 # AI Operating System (.ai OS) Execution Roadmap v1.1
 
+> Status: Superseded
+> Superseded by: `docs/roadmap/ai-os-execution-roadmap-v1.2.md`
+> Note: v1.1 predates the current CLI-first read-only inspect/validate/load-context/inventory implementation sequence.
+
 ## Executive Summary
 본 문서는 다중 AI 클라이언트(Codex, Claude, Gemini, Cursor 등) 환경에서 일관된 규칙과 컨텍스트를 안전하게 관리하기 위한 **AI Operating System (.ai OS)**의 공식 실행 로드맵입니다. v1.1에서는 심볼릭 링크를 배제한 물리적 동기화 아키텍처를 기반으로, 데이터 정합성 보장을 위한 **Sync Manifest**, 사용자 설정 보호를 위한 **Drift Detection**, 그리고 효율적인 자원 관리를 위한 **Selective Activation** 체계를 핵심 코어로 통합하였습니다.
 
