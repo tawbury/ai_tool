@@ -131,4 +131,4 @@ Market Issues: [issue1, issue2, ...] (if FAIL)
 ## Related Documents
 - `.ai/templates/prd_template.md` - PRD template definition
 - `.ai/workflows/project_management.workflow.md` - Project management workflow
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

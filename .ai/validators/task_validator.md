@@ -77,4 +77,4 @@ Structure Issues: [issue1, issue2, ...] (if FAIL)
 ## Related Documents
 - `.ai/skills/hr/hr_onboarding.skill.md` - Validation logic implementation
 - `.ai/templates/task_template.md` - Template definition
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

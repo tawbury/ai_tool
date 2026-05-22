@@ -136,4 +136,4 @@ Standard template for product requirements definition
 ## Related Documents
 - `.ai/templates/spec_template.md` - Specification template
 - `.ai/templates/architecture_template.md` - Architecture template
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

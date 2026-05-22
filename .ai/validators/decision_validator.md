@@ -140,4 +140,4 @@ Impact Issues: [issue1, issue2, ...] (if FAIL)
 ## Related Documents
 - `.ai/templates/decision_template.md` - Decision template definition
 - `.ai/workflows/project_management.workflow.md` - Project management workflow
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

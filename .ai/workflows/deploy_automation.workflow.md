@@ -327,10 +327,10 @@ powershell -File scripts\deploy\deploy.ps1 -ServerHost "<host>" -SshUser "<user>
 - [[deployment_validator.md]] - Deployment process validation (if exists)
 
 ### E2E Audit Reports
-- [E2E Audit Part 2-E: Complete Success](../docs/reports/E2E_Audit_Part2_E_Complete_Success.md) - 완전한 E2E 파이프라인 성공 (2026-01-24)
-- [E2E Audit Part 2-D: Workflow Run Limitation](../docs/reports/E2E_Audit_Part2_D_Workflow_Run_Limitation.md) - workflow_run 제한사항 및 해결
-- [E2E Audit Part 2-C: Workflow Permission Fix](../docs/reports/E2E_Audit_Part2_C_Workflow_Permission_Fix.md) - GHCR 권한 문제 해결
-- [Workflow Tag Management Analysis](../docs/reports/Workflow_Tag_Management_Analysis.md) - 태그 관리 방식 분석
+- E2E Audit Part 2-E: Complete Success - historical report reference, file not present in this repository
+- E2E Audit Part 2-D: Workflow Run Limitation - historical report reference, file not present in this repository
+- E2E Audit Part 2-C: Workflow Permission Fix - historical report reference, file not present in this repository
+- Workflow Tag Management Analysis - historical report reference, file not present in this repository
 
 ---
 

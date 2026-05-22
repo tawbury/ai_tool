@@ -119,4 +119,4 @@ Template for documenting technical/business decision-making process and results
 ## Related Documents
 - `.ai/templates/architecture_template.md` - Architecture template
 - `.ai/templates/spec_template.md` - Specification template
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

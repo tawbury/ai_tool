@@ -146,4 +146,4 @@ Standard template for functional specifications and requirements definition (inc
 ## Related Documents
 - `.ai/templates/architecture_template.md` - Architecture template
 - `.ai/templates/task_template.md` - Task template
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

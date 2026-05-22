@@ -191,4 +191,4 @@ Success Criteria Issues: [issue1, issue2, ...] (if FAIL)
 ## Related Documents
 - `.ai/templates/anchor_template.md` - Anchor document template definition
 - `.ai/workflows/project_management.workflow.md` - Project management workflow
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

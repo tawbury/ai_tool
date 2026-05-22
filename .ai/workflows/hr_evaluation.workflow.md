@@ -70,7 +70,7 @@ Automated process sequence definition for HR role evaluation
 - **Structured Output**: Comply with format for other agent consumption
 
 ## Related Documents (Updated)
-- `.ai/.cursorrules` - Global workflow rules
+- `.ai/rules/rules.md` - Global workflow rules
 - `.ai/agents/hr.agent.md` - HR agent details with enhanced skill mapping
 - `.ai/skills/_shared/execution_planning.skill.md` - Execution planning
 - `.ai/skills/_shared/decision_analysis.skill.md` - Decision analysis

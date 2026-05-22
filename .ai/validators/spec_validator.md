@@ -115,4 +115,4 @@ Technical Issues: [issue1, issue2, ...] (if FAIL)
 ## Related Documents
 - `.ai/templates/spec_template.md` - Specification template definition
 - `.ai/workflows/software_development.workflow.md` - Software development workflow
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

@@ -266,4 +266,4 @@ Standard template for anchor documents that serve as the foundation for all plan
 - `.ai/templates/prd_template.md` - Product requirements template
 - `.ai/templates/architecture_template.md` - Architecture template
 - `.ai/workflows/project_management.workflow.md` - Project management workflow
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

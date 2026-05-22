@@ -198,7 +198,7 @@ All templates support standardized variables:
 - **Workflows**: [[../workflows/workflow_index.md]] (all workflows and operational loop guide)
 - **Operational skills**: [[../skills/_shared/operational_roadmap_management.skill.md]], [[../skills/_shared/operational_run_record_creation.skill.md]]
 - **Validators**: [[../validators/README.md]] (template structure validation)
-- **System rules**: [[../.cursorrules]]
+- **System rules**: [[../rules/rules.md]]
 - **Agent definitions**: [[../agents/]]
 
 ## Template Optimization

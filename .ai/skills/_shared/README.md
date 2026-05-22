@@ -103,7 +103,7 @@ All skills follow the standard block structure:
 
 ## Integration Points
 
-- **Roadmap & Run Record**: Core operational loop templates ([[../templates/roadmap_template.md]], [[../templates/run_record_template.md]])
+- **Roadmap & Run Record**: Core operational loop templates ([[../../templates/roadmap_template.md]], [[../../templates/run_record_template.md]])
 - **All agent workflows**: Every agent executes both operational loop skills
 - **Evidence discipline**: Run Records capture execution proof per [[operational_run_record_creation.skill.md]]
 

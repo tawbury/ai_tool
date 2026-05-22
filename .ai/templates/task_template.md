@@ -73,4 +73,4 @@ Standard Task document template for HR evaluation
 ## Related Documents
 - `.ai/validators/task_validator.md` - Structure validation
 - `.ai/skills/hr/hr_onboarding.skill.md` - Validation logic
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

@@ -221,4 +221,4 @@ Standard template for system architecture documentation
 - `.ai/templates/prd_template.md` - Product requirements template
 - `.ai/templates/spec_template.md` - Specification template
 - `.ai/workflows/software_development.workflow.md` - Software development workflow
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

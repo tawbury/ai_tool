@@ -100,4 +100,4 @@ Quality Issues: [issue1, issue2, ...] (if FAIL)
 ## Related Documents
 - `.ai/templates/architecture_template.md` - Architecture template definition
 - `.ai/workflows/software_development.workflow.md` - Software development workflow
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

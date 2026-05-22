@@ -89,4 +89,4 @@ Standard template for HR evaluation result reports
 ## Related Documents
 - `.ai/skills/hr/hr_report_emit.skill.md` - Report generation logic
 - `.ai/workflows/hr_evaluation.workflow.md` - Workflow stage 4
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules

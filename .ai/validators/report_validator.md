@@ -141,4 +141,4 @@ Feedback Issues: [issue1, issue2, ...] (if FAIL)
 ## Related Documents
 - `.ai/templates/report_template.md` - Report template definition
 - `.ai/workflows/hr_evaluation.workflow.md` - HR evaluation workflow
-- `.ai/.cursorrules` - System rules
+- `.ai/rules/rules.md` - System rules
