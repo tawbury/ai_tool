@@ -9,6 +9,7 @@ from .filesystem import find_repo_root
 from .inspect import run_inspection
 from .semantic_loader import LoaderInput, load_context
 from .semantic_loader.models import VALID_PROFILES
+from .status import EXIT_CRASH, EXIT_FAIL, EXIT_PASS, STATUS_FAIL
 from .validate.engine import run_validation
 from .validate.targets import resolve_targets
 
@@ -56,17 +57,17 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command not in {"inspect", "load-context", "validate"}:
         parser.print_help()
-        return 2
+        return EXIT_CRASH
 
     if args.command == "load-context" and args.profile not in VALID_PROFILES:
         valid = ", ".join(sorted(VALID_PROFILES))
         print(f"aios load-context: unknown profile '{args.profile}'. Valid profiles: {valid}", file=sys.stderr)
-        return 2
+        return EXIT_CRASH
 
     root = find_repo_root()
     if root is None:
         print("aios: cannot determine repository root", file=sys.stderr)
-        return 2
+        return EXIT_CRASH
 
     try:
         if args.command == "inspect":
@@ -75,20 +76,20 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps(result.to_dict(summary_only=args.summary_only), ensure_ascii=False, indent=2))
             else:
                 _print_human_summary(result)
-            return 1 if result.status == "fail" else 0
+            return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
 
         if args.command == "validate":
             try:
                 targets = resolve_targets(root, path_arg=args.path, agent=args.agent, workflow=args.workflow)
             except ValueError as exc:
                 print(f"aios validate: {exc}", file=sys.stderr)
-                return 2
+                return EXIT_CRASH
             result = run_validation(root, targets)
             if args.json:
                 print(json.dumps(result.to_dict(), ensure_ascii=False, indent=2))
             else:
                 _print_validate_summary(root, result)
-            return 1 if result.status == "fail" else 0
+            return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
 
         bundle = load_context(
             root,
@@ -109,14 +110,14 @@ def main(argv: list[str] | None = None) -> int:
             )
         else:
             _print_load_context_summary(bundle)
-        return 0
+        return EXIT_PASS
     except Exception as exc:  # pragma: no cover - defensive CLI boundary
         if args.json:
             print(json.dumps({"status": "crash", "error": str(exc)}, ensure_ascii=False, indent=2))
         else:
             print(f"aios {args.command} crashed: {exc}", file=sys.stderr)
             traceback.print_exc()
-        return 2
+        return EXIT_CRASH
 
 
 def _print_human_summary(result) -> None:

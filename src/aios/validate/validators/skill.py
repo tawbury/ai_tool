@@ -4,9 +4,9 @@ import re
 from pathlib import Path
 
 from ...filesystem import read_text, rel_path
+from ...frontmatter import extract_frontmatter
 from ..result import ValidationRun
 from ..targets import ValidationTarget
-from .agent import extract_frontmatter, parse_simple_frontmatter
 
 
 STANDARD_SECTION_PATTERNS = {
@@ -52,7 +52,7 @@ def validate_skill(root: Path, target: ValidationTarget, run: ValidationRun) -> 
             path=source,
         )
     else:
-        metadata = parse_simple_frontmatter(frontmatter)
+        metadata = frontmatter.data
         if not str(metadata.get("name", "")).strip():
             run.add(
                 "skill",
@@ -84,4 +84,3 @@ def validate_skill(root: Path, target: ValidationTarget, run: ValidationRun) -> 
             "Skill file does not expose a recognizable v0 purpose, usage, or execution section.",
             path=source,
         )
-

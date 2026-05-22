@@ -3,8 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+from .status import INSPECT_STATUS_ORDER, STATUS_FAIL, STATUS_PASS, STATUS_WARNING
 
-SEVERITY_ORDER = {"pass": 0, "info": 0, "warning": 1, "fail": 2}
+SEVERITY_ORDER = INSPECT_STATUS_ORDER
 
 
 @dataclass
@@ -50,19 +51,19 @@ class InspectResult:
 
     @property
     def status(self) -> str:
-        if any(check.status == "fail" for check in self.checks):
-            return "fail"
-        if any(check.status == "warning" for check in self.checks):
-            return "warning"
-        return "pass"
+        if any(check.status == STATUS_FAIL for check in self.checks):
+            return STATUS_FAIL
+        if any(check.status == STATUS_WARNING for check in self.checks):
+            return STATUS_WARNING
+        return STATUS_PASS
 
     @property
     def error_count(self) -> int:
-        return sum(1 for check in self.checks if check.status == "fail")
+        return sum(1 for check in self.checks if check.status == STATUS_FAIL)
 
     @property
     def warning_count(self) -> int:
-        return sum(1 for check in self.checks if check.status == "warning")
+        return sum(1 for check in self.checks if check.status == STATUS_WARNING)
 
     @property
     def info_count(self) -> int:
@@ -70,12 +71,12 @@ class InspectResult:
 
     @property
     def pass_count(self) -> int:
-        return sum(1 for check in self.checks if check.status == "pass")
+        return sum(1 for check in self.checks if check.status == STATUS_PASS)
 
     def to_dict(self, summary_only: bool = False) -> dict[str, Any]:
         checks = self.checks
         if summary_only:
-            checks = [check for check in checks if check.status != "pass"]
+            checks = [check for check in checks if check.status != STATUS_PASS]
         return {
             "status": self.status,
             "root": self.root,

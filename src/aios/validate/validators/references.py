@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from ...filesystem import read_text, rel_path
-from ...markdown_refs import extract_markdown_file_links, extract_obsidian_file_links
+from ...references import extract_file_links, is_external_or_anchor, resolve_reference
 from ..result import ValidationRun
 from ..targets import ValidationTarget
 
@@ -15,7 +15,7 @@ def validate_validator_index(root: Path, target: ValidationTarget, run: Validati
 
     source = rel_path(root, path)
     text = read_text(path)
-    links = [*extract_markdown_file_links(text), *extract_obsidian_file_links(text)]
+    links = extract_file_links(text)
 
     if not links:
         run.add(
@@ -28,9 +28,9 @@ def validate_validator_index(root: Path, target: ValidationTarget, run: Validati
         return
 
     for link in links:
-        if _is_external_or_anchor(link.raw):
+        if is_external_or_anchor(link.raw):
             continue
-        resolved = _resolve_link(root, path, link.raw)
+        resolved = resolve_reference(root, path, link.raw)
         if resolved is None or not resolved.is_file():
             run.add(
                 "references",
@@ -41,20 +41,3 @@ def validate_validator_index(root: Path, target: ValidationTarget, run: Validati
                 line=link.line,
                 details={"reference": link.raw},
             )
-
-
-def _is_external_or_anchor(reference: str) -> bool:
-    return (
-        reference.startswith("#")
-        or "://" in reference
-        or reference.startswith("mailto:")
-    )
-
-
-def _resolve_link(root: Path, source: Path, reference: str) -> Path | None:
-    cleaned = reference.split("#", 1)[0].strip()
-    if not cleaned:
-        return None
-    if cleaned.startswith(".ai/"):
-        return root / cleaned
-    return (source.parent / cleaned).resolve()

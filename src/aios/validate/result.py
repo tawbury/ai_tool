@@ -3,12 +3,18 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+from ..status import (
+    SEVERITY_ERROR,
+    SEVERITY_INFO,
+    SEVERITY_WARNING,
+    STATUS_FAIL,
+    STATUS_PASS,
+    STATUS_WARN,
+    VALIDATE_SEVERITY_STATUS,
+)
 
-SEVERITY_STATUS = {
-    "info": "pass",
-    "warning": "warn",
-    "error": "fail",
-}
+
+SEVERITY_STATUS = VALIDATE_SEVERITY_STATUS
 
 
 @dataclass
@@ -78,27 +84,27 @@ class ValidationRun:
 
     @property
     def status(self) -> str:
-        if any(result.severity == "error" for result in self.results):
-            return "fail"
-        if any(result.severity == "warning" for result in self.results):
-            return "warn"
-        return "pass"
+        if any(result.severity == SEVERITY_ERROR for result in self.results):
+            return STATUS_FAIL
+        if any(result.severity == SEVERITY_WARNING for result in self.results):
+            return STATUS_WARN
+        return STATUS_PASS
 
     @property
     def error_count(self) -> int:
-        return sum(1 for result in self.results if result.severity == "error")
+        return sum(1 for result in self.results if result.severity == SEVERITY_ERROR)
 
     @property
     def warning_count(self) -> int:
-        return sum(1 for result in self.results if result.severity == "warning")
+        return sum(1 for result in self.results if result.severity == SEVERITY_WARNING)
 
     @property
     def info_count(self) -> int:
-        return sum(1 for result in self.results if result.severity == "info")
+        return sum(1 for result in self.results if result.severity == SEVERITY_INFO)
 
     @property
     def pass_count(self) -> int:
-        return sum(1 for result in self.results if result.severity == "info")
+        return sum(1 for result in self.results if result.severity == SEVERITY_INFO)
 
     def to_dict(self) -> dict[str, Any]:
         return {

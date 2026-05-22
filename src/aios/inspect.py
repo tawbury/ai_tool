@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from .contracts import AGENT_REFERENCE_FIELDS, AGENT_REQUIRED_FIELDS
 from .filesystem import (
     find_symlinks,
     find_utf8_bom_files,
@@ -14,12 +15,13 @@ from .filesystem import (
 from .markdown_refs import (
     extract_ai_path_refs,
     extract_markdown_file_links,
-    extract_obsidian_file_links,
     extract_skill_refs,
     extract_workflow_refs,
     has_fenced_yaml,
     slice_between,
 )
+from .frontmatter import as_list, extract_frontmatter
+from .references import extract_file_links, is_obvious_relative_file_link, resolve_reference
 from .result import InspectResult
 
 
@@ -37,18 +39,6 @@ REQUIRED_DIRS = [
 ]
 
 ROOT_ADAPTERS = ["AGENTS.md", "CLAUDE.md", "GEMINI.md"]
-AGENT_REQUIRED_FIELDS = [
-    "name",
-    "type",
-    "version",
-    "updated",
-    "role",
-    "level",
-    "tools",
-    "domain_rules",
-    "operation_rules",
-    "validators",
-]
 SKILL_REFERENCE_FILES = [
     ".ai/skills/_shared/skill_index.md",
     ".ai/agents/developer.agent.md",
@@ -141,13 +131,13 @@ def _check_agent_frontmatter(root: Path, result: InspectResult) -> None:
     for path in agent_files:
         source = rel_path(root, path)
         text = read_text(path)
-        frontmatter = _extract_frontmatter(text)
+        frontmatter = extract_frontmatter(text)
         if frontmatter is None:
             result.add("agent-frontmatter-present", "fail", "Agent frontmatter missing.", source)
             continue
         result.add("agent-frontmatter-present", "pass", "Agent frontmatter exists.", source)
 
-        data = _parse_simple_frontmatter(frontmatter)
+        data = frontmatter.data
         for field in AGENT_REQUIRED_FIELDS:
             value = data.get(field)
             if value:
@@ -167,8 +157,8 @@ def _check_agent_frontmatter(root: Path, result: InspectResult) -> None:
                     field=field,
                 )
 
-        for field in ("domain_rules", "operation_rules", "validators"):
-            for ref in _as_list(data.get(field)):
+        for field in AGENT_REFERENCE_FIELDS:
+            for ref in as_list(data.get(field)):
                 if (root / ref).is_file():
                     result.add(
                         "agent-frontmatter-reference",
@@ -186,55 +176,6 @@ def _check_agent_frontmatter(root: Path, result: InspectResult) -> None:
                         source,
                         field=field,
                     )
-
-
-def _extract_frontmatter(text: str) -> str | None:
-    lines = text.splitlines()
-    if not lines or lines[0].strip() != "---":
-        return None
-    for index, line in enumerate(lines[1:], start=1):
-        if line.strip() == "---":
-            return "\n".join(lines[1:index])
-    return None
-
-
-def _parse_simple_frontmatter(frontmatter: str) -> dict[str, object]:
-    data: dict[str, object] = {}
-    current_key: str | None = None
-    for raw_line in frontmatter.splitlines():
-        line = raw_line.rstrip()
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#"):
-            continue
-        if stripped.startswith("- ") and current_key:
-            current = data.setdefault(current_key, [])
-            if isinstance(current, list):
-                current.append(stripped[2:].strip().strip('"').strip("'"))
-            continue
-        if ":" not in line:
-            continue
-        key, value = line.split(":", 1)
-        key = key.strip()
-        value = value.strip()
-        current_key = key
-        if value == "":
-            data[key] = []
-        elif value.startswith("[") and value.endswith("]"):
-            inner = value[1:-1].strip()
-            data[key] = [item.strip().strip('"').strip("'") for item in inner.split(",") if item.strip()]
-        else:
-            data[key] = value.strip('"').strip("'")
-    return data
-
-
-def _as_list(value: object | None) -> list[str]:
-    if value is None:
-        return []
-    if isinstance(value, list):
-        return [item for item in value if isinstance(item, str) and item]
-    if isinstance(value, str) and value:
-        return [value]
-    return []
 
 
 def _check_skill_references(root: Path, result: InspectResult, skill_files: list[Path]) -> None:
@@ -395,7 +336,7 @@ def _check_validator_index(root: Path, result: InspectResult) -> None:
         return
 
     for ref in refs:
-        target = _resolve_relative_link(root, path, ref.raw)
+        target = resolve_reference(root, path, ref.raw)
         if target and target.is_file():
             result.add(
                 "validator-index-reference",
@@ -424,12 +365,12 @@ def _check_obvious_relative_links(root: Path, result: InspectResult) -> None:
     missing: list[dict[str, object]] = []
     for path in sorted(ai_root.rglob("*.md")):
         text = read_text(path)
-        refs = [*extract_markdown_file_links(text), *extract_obsidian_file_links(text)]
+        refs = extract_file_links(text)
         for ref in refs:
             raw = ref.raw.strip()
-            if not _is_obvious_relative_file_link(raw):
+            if not is_obvious_relative_file_link(raw):
                 continue
-            target = _resolve_relative_link(root, path, raw)
+            target = resolve_reference(root, path, raw)
             checked += 1
             if not target or not target.is_file():
                 missing.append({"file": rel_path(root, path), "line": ref.line, "target": raw})
@@ -452,26 +393,6 @@ def _check_obvious_relative_links(root: Path, result: InspectResult) -> None:
             ".ai",
             checked=checked,
         )
-
-
-def _is_obvious_relative_file_link(raw: str) -> bool:
-    if "://" in raw or raw.startswith("#"):
-        return False
-    if any(token in raw for token in ("<", ">", "*", "[", "]", " ")):
-        return False
-    if not raw.endswith(".md"):
-        return False
-    return raw.startswith("../") or raw.startswith("./") or "/" in raw
-
-
-def _resolve_relative_link(root: Path, source: Path, raw: str) -> Path | None:
-    clean = raw.split("#", 1)[0].split("|", 1)[0].strip()
-    if not clean:
-        return None
-    if clean.startswith(".ai/"):
-        return root / clean
-    return (source.parent / clean).resolve()
-
 
 def _check_symlinks(root: Path, result: InspectResult) -> None:
     paths = [root / ".ai" / "rules", root / ".ai" / "agents", root / ".ai" / "commands"]
