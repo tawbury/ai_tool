@@ -63,13 +63,14 @@ The shared AI system has these main layers:
       workflow.rules.md
       validation.rules.md
       agent.rules.md
+      activation.rules.md
       documentation-governance.rules.md
 ```
 
 - `commands/` contains reusable multi-CLI command definitions.
 - `rules.md` defines the global contract only.
 - `domains/` contains business or work-domain rules.
-- `operations/` contains execution, validation, workflow, agent governance, and documentation governance rules.
+- `operations/` contains execution, validation, workflow, agent governance, activation, and documentation governance rules.
 
 ## Shared Command Policy
 
@@ -98,6 +99,7 @@ Typical loading examples:
 | Agent collaboration or escalation design | None unless domain-specific | `agent.rules.md`, `workflow.rules.md` |
 | Shared command execution | Domain rules required by the command | `workflow.rules.md`, `validation.rules.md`, and command-specific files in `.ai/commands/` |
 | Documentation governance or document authority task | `documentation.rules.md` when editing docs | `documentation-governance.rules.md` |
+| Activation contract design or validation | None unless domain-specific | `activation.rules.md`, `validation.rules.md` |
 
 ## Documentation Governance
 
@@ -170,4 +172,5 @@ This map is transitional. It exists to help agents find rules after the layered 
 | Roadmap, Task, Run Record, recovery flow | `.ai/rules/operations/workflow.rules.md` |
 | Template, metadata, link, and execution validation | `.ai/rules/operations/validation.rules.md` |
 | Agent roles, L1/L2 collaboration, context and escalation | `.ai/rules/operations/agent.rules.md` |
+| Activation contract, active sets, semantic loader profile selection, and sync boundary | `.ai/rules/operations/activation.rules.md` |
 | Documentation taxonomy, authority, promotion, and runtime consumption boundary | `.ai/rules/operations/documentation-governance.rules.md` |

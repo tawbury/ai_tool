@@ -7,6 +7,7 @@ Operational rules define execution behavior and governance that can be reused ac
 - `workflow.rules.md`: execution flow, roadmap/task/run-record loop, metadata-first linking, and recovery.
 - `validation.rules.md`: validation behavior, validator references, and failure handling.
 - `agent.rules.md`: agent roles, L1/L2 collaboration, escalation, and context management.
+- `activation.rules.md`: runtime activation contract, inventory reference validation, semantic loader profile selection, and sync boundary.
 
 ## Add an Operational Rule When
 
