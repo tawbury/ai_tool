@@ -7,6 +7,7 @@ import traceback
 
 from .filesystem import find_repo_root
 from .inspect import run_inspection
+from .inventory import INVENTORY_TYPES, build_inventory
 from .semantic_loader import LoaderInput, load_context
 from .semantic_loader.models import VALID_PROFILES
 from .status import EXIT_CRASH, EXIT_FAIL, EXIT_PASS, STATUS_FAIL
@@ -64,8 +65,21 @@ def main(argv: list[str] | None = None) -> int:
         help="With --json, include explicit pass results when the result model records them",
     )
 
+    inventory_parser = subparsers.add_parser("inventory", help="Discover .ai OS repository inventory")
+    inventory_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    inventory_parser.add_argument(
+        "--type",
+        choices=sorted(INVENTORY_TYPES),
+        help="Filter inventory by item type",
+    )
+    inventory_parser.add_argument(
+        "--summary-only",
+        action="store_true",
+        help="Omit inventory items and emit only summary counts",
+    )
+
     args = parser.parse_args(argv)
-    if args.command not in {"inspect", "load-context", "validate"}:
+    if args.command not in {"inspect", "load-context", "validate", "inventory"}:
         parser.print_help()
         return EXIT_CRASH
 
@@ -106,6 +120,14 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 _print_validate_summary(root, result)
             return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
+
+        if args.command == "inventory":
+            inventory = build_inventory(root).filter_type(args.type)
+            if args.json:
+                print(json.dumps(inventory.to_dict(summary_only=args.summary_only), ensure_ascii=False, indent=2))
+            else:
+                _print_inventory_summary(inventory, summary_only=args.summary_only)
+            return EXIT_PASS
 
         bundle = load_context(
             root,
@@ -255,3 +277,26 @@ def _print_validate_summary(root, result) -> None:
             location = f" [{item['path']}]" if item.get("path") else ""
             line = f":{item['line']}" if item.get("line") else ""
             print(f"- {item['code']}{location}{line}: {item['message']}")
+
+
+def _print_inventory_summary(inventory, summary_only: bool = False) -> None:
+    data = inventory.to_dict(summary_only=summary_only)
+    print("AIOS Inventory v0")
+    print(f"Root: {data['root']}")
+    print(f"Status: {data['status']}")
+    print(f"Total: {data['summary']['total']}")
+    print("Counts:")
+    for item_type, count in data["summary"]["counts"].items():
+        if count:
+            print(f"- {item_type}: {count}")
+
+    if summary_only:
+        return
+
+    items = data.get("items", [])
+    if not items:
+        return
+    print()
+    print("Items:")
+    for item in items:
+        print(f"- {item['type']} {item['name']} [{item['relative_path']}]")
