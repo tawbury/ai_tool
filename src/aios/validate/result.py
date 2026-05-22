@@ -106,8 +106,9 @@ class ValidationRun:
     def pass_count(self) -> int:
         return sum(1 for result in self.results if result.severity == SEVERITY_INFO)
 
-    def to_dict(self) -> dict[str, Any]:
-        return {
+    def to_dict(self, summary_only: bool = False, include_pass: bool = False) -> dict[str, Any]:
+        results = [result.to_dict() for result in self.results]
+        data: dict[str, Any] = {
             "schema_version": "aios.validate.result.v0",
             "status": self.status,
             "target": self.target,
@@ -117,5 +118,21 @@ class ValidationRun:
                 "info": self.info_count,
                 "results": len(self.results),
             },
-            "results": [result.to_dict() for result in self.results],
         }
+        if summary_only:
+            errors = [item for item in results if item["severity"] == SEVERITY_ERROR]
+            warnings = [item for item in results if item["severity"] == SEVERITY_WARNING]
+            info = [item for item in results if item["severity"] == SEVERITY_INFO]
+            if errors:
+                data["errors"] = errors
+            if warnings:
+                data["warnings"] = warnings
+            if info:
+                data["info"] = info
+            return data
+
+        # validate v0 does not record explicit pass items. Keep the parameter for
+        # CLI/API symmetry without manufacturing pass results.
+        _ = include_pass
+        data["results"] = results
+        return data

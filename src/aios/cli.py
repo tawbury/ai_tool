@@ -53,6 +53,16 @@ def main(argv: list[str] | None = None) -> int:
     validate_parser.add_argument("--agent", help="Validate a named agent, such as developer")
     validate_parser.add_argument("--workflow", help="Validate a named workflow, such as l2_review")
     validate_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    validate_parser.add_argument(
+        "--summary-only",
+        action="store_true",
+        help="With --json, omit the full results list and include only non-empty severity groups",
+    )
+    validate_parser.add_argument(
+        "--include-pass",
+        action="store_true",
+        help="With --json, include explicit pass results when the result model records them",
+    )
 
     args = parser.parse_args(argv)
     if args.command not in {"inspect", "load-context", "validate"}:
@@ -86,7 +96,13 @@ def main(argv: list[str] | None = None) -> int:
                 return EXIT_CRASH
             result = run_validation(root, targets)
             if args.json:
-                print(json.dumps(result.to_dict(), ensure_ascii=False, indent=2))
+                print(
+                    json.dumps(
+                        result.to_dict(summary_only=args.summary_only, include_pass=args.include_pass),
+                        ensure_ascii=False,
+                        indent=2,
+                    )
+                )
             else:
                 _print_validate_summary(root, result)
             return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
