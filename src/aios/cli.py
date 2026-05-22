@@ -9,6 +9,8 @@ from .filesystem import find_repo_root
 from .inspect import run_inspection
 from .semantic_loader import LoaderInput, load_context
 from .semantic_loader.models import VALID_PROFILES
+from .validate.engine import run_validation
+from .validate.targets import resolve_targets
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -45,8 +47,14 @@ def main(argv: list[str] | None = None) -> int:
     load_parser.add_argument("--no-content", action="store_true", help="With --json, omit chunk content")
     load_parser.add_argument("--summary-only", action="store_true", help="With --json, omit chunks and exclusions")
 
+    validate_parser = subparsers.add_parser("validate", help="Run read-only executable validation checks")
+    validate_parser.add_argument("path", nargs="?", help="Optional file path to validate")
+    validate_parser.add_argument("--agent", help="Validate a named agent, such as developer")
+    validate_parser.add_argument("--workflow", help="Validate a named workflow, such as l2_review")
+    validate_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+
     args = parser.parse_args(argv)
-    if args.command not in {"inspect", "load-context"}:
+    if args.command not in {"inspect", "load-context", "validate"}:
         parser.print_help()
         return 2
 
@@ -67,6 +75,19 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps(result.to_dict(summary_only=args.summary_only), ensure_ascii=False, indent=2))
             else:
                 _print_human_summary(result)
+            return 1 if result.status == "fail" else 0
+
+        if args.command == "validate":
+            try:
+                targets = resolve_targets(root, path_arg=args.path, agent=args.agent, workflow=args.workflow)
+            except ValueError as exc:
+                print(f"aios validate: {exc}", file=sys.stderr)
+                return 2
+            result = run_validation(root, targets)
+            if args.json:
+                print(json.dumps(result.to_dict(), ensure_ascii=False, indent=2))
+            else:
+                _print_validate_summary(root, result)
             return 1 if result.status == "fail" else 0
 
         bundle = load_context(
@@ -186,3 +207,34 @@ def _print_load_context_summary(bundle) -> None:
         print("Warnings:")
         for warning in data["warnings"]:
             print(f"- {warning['code']} [{warning['path']}]: {warning['message']}")
+
+
+def _print_validate_summary(root, result) -> None:
+    data = result.to_dict()
+    summary = data["summary"]
+    print("AIOS Validate v0")
+    print(f"Root: {root}")
+    print(f"Status: {data['status']}")
+    print(f"Target: {data['target'].get('kind')} {data['target'].get('label')}")
+    print(
+        "Summary: "
+        f"{summary['errors']} error, "
+        f"{summary['warnings']} warning, "
+        f"{summary['info']} info, "
+        f"{summary['results']} results"
+    )
+
+    grouped = {"error": [], "warning": [], "info": []}
+    for item in data["results"]:
+        grouped.get(item["severity"], []).append(item)
+
+    for severity, title in [("error", "Errors"), ("warning", "Warnings"), ("info", "Info")]:
+        entries = grouped[severity]
+        if not entries:
+            continue
+        print()
+        print(f"{title}:")
+        for item in entries:
+            location = f" [{item['path']}]" if item.get("path") else ""
+            line = f":{item['line']}" if item.get("line") else ""
+            print(f"- {item['code']}{location}{line}: {item['message']}")
