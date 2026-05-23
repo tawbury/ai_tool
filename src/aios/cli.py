@@ -6,6 +6,7 @@ import sys
 import traceback
 
 from .activation import run_activation_check
+from .envelope import build_envelope
 from .filesystem import find_repo_root
 from .inspect import run_inspection
 from .inventory import INVENTORY_TYPES, build_inventory
@@ -22,6 +23,7 @@ def main(argv: list[str] | None = None) -> int:
 
     inspect_parser = subparsers.add_parser("inspect", help="Inspect repository reference integrity")
     inspect_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    inspect_parser.add_argument("--envelope-v2", action="store_true", help="With --json, emit unified result envelope v2")
     inspect_parser.add_argument(
         "--summary-only",
         action="store_true",
@@ -47,6 +49,7 @@ def main(argv: list[str] | None = None) -> int:
         help="Semantic layer to exclude in addition to profile defaults. Repeatable.",
     )
     load_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    load_parser.add_argument("--envelope-v2", action="store_true", help="With --json, emit unified result envelope v2")
     load_parser.add_argument("--no-content", action="store_true", help="With --json, omit chunk content")
     load_parser.add_argument("--summary-only", action="store_true", help="With --json, omit chunks and exclusions")
     load_parser.add_argument(
@@ -60,6 +63,7 @@ def main(argv: list[str] | None = None) -> int:
     validate_parser.add_argument("--agent", help="Validate a named agent, such as developer")
     validate_parser.add_argument("--workflow", help="Validate a named workflow, such as l2_review")
     validate_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    validate_parser.add_argument("--envelope-v2", action="store_true", help="With --json, emit unified result envelope v2")
     validate_parser.add_argument(
         "--summary-only",
         action="store_true",
@@ -73,6 +77,7 @@ def main(argv: list[str] | None = None) -> int:
 
     inventory_parser = subparsers.add_parser("inventory", help="Discover .ai OS repository inventory")
     inventory_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    inventory_parser.add_argument("--envelope-v2", action="store_true", help="With --json, emit unified result envelope v2")
     inventory_parser.add_argument(
         "--type",
         choices=sorted(INVENTORY_TYPES),
@@ -87,6 +92,7 @@ def main(argv: list[str] | None = None) -> int:
     activation_parser = subparsers.add_parser("activation", help="Validate an activation YAML contract")
     activation_parser.add_argument("path", help="Activation YAML file to validate")
     activation_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    activation_parser.add_argument("--envelope-v2", action="store_true", help="With --json, emit unified result envelope v2")
     activation_parser.add_argument(
         "--summary-only",
         action="store_true",
@@ -96,6 +102,10 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command not in {"inspect", "load-context", "validate", "inventory", "activation"}:
         parser.print_help()
+        return EXIT_CRASH
+
+    if getattr(args, "envelope_v2", False) and not args.json:
+        print(f"aios {args.command}: --envelope-v2 requires --json", file=sys.stderr)
         return EXIT_CRASH
 
     if args.command == "load-context" and args.profile not in VALID_PROFILES:
@@ -112,7 +122,17 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "inspect":
             result = run_inspection(root)
             if args.json:
-                print(json.dumps(result.to_dict(summary_only=args.summary_only), ensure_ascii=False, indent=2))
+                legacy = result.to_dict(summary_only=args.summary_only)
+                if args.envelope_v2:
+                    full = result.to_dict(summary_only=False)
+                    legacy = build_envelope(
+                        "inspect",
+                        legacy,
+                        root=str(root),
+                        summary_only=args.summary_only,
+                        full=full,
+                    )
+                print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_human_summary(result)
             return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
@@ -125,13 +145,17 @@ def main(argv: list[str] | None = None) -> int:
                 return EXIT_CRASH
             result = run_validation(root, targets)
             if args.json:
-                print(
-                    json.dumps(
-                        result.to_dict(summary_only=args.summary_only, include_pass=args.include_pass),
-                        ensure_ascii=False,
-                        indent=2,
+                legacy = result.to_dict(summary_only=args.summary_only, include_pass=args.include_pass)
+                if args.envelope_v2:
+                    full = result.to_dict(summary_only=False, include_pass=args.include_pass)
+                    legacy = build_envelope(
+                        "validate",
+                        legacy,
+                        root=str(root),
+                        summary_only=args.summary_only,
+                        full=full,
                     )
-                )
+                print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_validate_summary(root, result)
             return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
@@ -139,7 +163,17 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "inventory":
             inventory = build_inventory(root).filter_type(args.type)
             if args.json:
-                print(json.dumps(inventory.to_dict(summary_only=args.summary_only), ensure_ascii=False, indent=2))
+                legacy = inventory.to_dict(summary_only=args.summary_only)
+                if args.envelope_v2:
+                    full = inventory.to_dict(summary_only=False)
+                    legacy = build_envelope(
+                        "inventory",
+                        legacy,
+                        root=str(root),
+                        summary_only=args.summary_only,
+                        full=full,
+                    )
+                print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_inventory_summary(inventory, summary_only=args.summary_only)
             return EXIT_PASS
@@ -151,7 +185,17 @@ def main(argv: list[str] | None = None) -> int:
                 return EXIT_FAIL
             result = run_activation_check(root, activation_path)
             if args.json:
-                print(json.dumps(result.to_dict(summary_only=args.summary_only), ensure_ascii=False, indent=2))
+                legacy = result.to_dict(summary_only=args.summary_only)
+                if args.envelope_v2:
+                    full = result.to_dict(summary_only=False)
+                    legacy = build_envelope(
+                        "activation",
+                        legacy,
+                        root=str(root),
+                        summary_only=args.summary_only,
+                        full=full,
+                    )
+                print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_activation_summary(result)
             return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
@@ -167,9 +211,21 @@ def main(argv: list[str] | None = None) -> int:
             ),
         )
         if args.json:
+            include_content = not args.no_content
+            legacy = bundle.to_dict(include_content=include_content, summary_only=args.summary_only)
+            if args.envelope_v2:
+                full = bundle.to_dict(include_content=include_content, summary_only=False)
+                legacy = build_envelope(
+                    "load-context",
+                    legacy,
+                    root=str(root),
+                    summary_only=args.summary_only,
+                    include_content=include_content,
+                    full=full,
+                )
             print(
                 json.dumps(
-                    bundle.to_dict(include_content=not args.no_content, summary_only=args.summary_only),
+                    legacy,
                     ensure_ascii=False,
                     indent=2,
                 )
