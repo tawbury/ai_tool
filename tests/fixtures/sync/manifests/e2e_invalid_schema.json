@@ -1,0 +1,7 @@
+{
+  "repository_id": "repo_ai_tool",
+  "generated_at": "2026-05-23T00:00:00Z",
+  "source_root": "tests/fixtures/sync/sources",
+  "target_root": ".",
+  "managed_entries": []
+}

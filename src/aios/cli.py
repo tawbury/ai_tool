@@ -13,6 +13,7 @@ from .inventory import INVENTORY_TYPES, build_inventory
 from .semantic_loader import LoaderInput, load_context
 from .semantic_loader.models import VALID_PROFILES
 from .status import EXIT_CRASH, EXIT_FAIL, EXIT_PASS, STATUS_FAIL
+from .sync import run_sync_dry_run
 from .validate.engine import run_validation
 from .validate.targets import resolve_targets
 
@@ -99,8 +100,14 @@ def main(argv: list[str] | None = None) -> int:
         help="With --json, omit activation body and reference details",
     )
 
+    sync_parser = subparsers.add_parser("sync", help="Evaluate future sync changes without writing files")
+    sync_parser.add_argument("--dry-run", action="store_true", help="Required. Evaluate sync without mutating files")
+    sync_parser.add_argument("--manifest", help="Sync manifest JSON file to evaluate")
+    sync_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
+    sync_parser.add_argument("--envelope-v2", action="store_true", help="With --json, emit unified result envelope v2")
+
     args = parser.parse_args(argv)
-    if args.command not in {"inspect", "load-context", "validate", "inventory", "activation"}:
+    if args.command not in {"inspect", "load-context", "validate", "inventory", "activation", "sync"}:
         parser.print_help()
         return EXIT_CRASH
 
@@ -198,6 +205,27 @@ def main(argv: list[str] | None = None) -> int:
                 print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_activation_summary(result)
+            return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
+
+        if args.command == "sync":
+            if not args.dry_run:
+                print("aios sync: --dry-run is required; sync apply is not implemented", file=sys.stderr)
+                return EXIT_CRASH
+            if not args.manifest:
+                print("aios sync: --manifest <path> is required for dry-run", file=sys.stderr)
+                return EXIT_CRASH
+            manifest_path = (root / args.manifest).resolve()
+            if not _is_relative_to(manifest_path, root) or not manifest_path.is_file():
+                print(f"aios sync: manifest does not exist inside repository: {args.manifest}", file=sys.stderr)
+                return EXIT_CRASH
+            result = run_sync_dry_run(root, manifest_path)
+            if args.json:
+                legacy = result.to_dict()
+                if args.envelope_v2:
+                    legacy = build_envelope("sync", legacy, root=str(root), full=legacy)
+                print(json.dumps(legacy, ensure_ascii=False, indent=2))
+            else:
+                _print_sync_summary(result)
             return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
 
         bundle = load_context(
@@ -436,3 +464,36 @@ def _print_activation_summary(result) -> None:
         print("Unknown References:")
         for ref in unresolved:
             print(f"- {ref['type']}: {ref['reference']}")
+
+
+def _print_sync_summary(result) -> None:
+    data = result.to_dict()
+    summary = data["summary"]
+    print("AIOS Sync Dry-run v0")
+    print(f"Root: {data['root']}")
+    print(f"Manifest: {data['manifest_path']}")
+    print(f"Status: {data['status']}")
+    print(
+        "Summary: "
+        f"{summary['create']} create, "
+        f"{summary['update']} update, "
+        f"{summary['skip']} skip, "
+        f"{summary['conflict']} conflict, "
+        f"{summary['drift_stop']} drift-stop, "
+        f"{summary['orphan_warning']} orphan-warning"
+    )
+    if data["messages"]:
+        print()
+        print("Messages:")
+        for message in data["messages"]:
+            path = f" [{message['path']}]" if message.get("path") else ""
+            line = f":{message['line']}" if message.get("line") else ""
+            print(f"- {message['status']} {message['code']}{path}{line}: {message['message']}")
+
+
+def _is_relative_to(path, parent) -> bool:
+    try:
+        path.resolve().relative_to(parent.resolve())
+        return True
+    except ValueError:
+        return False

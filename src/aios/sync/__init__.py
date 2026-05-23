@@ -25,6 +25,8 @@ from .markers import (
     parse_marker_file,
     parse_marker_text,
 )
+from .dry_run import run_sync_dry_run
+from .result import SYNC_DRY_RUN_SCHEMA_VERSION, SyncDryRunResult
 
 __all__ = [
     "HASH_POLICY_V0",
@@ -45,5 +47,8 @@ __all__ = [
     "load_manifest",
     "parse_marker_file",
     "parse_marker_text",
+    "run_sync_dry_run",
+    "SYNC_DRY_RUN_SCHEMA_VERSION",
+    "SyncDryRunResult",
     "validate_manifest_data",
 ]

@@ -1,0 +1,27 @@
+{
+  "schema_version": "aios.sync_manifest.v0",
+  "repository_id": "repo_ai_tool",
+  "generated_at": "2026-05-23T00:00:00Z",
+  "source_root": "tests/fixtures/sync/sources",
+  "target_root": ".",
+  "managed_entries": [
+    {
+      "entry_id": "entry_source_missing",
+      "source_path": "tests/fixtures/sync/sources/missing.md",
+      "target_path": "tests/fixtures/sync/targets/clean_managed.md",
+      "ownership": "mixed-boundary",
+      "sync_mode": "managed-block",
+      "source_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "target_hash": "sha256:d1b2d63ca8daa25272e58ef6f4d214e2fa4ab4884977bd6aba72f30ecce7b305",
+      "marker": {
+        "marker_version": "0",
+        "marker_style": "markdown-html-comment",
+        "entry_id": "entry_source_missing"
+      },
+      "generated": {
+        "generated_by": "aios.sync.v0",
+        "generated_at": "2026-05-23T00:00:00Z"
+      }
+    }
+  ]
+}

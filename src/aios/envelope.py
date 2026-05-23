@@ -25,6 +25,8 @@ def build_envelope(
     }
     if include_content is not None:
         meta["include_content"] = include_content
+    if command == "sync":
+        meta.update(dict(legacy.get("meta", {})))
     omitted = _omitted_payload(command, legacy, full_data)
     if omitted:
         meta["omitted_payload"] = omitted
@@ -83,6 +85,9 @@ def _target(command: str, legacy: dict[str, Any]) -> dict[str, Any]:
     if command == "load-context":
         target = legacy.get("target")
         return {"kind": "file", "label": target, "path": target}
+    if command == "sync":
+        path = legacy.get("manifest_path")
+        return {"kind": "sync-manifest", "label": path, "path": path}
     return {"kind": command, "label": command, "path": None}
 
 
@@ -104,6 +109,8 @@ def _payload(command: str, legacy: dict[str, Any]) -> dict[str, Any]:
             "excluded": legacy.get("excluded", []),
             "budget": legacy.get("budget", {}),
         }
+    if command == "sync":
+        return {"results": legacy.get("results", [])}
     return {}
 
 
@@ -123,6 +130,8 @@ def _messages(command: str, legacy: dict[str, Any]) -> list[dict[str, Any]]:
         return [_activation_message(issue) for issue in legacy.get("issues", [])]
     if command == "load-context":
         return [_loader_message(warning) for warning in legacy.get("warnings", [])]
+    if command == "sync":
+        return list(legacy.get("messages", []))
     return []
 
 
@@ -212,6 +221,7 @@ def _omitted_payload(
         "validate": ("results",),
         "activation": ("activation", "references"),
         "load-context": ("chunks", "excluded"),
+        "sync": ("results",),
     }.get(command, ())
     for key in payload_keys:
         if key in legacy:
