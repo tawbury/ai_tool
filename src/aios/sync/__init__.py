@@ -17,12 +17,24 @@ from .manifest import (
     load_manifest,
     validate_manifest_data,
 )
+from .markers import (
+    AnchorRecord,
+    MarkerBlock,
+    MarkerEvent,
+    MarkerParseResult,
+    parse_marker_file,
+    parse_marker_text,
+)
 
 __all__ = [
     "HASH_POLICY_V0",
     "MANIFEST_SCHEMA_VERSION",
     "ManifestEntry",
     "ManifestIssue",
+    "AnchorRecord",
+    "MarkerBlock",
+    "MarkerEvent",
+    "MarkerParseResult",
     "ManifestValidationResult",
     "SyncManifest",
     "format_sha256",
@@ -31,5 +43,7 @@ __all__ = [
     "hash_managed_block_inner_bytes",
     "is_valid_hash_string",
     "load_manifest",
+    "parse_marker_file",
+    "parse_marker_text",
     "validate_manifest_data",
 ]
