@@ -4,6 +4,7 @@ from pathlib import Path
 
 from ..filesystem import read_text, rel_path
 from .models import (
+    BUDGET_LIMITS,
     ContextBundle,
     ContextChunk,
     ExcludedLayer,
@@ -14,6 +15,21 @@ from .models import (
     VALID_PROFILES,
 )
 from .sections import extract_sections, normalize_layer
+
+
+LAYER_PRIORITY = {
+    "executable_contract": 1,
+    "structural_rules": 2,
+    "runtime_policy": 3,
+    "constraints": 4,
+    "input_output": 5,
+    "execution_logic": 6,
+    "review_criteria": 7,
+    "human_review_guidance": 8,
+    "philosophy": 9,
+    "examples": 10,
+    "performance_metrics": 11,
+}
 
 
 def load_context(root: Path, loader_input: LoaderInput) -> ContextBundle:
@@ -96,7 +112,105 @@ def load_context(root: Path, loader_input: LoaderInput) -> ContextBundle:
             )
         )
 
+    _apply_budget(bundle, loader_input.max_chars)
     return bundle
+
+
+def _apply_budget(bundle: ContextBundle, max_chars: int | None) -> None:
+    limits = BUDGET_LIMITS.get(bundle.profile, BUDGET_LIMITS["minimal-worker"])
+    soft_chars = limits["soft_chars"]
+    hard_chars = max_chars if max_chars is not None else limits["hard_chars"]
+    if hard_chars < 0:
+        hard_chars = 0
+
+    budget_excluded = 0
+    excluded_chars = 0
+    if _used_chars(bundle.chunks) > hard_chars:
+        kept, excluded = _exclude_low_priority_chunks(bundle.chunks, hard_chars)
+        bundle.chunks = kept
+        budget_excluded = len(excluded)
+        excluded_chars = sum(chunk.chars for chunk in excluded)
+        for chunk in excluded:
+            bundle.excluded.append(
+                ExcludedLayer(
+                    path=chunk.path,
+                    semantic_layer=chunk.semantic_layer,
+                    line_start=chunk.line_start,
+                    line_end=chunk.line_end,
+                    reason="budget_excluded_low_priority",
+                    chars=chunk.chars,
+                    extraction_method=chunk.extraction_method,
+                    confidence=chunk.confidence,
+                )
+            )
+        if excluded:
+            bundle.warnings.append(
+                LoaderWarning(
+                    code="budget_hard_exceeded",
+                    message=(
+                        f"Context exceeded hard budget of {hard_chars} chars; "
+                        f"excluded {len(excluded)} lower-priority chunks."
+                    ),
+                    path=bundle.target,
+                )
+            )
+            bundle.warnings.append(
+                LoaderWarning(
+                    code="budget_excluded_low_priority",
+                    message=f"Excluded {excluded_chars} chars due to hard budget filtering.",
+                    path=bundle.target,
+                )
+            )
+
+    used_chars = _used_chars(bundle.chunks)
+    if used_chars > soft_chars:
+        bundle.warnings.append(
+            LoaderWarning(
+                code="budget_soft_exceeded",
+                message=f"Context uses {used_chars} chars, exceeding soft budget of {soft_chars} chars.",
+                path=bundle.target,
+            )
+        )
+
+    bundle.budget = {
+        "profile": bundle.profile,
+        "soft_chars": soft_chars,
+        "hard_chars": hard_chars,
+        "used_chars": used_chars,
+        "excluded_chars": excluded_chars,
+        "budget_excluded_chunks": budget_excluded,
+        "truncated_chunks": 0,
+    }
+
+
+def _exclude_low_priority_chunks(
+    chunks: list[ContextChunk],
+    hard_chars: int,
+) -> tuple[list[ContextChunk], list[ContextChunk]]:
+    excluded_indices: set[int] = set()
+    excluded: list[ContextChunk] = []
+    removal_order = sorted(
+        range(len(chunks)),
+        key=lambda index: (_layer_priority(chunks[index].semantic_layer), index),
+        reverse=True,
+    )
+    for index in removal_order:
+        kept = [chunk for offset, chunk in enumerate(chunks) if offset not in excluded_indices]
+        if _used_chars(kept) <= hard_chars:
+            break
+        chunk = chunks[index]
+        excluded.append(chunk)
+        excluded_indices.add(index)
+    kept = [chunk for offset, chunk in enumerate(chunks) if offset not in excluded_indices]
+    return kept, excluded
+
+
+def _used_chars(chunks: list[ContextChunk]) -> int:
+    return sum(chunk.chars for chunk in chunks)
+
+
+def _layer_priority(layer: str) -> int:
+    return LAYER_PRIORITY.get(layer, 100)
 
 
 def _normalize_layers(layers: set[str]) -> set[str]:

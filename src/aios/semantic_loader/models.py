@@ -58,6 +58,13 @@ PROFILE_EXCLUDED_LAYERS = {
 
 VALID_PROFILES = set(PROFILE_INCLUDE_LAYERS)
 
+BUDGET_LIMITS = {
+    "validation-runtime": {"soft_chars": 6000, "hard_chars": 10000},
+    "minimal-worker": {"soft_chars": 12000, "hard_chars": 20000},
+    "reviewer": {"soft_chars": 24000, "hard_chars": 40000},
+    "strategist": {"soft_chars": 36000, "hard_chars": 60000},
+}
+
 
 @dataclass
 class LoaderInput:
@@ -65,6 +72,7 @@ class LoaderInput:
     profile: str = "minimal-worker"
     include_layers: set[str] = field(default_factory=set)
     excluded_layers: set[str] = field(default_factory=set)
+    max_chars: int | None = None
 
 
 @dataclass
@@ -100,15 +108,25 @@ class ExcludedLayer:
     line_start: int
     line_end: int
     reason: str
+    chars: int | None = None
+    extraction_method: str | None = None
+    confidence: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        data: dict[str, Any] = {
             "path": self.path,
             "semantic_layer": self.semantic_layer,
             "line_start": self.line_start,
             "line_end": self.line_end,
             "reason": self.reason,
         }
+        if self.chars is not None:
+            data["chars"] = self.chars
+        if self.extraction_method:
+            data["extraction_method"] = self.extraction_method
+        if self.confidence:
+            data["confidence"] = self.confidence
+        return data
 
 
 @dataclass
@@ -129,6 +147,7 @@ class ContextBundle:
     chunks: list[ContextChunk] = field(default_factory=list)
     excluded: list[ExcludedLayer] = field(default_factory=list)
     warnings: list[LoaderWarning] = field(default_factory=list)
+    budget: dict[str, Any] = field(default_factory=dict)
 
     @property
     def status(self) -> str:
@@ -147,6 +166,7 @@ class ContextBundle:
                 "warnings": len(self.warnings),
                 "chars": sum(chunk.chars for chunk in self.chunks),
             },
+            "budget": self.budget,
             "warnings": [warning.to_dict() for warning in self.warnings],
         }
         if not summary_only:

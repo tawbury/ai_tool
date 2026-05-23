@@ -49,6 +49,11 @@ def main(argv: list[str] | None = None) -> int:
     load_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
     load_parser.add_argument("--no-content", action="store_true", help="With --json, omit chunk content")
     load_parser.add_argument("--summary-only", action="store_true", help="With --json, omit chunks and exclusions")
+    load_parser.add_argument(
+        "--max-chars",
+        type=int,
+        help="Override the profile hard character budget for included context",
+    )
 
     validate_parser = subparsers.add_parser("validate", help="Run read-only executable validation checks")
     validate_parser.add_argument("path", nargs="?", help="Optional file path to validate")
@@ -158,6 +163,7 @@ def main(argv: list[str] | None = None) -> int:
                 profile=args.profile,
                 include_layers=set(args.include_layer),
                 excluded_layers=set(args.exclude_layer),
+                max_chars=args.max_chars,
             ),
         )
         if args.json:
@@ -242,6 +248,23 @@ def _print_load_context_summary(bundle) -> None:
         f"{summary['warnings']} warnings, "
         f"{summary['chars']} chars"
     )
+    budget = data.get("budget", {})
+    if budget:
+        print(
+            "Budget: "
+            f"{budget['used_chars']} used, "
+            f"{budget['soft_chars']} soft, "
+            f"{budget['hard_chars']} hard, "
+            f"{budget['excluded_chars']} excluded, "
+            f"{budget['budget_excluded_chunks']} budget-excluded chunks"
+        )
+        budget_warnings = [
+            warning["code"]
+            for warning in data.get("warnings", [])
+            if warning["code"].startswith("budget_")
+        ]
+        if budget_warnings:
+            print(f"Budget Warnings: {', '.join(budget_warnings)}")
 
     if data["chunks"]:
         print()
