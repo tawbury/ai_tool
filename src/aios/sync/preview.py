@@ -21,6 +21,7 @@ UNAVAILABLE_REASONS = {
 
 FIXTURE_OUTPUT_BY_INPUT = {
     "whole_file_clean_input.json": "whole_file_available_output.json",
+    "whole_file_match_input.json": "whole_file_match_output.json",
     "managed_block_clean_input.json": "managed_block_available_output.json",
     "adapter_unavailable_input.json": "adapter_unavailable_output.json",
     "source_missing_input.json": "source_missing_output.json",
@@ -160,6 +161,21 @@ def load_preview_output(path: Path) -> PreviewOutput:
         provenance=dict(data["provenance"]),
         data=data,
     )
+
+
+def load_preview_index(path: Path) -> dict[str, str]:
+    data = _load_json(path)
+    preview_inputs = data.get("preview_inputs")
+    if not isinstance(preview_inputs, dict):
+        raise ValueError(f"Generated preview index must contain preview_inputs object: {path}")
+    mapping: dict[str, str] = {}
+    for entry_id, input_fixture in preview_inputs.items():
+        if not isinstance(entry_id, str) or not entry_id.strip():
+            raise ValueError(f"Generated preview index contains invalid entry_id: {path}")
+        if not isinstance(input_fixture, str) or not input_fixture.endswith(".json"):
+            raise ValueError(f"Generated preview index contains invalid input fixture for {entry_id}: {path}")
+        mapping[entry_id] = input_fixture
+    return mapping
 
 
 def _load_json(path: Path) -> dict[str, Any]:

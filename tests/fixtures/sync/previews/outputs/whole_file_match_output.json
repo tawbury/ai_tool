@@ -1,0 +1,25 @@
+{
+  "schema_version": "aios.generated_preview.output.v0",
+  "entry_id": "preview_whole_file_match",
+  "preview_available": true,
+  "generated_content_kind": "whole-file",
+  "generated_bytes_hash": "sha256:decc3aa418b7bb5dc5b553543ad7b0666f7aa770a97547ed61c8757803931a6b",
+  "generated_target_hash": "sha256:decc3aa418b7bb5dc5b553543ad7b0666f7aa770a97547ed61c8757803931a6b",
+  "generated_managed_block_hash": null,
+  "generated_metadata": {
+    "adapter_id": "codex-cli",
+    "adapter_version": "fixture-v0",
+    "hash_policy": "aios.hash_policy.v0",
+    "deterministic": true
+  },
+  "unavailable_reason": null,
+  "provenance": {
+    "source_paths": [".ai/rules/rules.md"],
+    "source_hashes": {
+      ".ai/rules/rules.md": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "activation_reference": null,
+    "rule_context_reference": ".ai/rules/rules.md",
+    "generated_by": "aios.generated_preview.v0"
+  }
+}

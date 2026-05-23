@@ -1,0 +1,11 @@
+{
+  "preview_inputs": {
+    "preview_whole_file_clean": "whole_file_clean_input.json",
+    "preview_whole_file_match": "whole_file_match_input.json",
+    "preview_adapter_unavailable": "adapter_unavailable_input.json",
+    "entry_clean_skip": "managed_block_clean_input.json",
+    "entry_orphan_expected": "adapter_unavailable_input.json",
+    "entry_drift_stop": "managed_block_clean_input.json",
+    "entry_marker_corrupted": "managed_block_clean_input.json"
+  }
+}

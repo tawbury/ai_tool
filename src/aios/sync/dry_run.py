@@ -13,12 +13,14 @@ from .markers import (
     MarkerBlock,
     parse_marker_file,
 )
+from .preview import FixturePreviewProvider
 from .result import (
     ACTION_CONFLICT,
     ACTION_CREATE,
     ACTION_DRIFT_STOP,
     ACTION_ORPHAN_WARNING,
     ACTION_SKIP,
+    ACTION_UPDATE,
     SEVERITY_BLOCKING,
     SEVERITY_INFORMATIONAL,
     SEVERITY_WARNING,
@@ -29,7 +31,13 @@ from .result import (
 )
 
 
-def run_sync_dry_run(root: Path, manifest_path: Path) -> SyncDryRunResult:
+def run_sync_dry_run(
+    root: Path,
+    manifest_path: Path,
+    *,
+    preview_provider: FixturePreviewProvider | None = None,
+    preview_inputs: dict[str, str] | None = None,
+) -> SyncDryRunResult:
     manifest_rel = _display_path(root, manifest_path)
     validation = load_manifest(manifest_path)
     if validation.manifest is None:
@@ -54,7 +62,12 @@ def run_sync_dry_run(root: Path, manifest_path: Path) -> SyncDryRunResult:
     results: list[SyncDryRunItem] = []
     messages: list[SyncDryRunMessage] = []
     for entry in validation.manifest.managed_entries:
-        entry_results = _evaluate_entry(root, entry)
+        entry_results = _evaluate_entry(
+            root,
+            entry,
+            preview_provider=preview_provider,
+            preview_inputs=preview_inputs or {},
+        )
         results.extend(entry_results)
         for item in entry_results:
             if item.severity == SEVERITY_BLOCKING:
@@ -71,11 +84,25 @@ def run_sync_dry_run(root: Path, manifest_path: Path) -> SyncDryRunResult:
             "manifest_valid": True,
             "manifest_schema_version": validation.manifest.schema_version,
             "hash_policy": HASH_POLICY_V0,
+            **(
+                {
+                    "preview_provider": "fixture",
+                    "preview_policy": "read-only-fixture",
+                }
+                if preview_provider is not None
+                else {}
+            ),
         },
     )
 
 
-def _evaluate_entry(root: Path, entry: ManifestEntry) -> list[SyncDryRunItem]:
+def _evaluate_entry(
+    root: Path,
+    entry: ManifestEntry,
+    *,
+    preview_provider: FixturePreviewProvider | None = None,
+    preview_inputs: dict[str, str],
+) -> list[SyncDryRunItem]:
     source = (root / entry.source_path).resolve()
     target = (root / entry.target_path).resolve()
     hashes: dict[str, str | None] = {
@@ -144,17 +171,24 @@ def _evaluate_entry(root: Path, entry: ManifestEntry) -> list[SyncDryRunItem]:
                     details={"message": "Whole target hash differs from manifest target_hash."},
                 )
             ]
+        clean_item = _item(
+            entry,
+            ACTION_SKIP,
+            SEVERITY_INFORMATIONAL,
+            None,
+            None,
+            "clean",
+            hashes,
+            marker={"expected": False, "present": False, "count": 0, "integrity": "not-expected"},
+            details={"message": "Target hash matches manifest target_hash; generated preview is unavailable."},
+        )
         return [
-            _item(
+            _apply_preview_to_clean_item(
+                clean_item,
                 entry,
-                ACTION_SKIP,
-                SEVERITY_INFORMATIONAL,
-                None,
-                None,
-                "clean",
-                hashes,
-                marker={"expected": False, "present": False, "count": 0, "integrity": "not-expected"},
-                details={"message": "Target hash matches manifest target_hash; generated preview is unavailable."},
+                preview_provider,
+                preview_inputs,
+                "generated_target_hash",
             )
         ]
 
@@ -217,17 +251,24 @@ def _evaluate_entry(root: Path, entry: ManifestEntry) -> list[SyncDryRunItem]:
             ),
             *orphan_items,
         ]
+    clean_item = _item(
+        entry,
+        ACTION_SKIP,
+        SEVERITY_INFORMATIONAL,
+        None,
+        None,
+        "clean",
+        hashes,
+        marker=_marker_dict(block, len(entry_blocks)),
+        details={"message": "Managed block hash matches manifest target_hash; generated preview is unavailable."},
+    )
     return [
-        _item(
+        _apply_preview_to_clean_item(
+            clean_item,
             entry,
-            ACTION_SKIP,
-            SEVERITY_INFORMATIONAL,
-            None,
-            None,
-            "clean",
-            hashes,
-            marker=_marker_dict(block, len(entry_blocks)),
-            details={"message": "Managed block hash matches manifest target_hash; generated preview is unavailable."},
+            preview_provider,
+            preview_inputs,
+            "generated_managed_block_hash",
         ),
         *orphan_items,
     ]
@@ -277,6 +318,87 @@ def _orphan_item(entry: ManifestEntry, block: MarkerBlock, hashes: dict[str, str
         hashes={key: None for key in hashes},
         marker=_marker_dict(block, 1),
         details={"message": "AIOS managed marker exists without a matching manifest entry."},
+    )
+
+
+def _apply_preview_to_clean_item(
+    item: SyncDryRunItem,
+    entry: ManifestEntry,
+    provider: FixturePreviewProvider | None,
+    preview_inputs: dict[str, str],
+    generated_hash_field: str,
+) -> SyncDryRunItem:
+    if provider is None:
+        return item
+
+    input_fixture = preview_inputs.get(entry.entry_id)
+    if not input_fixture:
+        return _copy_item_with_preview(
+            item,
+            hashes=dict(item.hashes),
+            details={
+                **item.details,
+                "preview_unavailable_reason": "preview-mapping-missing",
+            },
+        )
+
+    preview = provider.preview(input_fixture)
+    hashes = dict(item.hashes)
+    if preview.generated_target_hash is not None:
+        hashes["generated_target_hash"] = preview.generated_target_hash
+    if preview.generated_managed_block_hash is not None:
+        hashes["generated_managed_block_hash"] = preview.generated_managed_block_hash
+
+    details = {
+        **item.details,
+        "preview": {
+            "provider": "fixture",
+            "preview_available": preview.preview_available,
+            "generated_content_kind": preview.generated_content_kind,
+            "provenance": preview.provenance,
+        },
+        "preview_unavailable_reason": preview.unavailable_reason,
+    }
+
+    generated_hash = hashes.get(generated_hash_field)
+    actual_hash = hashes.get("actual_target_hash")
+    if preview.preview_available and generated_hash and actual_hash and generated_hash != actual_hash:
+        details["message"] = "Generated preview differs from clean target; update candidate is read-only."
+        return _copy_item_with_preview(
+            item,
+            action=ACTION_UPDATE,
+            hashes=hashes,
+            details=details,
+        )
+
+    if preview.preview_available and generated_hash and actual_hash and generated_hash == actual_hash:
+        details["message"] = "Generated preview matches clean target; no update candidate is needed."
+    elif not preview.preview_available:
+        details["message"] = "Generated preview is unavailable; preserving existing dry-run result."
+    return _copy_item_with_preview(item, hashes=hashes, details=details)
+
+
+def _copy_item_with_preview(
+    item: SyncDryRunItem,
+    *,
+    action: str | None = None,
+    hashes: dict,
+    details: dict,
+) -> SyncDryRunItem:
+    return SyncDryRunItem(
+        entry_id=item.entry_id,
+        action=action or item.action,
+        severity=item.severity,
+        stop_reason=item.stop_reason,
+        recovery_hint=item.recovery_hint,
+        source_path=item.source_path,
+        target_path=item.target_path,
+        ownership=item.ownership,
+        sync_mode=item.sync_mode,
+        drift_state=item.drift_state,
+        hashes=hashes,
+        marker=item.marker,
+        details=details,
     )
 
 

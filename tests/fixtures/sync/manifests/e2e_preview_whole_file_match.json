@@ -1,0 +1,23 @@
+{
+  "schema_version": "aios.sync_manifest.v0",
+  "repository_id": "repo_ai_tool",
+  "generated_at": "2026-05-23T00:00:00Z",
+  "source_root": "tests/fixtures/sync/sources",
+  "target_root": ".",
+  "managed_entries": [
+    {
+      "entry_id": "preview_whole_file_match",
+      "source_path": "tests/fixtures/sync/sources/source_rules.md",
+      "target_path": "tests/fixtures/sync/targets/whole_file_clean.txt",
+      "ownership": "runtime-managed",
+      "sync_mode": "whole-file",
+      "source_hash": "sha256:33b4254533081fc19e0ce953f3e8ec7b85479e6ec264daec002c017ca4bc8c61",
+      "target_hash": "sha256:decc3aa418b7bb5dc5b553543ad7b0666f7aa770a97547ed61c8757803931a6b",
+      "marker": null,
+      "generated": {
+        "generated_by": "aios.sync.v0",
+        "generated_at": "2026-05-23T00:00:00Z"
+      }
+    }
+  ]
+}

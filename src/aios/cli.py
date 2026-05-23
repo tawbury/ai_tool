@@ -13,7 +13,7 @@ from .inventory import INVENTORY_TYPES, build_inventory
 from .semantic_loader import LoaderInput, load_context
 from .semantic_loader.models import VALID_PROFILES
 from .status import EXIT_CRASH, EXIT_FAIL, EXIT_PASS, STATUS_FAIL
-from .sync import run_sync_dry_run
+from .sync import FixturePreviewProvider, load_preview_index, run_sync_dry_run
 from .validate.engine import run_validation
 from .validate.targets import resolve_targets
 
@@ -105,6 +105,8 @@ def main(argv: list[str] | None = None) -> int:
     sync_parser.add_argument("--manifest", help="Sync manifest JSON file to evaluate")
     sync_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
     sync_parser.add_argument("--envelope-v2", action="store_true", help="With --json, emit unified result envelope v2")
+    sync_parser.add_argument("--preview-provider", help="Optional read-only preview provider. Supported: fixture")
+    sync_parser.add_argument("--preview-fixtures", help="Fixture root for --preview-provider fixture")
 
     args = parser.parse_args(argv)
     if args.command not in {"inspect", "load-context", "validate", "inventory", "activation", "sync"}:
@@ -214,11 +216,38 @@ def main(argv: list[str] | None = None) -> int:
             if not args.manifest:
                 print("aios sync: --manifest <path> is required for dry-run", file=sys.stderr)
                 return EXIT_CRASH
+            if args.preview_provider and args.preview_provider != "fixture":
+                print(f"aios sync: unsupported preview provider: {args.preview_provider}", file=sys.stderr)
+                return EXIT_CRASH
+            if args.preview_fixtures and args.preview_provider != "fixture":
+                print("aios sync: --preview-fixtures requires --preview-provider fixture", file=sys.stderr)
+                return EXIT_CRASH
+            if args.preview_provider == "fixture" and not args.preview_fixtures:
+                print("aios sync: --preview-provider fixture requires --preview-fixtures <path>", file=sys.stderr)
+                return EXIT_CRASH
             manifest_path = (root / args.manifest).resolve()
             if not _is_relative_to(manifest_path, root) or not manifest_path.is_file():
                 print(f"aios sync: manifest does not exist inside repository: {args.manifest}", file=sys.stderr)
                 return EXIT_CRASH
-            result = run_sync_dry_run(root, manifest_path)
+            preview_provider = None
+            preview_inputs = None
+            if args.preview_provider == "fixture":
+                preview_root = (root / args.preview_fixtures).resolve()
+                if not _is_relative_to(preview_root, root) or not preview_root.is_dir():
+                    print(f"aios sync: preview fixtures directory does not exist inside repository: {args.preview_fixtures}", file=sys.stderr)
+                    return EXIT_CRASH
+                preview_index = preview_root / "preview_index.json"
+                if not preview_index.is_file():
+                    print(f"aios sync: preview index does not exist: {args.preview_fixtures}/preview_index.json", file=sys.stderr)
+                    return EXIT_CRASH
+                preview_provider = FixturePreviewProvider(preview_root)
+                preview_inputs = load_preview_index(preview_index)
+            result = run_sync_dry_run(
+                root,
+                manifest_path,
+                preview_provider=preview_provider,
+                preview_inputs=preview_inputs,
+            )
             if args.json:
                 legacy = result.to_dict()
                 if args.envelope_v2:

@@ -31,6 +31,7 @@ from .preview import (
     FixturePreviewProvider,
     PreviewInput,
     PreviewOutput,
+    load_preview_index,
     load_preview_input,
     load_preview_output,
 )
@@ -59,6 +60,7 @@ __all__ = [
     "hash_managed_block_inner_bytes",
     "is_valid_hash_string",
     "load_manifest",
+    "load_preview_index",
     "load_preview_input",
     "load_preview_output",
     "parse_marker_file",

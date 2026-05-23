@@ -23,6 +23,7 @@ UNAVAILABLE_REASONS = {
 }
 INPUT_FIXTURES = {
     "whole_file_clean_input.json",
+    "whole_file_match_input.json",
     "managed_block_clean_input.json",
     "mixed_boundary_clean_input.json",
     "source_missing_input.json",
@@ -32,6 +33,7 @@ INPUT_FIXTURES = {
 }
 OUTPUT_FIXTURES = {
     "whole_file_available_output.json",
+    "whole_file_match_output.json",
     "managed_block_available_output.json",
     "adapter_unavailable_output.json",
     "source_missing_output.json",
