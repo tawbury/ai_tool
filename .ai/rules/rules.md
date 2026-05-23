@@ -66,13 +66,14 @@ The shared AI system has these main layers:
       activation.rules.md
       context-loading.rules.md
       registry.rules.md
+      observability.rules.md
       documentation-governance.rules.md
 ```
 
 - `commands/` contains reusable multi-CLI command definitions.
 - `rules.md` defines the global contract only.
 - `domains/` contains business or work-domain rules.
-- `operations/` contains execution, validation, workflow, agent governance, activation, context loading, registry, and documentation governance rules.
+- `operations/` contains execution, validation, workflow, agent governance, activation, context loading, registry, observability, and documentation governance rules.
 
 ## Shared Command Policy
 
@@ -104,6 +105,7 @@ Typical loading examples:
 | Activation contract design or validation | None unless domain-specific | `activation.rules.md`, `validation.rules.md` |
 | Semantic context loading or budget behavior | None unless domain-specific | `context-loading.rules.md`, `validation.rules.md` |
 | Registry architecture or registry reference design | None unless domain-specific | `registry.rules.md`, `validation.rules.md` |
+| Runtime observability, event taxonomy, or trace model design | None unless domain-specific | `observability.rules.md`, `validation.rules.md` |
 
 ## Documentation Governance
 
@@ -179,4 +181,5 @@ This map is transitional. It exists to help agents find rules after the layered 
 | Activation contract, active sets, semantic loader profile selection, and sync boundary | `.ai/rules/operations/activation.rules.md` |
 | Semantic context loading, profile budgets, and extraction boundary | `.ai/rules/operations/context-loading.rules.md` |
 | Registry architecture, relationship contracts, and future registry extraction boundary | `.ai/rules/operations/registry.rules.md` |
+| Runtime observability, future event taxonomy, trace model, and provenance boundary | `.ai/rules/operations/observability.rules.md` |
 | Documentation taxonomy, authority, promotion, and runtime consumption boundary | `.ai/rules/operations/documentation-governance.rules.md` |
