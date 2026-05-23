@@ -3,7 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from ..filesystem import list_skill_files, read_text, rel_path
+from ..filesystem import read_text, rel_path
+from ..inventory import InventoryItem, build_inventory
 
 
 @dataclass
@@ -32,11 +33,11 @@ def resolve_targets(
         raise ValueError("Use only one of <path>, --agent, or --workflow.")
 
     if agent:
-        agent_path = _resolve_agent(root, agent)
+        agent_path = _resolve_inventory_path(root, "agent", agent) or _resolve_agent(root, agent)
         return [ValidationTarget("agent", agent_path, agent)]
 
     if workflow:
-        workflow_path = _resolve_workflow(root, workflow)
+        workflow_path = _resolve_inventory_path(root, "workflow", workflow) or _resolve_workflow(root, workflow)
         return [ValidationTarget("workflow", workflow_path, workflow)]
 
     if path_arg:
@@ -44,16 +45,10 @@ def resolve_targets(
         return [ValidationTarget(_kind_for_path(root, path), path, path_arg)]
 
     targets: list[ValidationTarget] = []
-    agents_root = root / ".ai" / "agents"
-    if agents_root.is_dir():
-        targets.extend(ValidationTarget("agent", path, path.stem) for path in sorted(agents_root.glob("*.agent.md")))
-    targets.extend(ValidationTarget("skill", path, path.stem) for path in list_skill_files(root))
-    workflows_root = root / ".ai" / "workflows"
-    if workflows_root.is_dir():
-        targets.extend(
-            ValidationTarget("workflow", path, path.stem)
-            for path in sorted(workflows_root.glob("*.workflow.md"))
-        )
+    inventory = build_inventory(root)
+    targets.extend(_targets_from_inventory(inventory.items, "agent"))
+    targets.extend(_targets_from_inventory(inventory.items, "skill"))
+    targets.extend(_targets_from_inventory(inventory.items, "workflow"))
     targets.extend(
         ValidationTarget("activation", path, path.stem)
         for path in _list_activation_files(root)
@@ -74,6 +69,45 @@ def _resolve_workflow(root: Path, workflow: str) -> Path:
     if normalized.endswith(".workflow"):
         normalized = normalized.removesuffix(".workflow")
     return root / ".ai" / "workflows" / f"{normalized}.workflow.md"
+
+
+def _resolve_inventory_path(root: Path, item_type: str, reference: str) -> Path | None:
+    normalized = reference.strip()
+    suffix_stripped = _strip_reference_suffix(item_type, normalized)
+    for item in build_inventory(root).items:
+        if item.type != item_type:
+            continue
+        candidates = {
+            item.name,
+            item.canonical_path,
+            item.relative_path,
+            Path(item.path).name,
+            Path(item.path).stem,
+        }
+        metadata_name = item.metadata.get("name") if item.metadata else None
+        if metadata_name:
+            candidates.add(str(metadata_name))
+        if normalized in candidates or suffix_stripped in candidates:
+            return Path(item.path)
+    return None
+
+
+def _strip_reference_suffix(item_type: str, reference: str) -> str:
+    if item_type == "agent":
+        normalized = reference.removesuffix(".agent.md")
+        return normalized.removesuffix(".agent") if normalized.endswith(".agent") else normalized
+    if item_type == "workflow":
+        normalized = reference.removesuffix(".workflow.md")
+        return normalized.removesuffix(".workflow") if normalized.endswith(".workflow") else normalized
+    return reference
+
+
+def _targets_from_inventory(items: list[InventoryItem], item_type: str) -> list[ValidationTarget]:
+    return [
+        ValidationTarget(item_type, Path(item.path), item.name)
+        for item in items
+        if item.type == item_type
+    ]
 
 
 def _kind_for_path(root: Path, path: Path) -> str:

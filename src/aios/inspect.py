@@ -7,11 +7,10 @@ from .filesystem import (
     find_symlinks,
     find_utf8_bom_files,
     list_files,
-    list_skill_files,
-    list_workflow_files,
     read_text,
     rel_path,
 )
+from .inventory import InventoryItem, build_inventory
 from .markdown_refs import (
     extract_ai_path_refs,
     extract_markdown_file_links,
@@ -20,7 +19,7 @@ from .markdown_refs import (
     has_fenced_yaml,
     slice_between,
 )
-from .frontmatter import as_list, extract_frontmatter
+from .frontmatter import as_list
 from .references import extract_file_links, is_obvious_relative_file_link, resolve_reference
 from .result import InspectResult
 
@@ -72,17 +71,19 @@ WORKFLOW_RECOMMENDATIONS = {
 def run_inspection(root: Path) -> InspectResult:
     result = InspectResult(root=str(root))
     all_files = list_files(root)
-    skill_files = list_skill_files(root)
-    workflow_files = list_workflow_files(root)
+    inventory = build_inventory(root)
+    agent_items = _inventory_items(inventory.items, "agent")
+    skill_items = _inventory_items(inventory.items, "skill")
+    workflow_items = _inventory_items(inventory.items, "workflow")
     result.files_scanned = len(all_files)
-    result.skills_found = len(skill_files)
-    result.workflows_found = len(workflow_files)
+    result.skills_found = len(skill_items)
+    result.workflows_found = len(workflow_items)
 
     _check_required_structure(root, result)
     _check_root_adapters(root, result)
-    _check_agent_frontmatter(root, result)
-    _check_skill_references(root, result, skill_files)
-    _check_workflow_references(root, result)
+    _check_agent_frontmatter(root, result, agent_items)
+    _check_skill_references(root, result, skill_items)
+    _check_workflow_references(root, result, workflow_items)
     _check_stale_cursorrules(root, result)
     _check_validator_index(root, result)
     _check_obvious_relative_links(root, result)
@@ -121,23 +122,19 @@ def _check_root_adapters(root: Path, result: InspectResult) -> None:
             result.add("root-adapter", "warning", f"Root adapter missing: {adapter}", adapter)
 
 
-def _check_agent_frontmatter(root: Path, result: InspectResult) -> None:
-    agents_root = root / ".ai" / "agents"
-    agent_files = sorted(agents_root.glob("*.agent.md")) if agents_root.is_dir() else []
-    if not agent_files:
+def _check_agent_frontmatter(root: Path, result: InspectResult, agent_items: list[InventoryItem]) -> None:
+    if not agent_items:
         result.add("agent-frontmatter-inventory", "fail", "No agent files found.", ".ai/agents")
         return
 
-    for path in agent_files:
-        source = rel_path(root, path)
-        text = read_text(path)
-        frontmatter = extract_frontmatter(text)
-        if frontmatter is None:
+    for item in agent_items:
+        source = item.relative_path
+        data = item.metadata
+        if not data:
             result.add("agent-frontmatter-present", "fail", "Agent frontmatter missing.", source)
             continue
         result.add("agent-frontmatter-present", "pass", "Agent frontmatter exists.", source)
 
-        data = frontmatter.data
         for field in AGENT_REQUIRED_FIELDS:
             value = data.get(field)
             if value:
@@ -178,17 +175,17 @@ def _check_agent_frontmatter(root: Path, result: InspectResult) -> None:
                     )
 
 
-def _check_skill_references(root: Path, result: InspectResult, skill_files: list[Path]) -> None:
-    inventory = {rel_path(root, path): path for path in skill_files}
+def _check_skill_references(root: Path, result: InspectResult, skill_items: list[InventoryItem]) -> None:
+    inventory = {item.relative_path: Path(item.path) for item in skill_items}
     by_name: dict[str, list[str]] = {}
     for relative in inventory:
         by_name.setdefault(Path(relative).name, []).append(relative)
 
-    if skill_files:
+    if skill_items:
         result.add(
             "skill-inventory",
             "info",
-            f"Found {len(skill_files)} skill files.",
+            f"Found {len(skill_items)} skill files.",
             ".ai/skills",
         )
     else:
@@ -257,9 +254,9 @@ def _resolve_skill_ref(
     return sorted(by_name.get(Path(normalized).name, []))
 
 
-def _check_workflow_references(root: Path, result: InspectResult) -> None:
+def _check_workflow_references(root: Path, result: InspectResult, workflow_items: list[InventoryItem]) -> None:
     workflow_files = {
-        rel_path(root, path): path for path in list_workflow_files(root)
+        item.relative_path: Path(item.path) for item in workflow_items
     }
     workflow_names = {Path(path).name: path for path in workflow_files}
     source = WORKFLOW_REFERENCE_FILE
@@ -475,3 +472,7 @@ def _check_agent_routing(root: Path, result: InspectResult) -> None:
                 source,
                 line=ref.line,
             )
+
+
+def _inventory_items(items: list[InventoryItem], item_type: str) -> list[InventoryItem]:
+    return [item for item in items if item.type == item_type]
