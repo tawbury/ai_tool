@@ -11,7 +11,7 @@ Operational rules define execution behavior and governance that can be reused ac
 - `context-loading.rules.md`: semantic context loading profiles, character budget behavior, provenance, and read-only extraction boundary.
 - `registry.rules.md`: registry architecture, relationship layer boundaries, future extraction criteria, and read-only registry non-goals.
 - `observability.rules.md`: runtime observability, future event taxonomy, trace model, provenance preservation, and opt-in event output boundary.
-- `sync.rules.md`: future sync/manifest safety boundary, drift-stop policy, dry-run-first behavior, managed block markers, and rollback preconditions.
+- `sync.rules.md`: read-only sync dry-run runtime, manifest validation, drift-stop behavior, managed marker policy, envelope output, and mutation block.
 
 ## Add an Operational Rule When
 
