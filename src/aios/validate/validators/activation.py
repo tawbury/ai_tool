@@ -3,15 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 
 from ...activation import (
-    ACTIVE_SET_KEYS,
-    ACTIVE_SET_TYPE_MAP,
     load_activation,
     validate_activation_references,
     validate_activation_schema,
+    validate_activation_sets,
 )
 from ...filesystem import rel_path
 from ...inventory import build_inventory
-from ...status import SEVERITY_INFO, SEVERITY_WARNING
+from ...status import SEVERITY_INFO
 from ..result import ValidationRun
 from ..targets import ValidationTarget
 
@@ -48,18 +47,16 @@ def validate_activation(root: Path, target: ValidationTarget, run: ValidationRun
             reference=issue.reference,
         )
 
-    for key in ACTIVE_SET_KEYS:
-        references_for_key = config.active_set.get(key, [])
-        if not references_for_key:
-            run.add(
-                "activation",
-                "empty_activation_list",
-                SEVERITY_INFO,
-                f"active_set.{key} is empty.",
-                path=source,
-                field=f"active_set.{key}",
-            )
-        _add_duplicate_reference_warnings(run, source, key, references_for_key)
+    for issue in validate_activation_sets(config):
+        run.add(
+            "activation",
+            issue.code,
+            issue.severity,
+            issue.message,
+            path=source,
+            field=issue.field,
+            reference=issue.reference,
+        )
 
     run.add(
         "activation",
@@ -72,32 +69,3 @@ def validate_activation(root: Path, target: ValidationTarget, run: ValidationRun
         missing_references=sum(1 for reference in references if not reference.resolved),
         inactive_counts=inactive_counts,
     )
-
-
-def _add_duplicate_reference_warnings(
-    run: ValidationRun,
-    source: str,
-    key: str,
-    references: list[str],
-) -> None:
-    seen: set[str] = set()
-    duplicates: set[str] = set()
-    for reference in references:
-        normalized = reference.strip()
-        if not normalized:
-            continue
-        if normalized in seen:
-            duplicates.add(normalized)
-        seen.add(normalized)
-
-    for reference in sorted(duplicates):
-        run.add(
-            "activation",
-            "duplicate_activation_reference",
-            SEVERITY_WARNING,
-            f"active_set.{key} contains a duplicate activation reference: {reference}",
-            path=source,
-            field=f"active_set.{key}",
-            reference=reference,
-            type=ACTIVE_SET_TYPE_MAP[key],
-        )

@@ -327,9 +327,10 @@ def _print_inventory_summary(inventory, summary_only: bool = False) -> None:
 def _print_activation_summary(result) -> None:
     data = result.to_dict(summary_only=False)
     summary = data["summary"]
-    print("AIOS Activation v0")
+    print("AIOS Activation")
     print(f"Root: {data['root']}")
     print(f"Target: {data['path']}")
+    print(f"Schema: {summary['activation_schema_version']}")
     print(f"Status: {data['status']}")
     print(
         "Summary: "

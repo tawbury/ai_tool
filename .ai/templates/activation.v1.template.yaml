@@ -1,0 +1,29 @@
+schema_version: aios.activation.v1
+runtime_mode: validation
+active_set:
+  agents:
+    - developer
+    - pm
+  skills:
+    - requirements_analysis
+    - system_design
+  workflows:
+    - l2_review
+  validators:
+    - developer_skill_validator
+  rules:
+    - .ai/rules/operations/activation.rules.md
+    - .ai/rules/operations/registry.rules.md
+profiles:
+  default_loader: minimal-worker
+  agent_loader_overrides:
+    developer: reviewer
+  workflow_loader_overrides:
+    l2_review: reviewer
+rule_sets:
+  default:
+    domain_rules:
+      - .ai/rules/domains/documentation.rules.md
+    operation_rules:
+      - .ai/rules/operations/activation.rules.md
+      - .ai/rules/operations/registry.rules.md
