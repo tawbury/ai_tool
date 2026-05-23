@@ -1,0 +1,22 @@
+{
+  "schema_version": "aios.sync_manifest.v0",
+  "repository_id": "repo_ai_tool",
+  "generated_at": "2026-05-23T00:00:00Z",
+  "source_root": ".ai",
+  "target_root": ".",
+  "managed_entries": [
+    {
+      "entry_id": "entry_invalid_sync_mode",
+      "source_path": ".ai/rules/rules.md",
+      "target_path": "AGENTS.md",
+      "ownership": "runtime-managed",
+      "sync_mode": "observe-only",
+      "source_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "target_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "generated": {
+        "generated_by": "aios.sync.v0",
+        "generated_at": "2026-05-23T00:00:00Z"
+      }
+    }
+  ]
+}

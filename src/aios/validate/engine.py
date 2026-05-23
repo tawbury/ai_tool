@@ -8,6 +8,7 @@ from .validators.activation import validate_activation
 from .validators.agent import validate_agent
 from .validators.references import validate_validator_index
 from .validators.skill import validate_skill
+from .validators.sync_manifest import validate_sync_manifest
 from .validators.workflow import validate_workflow
 
 
@@ -29,6 +30,8 @@ def run_validation(root: Path, targets: list[ValidationTarget]) -> ValidationRun
             validate_agent(root, target, run)
         elif target.kind == "skill":
             validate_skill(root, target, run)
+        elif target.kind == "sync-manifest":
+            validate_sync_manifest(root, target, run)
         elif target.kind == "workflow":
             validate_workflow(root, target, run)
         elif target.kind == "validator-index":

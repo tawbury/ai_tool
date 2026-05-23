@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -125,6 +126,8 @@ def _kind_for_path(root: Path, path: Path) -> str:
         return "validator-index"
     if path.suffix.lower() in {".yaml", ".yml"} and _is_activation_file(path):
         return "activation"
+    if path.suffix.lower() == ".json" and _is_sync_manifest_file(path):
+        return "sync-manifest"
     return "file"
 
 
@@ -146,3 +149,20 @@ def _is_activation_file(path: Path) -> bool:
         and "active_set:" in text
         and "profiles:" in text
     )
+
+
+def _is_sync_manifest_file(path: Path) -> bool:
+    try:
+        data = json.loads(read_text(path))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    schema_version = data.get("schema_version")
+    manifest_version = data.get("manifest_version")
+    if schema_version == "aios.sync_manifest.v0" or manifest_version == "aios.sync_manifest.v0":
+        return True
+    # Allow schema-error validation for manifest-shaped JSON that forgot
+    # schema_version, without hijacking arbitrary JSON files.
+    manifest_shape = {"repository_id", "generated_at", "source_root", "target_root", "managed_entries"}
+    return manifest_shape.issubset(data)
