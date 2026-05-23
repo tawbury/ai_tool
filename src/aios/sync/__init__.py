@@ -25,12 +25,24 @@ from .markers import (
     parse_marker_file,
     parse_marker_text,
 )
+from .preview import (
+    PREVIEW_INPUT_SCHEMA_VERSION,
+    PREVIEW_OUTPUT_SCHEMA_VERSION,
+    FixturePreviewProvider,
+    PreviewInput,
+    PreviewOutput,
+    load_preview_input,
+    load_preview_output,
+)
 from .dry_run import run_sync_dry_run
 from .result import SYNC_DRY_RUN_SCHEMA_VERSION, SyncDryRunResult
 
 __all__ = [
     "HASH_POLICY_V0",
     "MANIFEST_SCHEMA_VERSION",
+    "PREVIEW_INPUT_SCHEMA_VERSION",
+    "PREVIEW_OUTPUT_SCHEMA_VERSION",
+    "FixturePreviewProvider",
     "ManifestEntry",
     "ManifestIssue",
     "AnchorRecord",
@@ -38,6 +50,8 @@ __all__ = [
     "MarkerEvent",
     "MarkerParseResult",
     "ManifestValidationResult",
+    "PreviewInput",
+    "PreviewOutput",
     "SyncManifest",
     "format_sha256",
     "hash_bytes",
@@ -45,6 +59,8 @@ __all__ = [
     "hash_managed_block_inner_bytes",
     "is_valid_hash_string",
     "load_manifest",
+    "load_preview_input",
+    "load_preview_output",
     "parse_marker_file",
     "parse_marker_text",
     "run_sync_dry_run",
