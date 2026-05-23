@@ -1,64 +1,31 @@
 # Rules Directory
 
-This directory contains the layered rule system for Codex CLI, Claude Code, Gemini CLI, and future AI CLI tools.
+This directory contains the shared rule system for Codex CLI, Claude Code, Gemini CLI, and future AI CLI tools.
 
-## Source of Truth
+## Entry Point
 
-`rules.md` is the global rule contract and the first rule file agents must read.
+`rules.md` is the global rule contract and the first shared rule file agents must read.
 
-Root files such as `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` are adapters. They help tools discover the shared rule entrypoint, but they are not rule sources.
+Root files such as `AGENTS.md`, `CLAUDE.md`, and `GEMINI.md` are adapters. They point tools to this rule system but do not replace it.
 
-## Layers
+## Structure
 
-```text
-.ai/rules/
-  rules.md
-  domains/
-  operations/
-```
+| Path | Purpose |
+|---|---|
+| `rules.md` | Global rule contract, priority, adapter policy, selective loading, and migration map. |
+| `domains/` | Domain-specific rules for documentation, development, and HR work. |
+| `operations/` | Runtime-facing operation rules for workflow, validation, agent behavior, activation, context loading, registry architecture, and documentation governance. |
 
-- `rules.md`: global contract, priority, adapter policy, symlink policy, and selective loading rules.
-- `domains/`: business or work-domain rules.
-- `operations/`: execution, validation, workflow, and agent governance rules.
+## Loading Policy
 
-## Selective Loading
+1. Read `.ai/rules/rules.md` first.
+2. Load only the domain rules relevant to the task.
+3. Load only the operation rules relevant to the task.
 
-Load the minimum sufficient rule set for the current task.
+Do not load every rule file by default.
 
-1. Always read `.ai/rules/rules.md` first.
-2. Load only relevant domain rules from `.ai/rules/domains/`.
-3. Load only relevant operational rules from `.ai/rules/operations/`.
+## Maintenance Boundary
 
-## Current Rule Files
-
-Domain rules:
-
-- `domains/documentation.rules.md`
-- `domains/development.rules.md`
-- `domains/hr.rules.md`
-
-Operational rules:
-
-- `operations/workflow.rules.md`
-- `operations/validation.rules.md`
-- `operations/agent.rules.md`
-
-## Adding New Rules
-
-Add a new domain rule only when there is repeated domain-specific maintenance need, such as durable outputs, validation criteria, or approval flow.
-
-Add a new operational rule only when the behavior applies across multiple domains.
-
-Do not create placeholder rule files for future domains before they are needed.
-
-## Adapter Policy
-
-Adapters must stay thin. They should point agents to `.ai/rules/rules.md` and should not duplicate shared rule bodies.
-
-## Symlink Policy
+README files are navigation aids. Durable behavior belongs in the smallest relevant rule file.
 
 Rules files and rules directories must be normal files and directories. Symbolic links are prohibited.
-
-## Encoding Policy
-
-All rule files must be saved as UTF-8 without BOM.

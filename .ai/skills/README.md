@@ -1,39 +1,28 @@
 # Skills Directory
 
-This directory stores reusable AI skills.
+This directory contains reusable AI skill definitions.
 
-Skills are grouped by agent domain. Cross-agent skills live under `_shared/`.
+## Structure
 
-## Directory Structure
-
-| Directory | Purpose |
+| Path | Purpose |
 |---|---|
-| `_shared/` | Skills and frameworks used by multiple agents. |
+| `_shared/` | Cross-agent skills and shared frameworks. |
 | `_shared/ai_cli/` | Shared AI CLI tooling skills adapted from tool-specific assets. |
-| `pm/` | Product and project management skills. |
+| `_shared/contents_creator_frameworks/` | Shared frameworks for content creation strategy and quality. |
 | `developer/` | Software development and technical review skills. |
-| `contents-creator/` | Visual, text, video, and interactive content skills. |
-| `finance/` | Financial analysis and management skills. |
-| `hr/` | HR evaluation, role management, and organization skills. |
+| `pm/` | Product and project management skills. |
+| `hr/` | HR evaluation and organization skills. |
+| `finance/` | Finance, forecasting, portfolio, and risk skills. |
+| `contents-creator/` | Content creation skills grouped by medium and business use case. |
 
-## Skill File Rules
+## File Rules
 
-- Use `.skill.md` for shared skill entry files.
-- Keep skill entry files concise.
-- Put long examples and references in `references/`.
-- Put deterministic procedures in `scripts/`.
-- Put reusable output resources in `assets/`.
+- Shared skill entries use the `.skill.md` suffix.
+- Keep skill files focused on reusable behavior.
+- Put deterministic procedures in `scripts/` when a skill owns executable helpers.
+- Put long references in `references/` when needed.
 - Do not copy global rule bodies into skill files.
 
-## Shared AI CLI Skills
+## Loading
 
-The `_shared/ai_cli/` folder contains functionality migrated from `.claude/skills/` when the skill can be useful across AI CLI tools.
-
-Tool-specific behavior is preserved as references, scripts, or clearly labeled target behavior, while the canonical shared skill entry lives under `.ai/skills/`.
-
-## Loading Guidance
-
-- Load only the skill required by the current task.
-- Load references only when the skill entry file says they are needed.
-- Prefer scripts for deterministic, repeated operations.
-- Use `.ai/skills/_shared/skill_index.md` for broad skill discovery.
+Load only the skill required for the task. Use `_shared/skill_index.md` for broad discovery.
