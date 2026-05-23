@@ -8,6 +8,7 @@ Operational rules define execution behavior and governance that can be reused ac
 - `validation.rules.md`: validation behavior, validator references, and failure handling.
 - `agent.rules.md`: agent roles, L1/L2 collaboration, escalation, and context management.
 - `activation.rules.md`: runtime activation v0/v1 contracts, inventory reference validation, semantic loader profile selection, and sync boundary.
+- `context-loading.rules.md`: semantic context loading profiles, character budget behavior, provenance, and read-only extraction boundary.
 - `registry.rules.md`: registry architecture, relationship layer boundaries, future extraction criteria, and read-only registry non-goals.
 
 ## Add an Operational Rule When
