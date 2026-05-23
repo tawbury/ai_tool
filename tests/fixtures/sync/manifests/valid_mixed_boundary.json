@@ -1,0 +1,27 @@
+{
+  "schema_version": "aios.sync_manifest.v0",
+  "repository_id": "repo_ai_tool",
+  "generated_at": "2026-05-23T00:00:00Z",
+  "source_root": ".ai",
+  "target_root": ".",
+  "managed_entries": [
+    {
+      "entry_id": "entry_rules_mixed_boundary",
+      "source_path": ".ai/rules/rules.md",
+      "target_path": "AGENTS.md",
+      "ownership": "mixed-boundary",
+      "sync_mode": "mixed-boundary",
+      "source_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "target_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "marker": {
+        "marker_version": "0",
+        "marker_style": "markdown-html-comment",
+        "entry_id": "entry_rules_mixed_boundary"
+      },
+      "generated": {
+        "generated_by": "aios.sync.v0",
+        "generated_at": "2026-05-23T00:00:00Z"
+      }
+    }
+  ]
+}
