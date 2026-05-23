@@ -1,0 +1,20 @@
+{
+  "entry_id": "preview_managed_block_clean",
+  "input_fixture": "inputs/managed_block_clean_input.json",
+  "output_fixture": "outputs/managed_block_available_output.json",
+  "target_state": "clean",
+  "expected_action": "update",
+  "expected_status": "pass",
+  "expected_severity": "informational",
+  "expected_stop_reason": null,
+  "expected_no_mutation": true,
+  "expected_hash_fields": [
+    "generated_managed_block_hash",
+    "actual_managed_block_hash",
+    "expected_managed_block_hash"
+  ],
+  "expected_message_codes": [
+    "update-candidate"
+  ],
+  "expected_notes": "Clean managed block with generated managed block hash difference becomes a read-only update candidate."
+}

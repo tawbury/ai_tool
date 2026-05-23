@@ -1,0 +1,20 @@
+{
+  "entry_id": "preview_adapter_unavailable",
+  "input_fixture": "inputs/adapter_unavailable_input.json",
+  "output_fixture": "outputs/adapter_unavailable_output.json",
+  "target_state": "clean",
+  "expected_action": "skip",
+  "expected_status": "pass",
+  "expected_severity": "informational",
+  "expected_stop_reason": null,
+  "expected_no_mutation": true,
+  "expected_hash_fields": [
+    "generated_target_hash",
+    "actual_target_hash",
+    "expected_target_hash"
+  ],
+  "expected_message_codes": [
+    "preview-unavailable"
+  ],
+  "expected_notes": "Preview unavailable does not create update candidate and preserves read-only behavior."
+}

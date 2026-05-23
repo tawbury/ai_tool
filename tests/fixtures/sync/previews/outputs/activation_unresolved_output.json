@@ -1,0 +1,20 @@
+{
+  "schema_version": "aios.generated_preview.output.v0",
+  "entry_id": "preview_activation_unresolved",
+  "preview_available": false,
+  "generated_content_kind": null,
+  "generated_bytes_hash": null,
+  "generated_target_hash": null,
+  "generated_managed_block_hash": null,
+  "generated_metadata": {},
+  "unavailable_reason": "activation-unresolved",
+  "provenance": {
+    "source_paths": [".ai/rules/operations/sync.rules.md"],
+    "source_hashes": {
+      ".ai/rules/operations/sync.rules.md": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+    },
+    "activation_reference": ".ai/templates/missing.activation.yaml",
+    "rule_context_reference": ".ai/rules/operations/sync.rules.md",
+    "generated_by": "aios.generated_preview.v0"
+  }
+}

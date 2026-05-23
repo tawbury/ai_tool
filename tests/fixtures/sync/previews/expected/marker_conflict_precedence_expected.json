@@ -1,0 +1,20 @@
+{
+  "entry_id": "preview_marker_invalid",
+  "input_fixture": "inputs/marker_invalid_input.json",
+  "output_fixture": "outputs/marker_invalid_output.json",
+  "target_state": "marker-invalid",
+  "expected_action": "conflict",
+  "expected_status": "fail",
+  "expected_severity": "blocking",
+  "expected_stop_reason": "marker-corrupted",
+  "expected_no_mutation": true,
+  "expected_hash_fields": [
+    "generated_managed_block_hash",
+    "actual_managed_block_hash",
+    "expected_managed_block_hash"
+  ],
+  "expected_message_codes": [
+    "marker-corrupted"
+  ],
+  "expected_notes": "Invalid marker remains conflict and preview does not repair marker state."
+}

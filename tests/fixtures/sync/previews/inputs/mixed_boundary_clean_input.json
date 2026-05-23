@@ -1,0 +1,34 @@
+{
+  "schema_version": "aios.generated_preview.input.v0",
+  "entry_id": "preview_mixed_boundary_clean",
+  "manifest_entry": {
+    "source_path": ".ai/rules/operations/sync.rules.md",
+    "source_paths": null,
+    "source_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+    "target_path": "README.md",
+    "sync_mode": "mixed-boundary",
+    "ownership": "mixed-boundary",
+    "marker": {
+      "marker_version": "0",
+      "marker_style": "markdown-html-comment",
+      "entry_id": "preview_mixed_boundary_clean"
+    }
+  },
+  "adapter": {
+    "adapter_id": "generic-cli",
+    "adapter_version": "fixture-v0"
+  },
+  "context": {
+    "activation_reference": null,
+    "rule_context_reference": ".ai/rules/operations/sync.rules.md",
+    "external_content_boundary": "user-owned"
+  },
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "algorithm": "sha256",
+    "encoding": "observed-utf8-bytes",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "managed_block_marker_lines": "exclude"
+  }
+}

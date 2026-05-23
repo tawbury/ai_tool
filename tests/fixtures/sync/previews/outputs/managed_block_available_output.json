@@ -1,0 +1,30 @@
+{
+  "schema_version": "aios.generated_preview.output.v0",
+  "entry_id": "preview_managed_block_clean",
+  "preview_available": true,
+  "generated_content_kind": "managed-block",
+  "generated_bytes_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "generated_target_hash": null,
+  "generated_managed_block_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "generated_metadata": {
+    "adapter_id": "codex-cli",
+    "adapter_version": "fixture-v0",
+    "hash_policy": "aios.hash_policy.v0",
+    "deterministic": true,
+    "marker": {
+      "marker_version": "0",
+      "marker_style": "markdown-html-comment",
+      "entry_id": "preview_managed_block_clean"
+    }
+  },
+  "unavailable_reason": null,
+  "provenance": {
+    "source_paths": [".ai/rules/operations/sync.rules.md"],
+    "source_hashes": {
+      ".ai/rules/operations/sync.rules.md": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "activation_reference": null,
+    "rule_context_reference": ".ai/rules/operations/sync.rules.md",
+    "generated_by": "aios.generated_preview.v0"
+  }
+}

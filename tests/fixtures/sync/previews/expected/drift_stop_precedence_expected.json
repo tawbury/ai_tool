@@ -1,0 +1,20 @@
+{
+  "entry_id": "preview_managed_block_clean",
+  "input_fixture": "inputs/managed_block_clean_input.json",
+  "output_fixture": "outputs/managed_block_available_output.json",
+  "target_state": "drifted",
+  "expected_action": "drift-stop",
+  "expected_status": "fail",
+  "expected_severity": "blocking",
+  "expected_stop_reason": "target-modified",
+  "expected_no_mutation": true,
+  "expected_hash_fields": [
+    "generated_managed_block_hash",
+    "actual_managed_block_hash",
+    "expected_managed_block_hash"
+  ],
+  "expected_message_codes": [
+    "target-modified"
+  ],
+  "expected_notes": "Drifted target remains drift-stop even when generated preview exists."
+}

@@ -1,0 +1,18 @@
+{
+  "entry_id": "preview_whole_file_clean",
+  "input_fixture": "inputs/whole_file_clean_input.json",
+  "output_fixture": "outputs/whole_file_available_output.json",
+  "target_state": "clean",
+  "expected_action": "skip",
+  "expected_status": "pass",
+  "expected_severity": "informational",
+  "expected_stop_reason": null,
+  "expected_no_mutation": true,
+  "expected_hash_fields": [
+    "generated_target_hash",
+    "actual_target_hash",
+    "expected_target_hash"
+  ],
+  "expected_message_codes": [],
+  "expected_notes": "Clean whole-file target with matching generated target hash remains skip."
+}

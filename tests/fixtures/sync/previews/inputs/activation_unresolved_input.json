@@ -1,0 +1,33 @@
+{
+  "schema_version": "aios.generated_preview.input.v0",
+  "entry_id": "preview_activation_unresolved",
+  "manifest_entry": {
+    "source_path": ".ai/rules/operations/sync.rules.md",
+    "source_paths": null,
+    "source_hash": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "target_path": "AGENTS.md",
+    "sync_mode": "managed-block",
+    "ownership": "mixed-boundary",
+    "marker": {
+      "marker_version": "0",
+      "marker_style": "markdown-html-comment",
+      "entry_id": "preview_activation_unresolved"
+    }
+  },
+  "adapter": {
+    "adapter_id": "codex-cli",
+    "adapter_version": "fixture-v0"
+  },
+  "context": {
+    "activation_reference": ".ai/templates/missing.activation.yaml",
+    "rule_context_reference": ".ai/rules/operations/sync.rules.md"
+  },
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "algorithm": "sha256",
+    "encoding": "observed-utf8-bytes",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "managed_block_marker_lines": "exclude"
+  }
+}

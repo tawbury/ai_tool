@@ -1,0 +1,20 @@
+{
+  "schema_version": "aios.generated_preview.output.v0",
+  "entry_id": "preview_adapter_unavailable",
+  "preview_available": false,
+  "generated_content_kind": null,
+  "generated_bytes_hash": null,
+  "generated_target_hash": null,
+  "generated_managed_block_hash": null,
+  "generated_metadata": {},
+  "unavailable_reason": "adapter-unavailable",
+  "provenance": {
+    "source_paths": [".ai/rules/rules.md"],
+    "source_hashes": {
+      ".ai/rules/rules.md": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+    },
+    "activation_reference": null,
+    "rule_context_reference": ".ai/rules/rules.md",
+    "generated_by": "aios.generated_preview.v0"
+  }
+}

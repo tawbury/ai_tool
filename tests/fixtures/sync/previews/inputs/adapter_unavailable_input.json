@@ -1,0 +1,29 @@
+{
+  "schema_version": "aios.generated_preview.input.v0",
+  "entry_id": "preview_adapter_unavailable",
+  "manifest_entry": {
+    "source_path": ".ai/rules/rules.md",
+    "source_paths": null,
+    "source_hash": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+    "target_path": "AGENTS.md",
+    "sync_mode": "whole-file",
+    "ownership": "runtime-managed",
+    "marker": null
+  },
+  "adapter": {
+    "adapter_id": "unavailable-adapter",
+    "adapter_version": null
+  },
+  "context": {
+    "activation_reference": null,
+    "rule_context_reference": ".ai/rules/rules.md"
+  },
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "algorithm": "sha256",
+    "encoding": "observed-utf8-bytes",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "managed_block_marker_lines": "exclude"
+  }
+}
