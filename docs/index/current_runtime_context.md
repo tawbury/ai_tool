@@ -180,7 +180,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- decide whether to design replay comparison validation without provider execution
+- design fixture-backed replay comparison validation without provider execution
 - maintain fixture-only replay schema tests
 - plan provider validation integration
 
