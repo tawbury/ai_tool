@@ -1,0 +1,35 @@
+{
+  "schema_version": "aios.real_preview.input.v0",
+  "entry_id": "whole_file_lf",
+  "manifest_entry": {
+    "source_path": ".ai/rules/rules.md",
+    "source_paths": null,
+    "source_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "target_path": "AGENTS.md",
+    "ownership": "runtime-managed",
+    "sync_mode": "whole-file",
+    "marker": null
+  },
+  "source_evidence": {
+    "source_paths": [".ai/rules/rules.md"],
+    "source_hashes": {
+      ".ai/rules/rules.md": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  },
+  "context": {
+    "activation_reference": null,
+    "rule_context_reference": ".ai/rules/rules.md"
+  },
+  "provider": {
+    "provider_id": "aios.preview.example",
+    "provider_version": "0.1.0"
+  },
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "algorithm": "sha256",
+    "encoding": "observed-utf8-bytes",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "managed_block_marker_lines": "exclude"
+  }
+}

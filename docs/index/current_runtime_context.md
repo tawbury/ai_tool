@@ -75,10 +75,10 @@ Envelope v2 is opt-in and requires `--json`.
 | `aios.generated_preview.output.v0` | fixture preview output contract |
 | `aios.real_preview.input.v0` | planned real preview provider input contract |
 | `aios.real_preview.output.v0` | planned real preview provider output contract |
-| `aios.preview_replay_manifest.v0` | planned deterministic replay manifest |
-| `aios.preview_provider_snapshot.v0` | planned replay provider snapshot |
+| `aios.preview_replay_manifest.v0` | deterministic replay fixture manifest used by tests |
+| `aios.preview_provider_snapshot.v0` | replay provider snapshot fixture used by tests |
 
-The real preview and replay schemas are planning artifacts only until implemented and promoted.
+The real preview provider schemas are planning artifacts only until implemented and promoted. Replay manifest and provider snapshot schemas currently exist as fixture/test contracts, not runtime command contracts.
 
 ## Read-only boundary
 
@@ -179,8 +179,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- add replay fixtures for future real preview providers
-- implement fixture-only replay schema tests later
+- design replay validation integration for future real preview providers
+- maintain fixture-only replay schema tests
 - plan provider validation integration
 
 Do not start sync apply or mutation design until real provider/replay boundaries are stable.

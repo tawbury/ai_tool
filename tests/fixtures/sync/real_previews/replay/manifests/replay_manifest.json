@@ -1,0 +1,77 @@
+{
+  "schema_version": "aios.preview_replay_manifest.v0",
+  "provider": {
+    "provider_id": "aios.preview.example",
+    "provider_version": "0.1.0"
+  },
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "algorithm": "sha256",
+    "encoding": "observed-utf8-bytes",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "managed_block_marker_lines": "exclude"
+  },
+  "cases": [
+    {
+      "case_id": "whole_file_lf",
+      "input_fixture": "inputs/whole_file_lf_input.json",
+      "expected_output_fixture": "outputs/whole_file_lf_output.json",
+      "replay_dimensions": ["whole-file", "LF"]
+    },
+    {
+      "case_id": "whole_file_crlf",
+      "input_fixture": "inputs/whole_file_crlf_input.json",
+      "expected_output_fixture": "outputs/whole_file_crlf_output.json",
+      "replay_dimensions": ["whole-file", "CRLF"]
+    },
+    {
+      "case_id": "whole_file_trailing_newline",
+      "input_fixture": "inputs/whole_file_trailing_newline_input.json",
+      "expected_output_fixture": "outputs/whole_file_trailing_newline_output.json",
+      "replay_dimensions": ["whole-file", "trailing-newline"]
+    },
+    {
+      "case_id": "whole_file_bom",
+      "input_fixture": "inputs/whole_file_bom_input.json",
+      "expected_output_fixture": "outputs/whole_file_bom_output.json",
+      "replay_dimensions": ["whole-file", "BOM"]
+    },
+    {
+      "case_id": "managed_block_lf",
+      "input_fixture": "inputs/managed_block_lf_input.json",
+      "expected_output_fixture": "outputs/managed_block_lf_output.json",
+      "replay_dimensions": ["managed-block", "LF"]
+    },
+    {
+      "case_id": "managed_block_crlf",
+      "input_fixture": "inputs/managed_block_crlf_input.json",
+      "expected_output_fixture": "outputs/managed_block_crlf_output.json",
+      "replay_dimensions": ["managed-block", "CRLF"]
+    },
+    {
+      "case_id": "mixed_boundary",
+      "input_fixture": "inputs/mixed_boundary_input.json",
+      "expected_output_fixture": "outputs/mixed_boundary_output.json",
+      "replay_dimensions": ["mixed-boundary"]
+    },
+    {
+      "case_id": "unavailable_adapter",
+      "input_fixture": "inputs/unavailable_adapter_input.json",
+      "expected_output_fixture": "outputs/unavailable_adapter_output.json",
+      "replay_dimensions": ["unavailable", "adapter-unavailable"]
+    },
+    {
+      "case_id": "unavailable_nondeterministic",
+      "input_fixture": "inputs/unavailable_nondeterministic_input.json",
+      "expected_output_fixture": "outputs/unavailable_nondeterministic_output.json",
+      "replay_dimensions": ["unavailable", "nondeterministic-output"]
+    },
+    {
+      "case_id": "unavailable_timeout",
+      "input_fixture": "inputs/unavailable_timeout_input.json",
+      "expected_output_fixture": "outputs/unavailable_timeout_output.json",
+      "replay_dimensions": ["unavailable", "provider-timeout"]
+    }
+  ]
+}

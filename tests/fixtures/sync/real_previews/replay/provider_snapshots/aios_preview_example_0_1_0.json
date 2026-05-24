@@ -1,0 +1,15 @@
+{
+  "schema_version": "aios.preview_provider_snapshot.v0",
+  "provider_id": "aios.preview.example",
+  "provider_version": "0.1.0",
+  "deterministic_capable": true,
+  "supported_sync_modes": ["whole-file", "managed-block", "mixed-boundary"],
+  "hash_policy": "aios.hash_policy.v0",
+  "output_affecting_config": {
+    "template_set": "default",
+    "normalization": "observed-utf8-bytes",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "managed_block_marker_lines": "exclude"
+  }
+}

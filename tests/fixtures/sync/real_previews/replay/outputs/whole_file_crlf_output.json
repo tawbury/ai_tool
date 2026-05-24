@@ -1,0 +1,27 @@
+{
+  "schema_version": "aios.real_preview.output.v0",
+  "entry_id": "whole_file_crlf",
+  "preview_available": true,
+  "generated_content_kind": "whole-file",
+  "generated_bytes_hash": "sha256:c333333333333333333333333333333333333333333333333333333333333333",
+  "generated_target_hash": "sha256:c444444444444444444444444444444444444444444444444444444444444444",
+  "generated_managed_block_hash": null,
+  "deterministic": true,
+  "provider_metadata": {
+    "provider_id": "aios.preview.example",
+    "provider_version": "0.1.0",
+    "hash_policy": "aios.hash_policy.v0",
+    "supported_sync_mode": "whole-file",
+    "output_affecting_config_ref": "provider_snapshots/aios_preview_example_0_1_0.json"
+  },
+  "provenance": {
+    "source_paths": [".ai/rules/operations/sync.rules.md"],
+    "source_hashes": {
+      ".ai/rules/operations/sync.rules.md": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "activation_reference": null,
+    "rule_context_reference": ".ai/rules/operations/sync.rules.md",
+    "generated_by": "aios.real_preview_provider.v0"
+  },
+  "unavailable_reason": null
+}
