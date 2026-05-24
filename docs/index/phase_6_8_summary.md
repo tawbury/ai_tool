@@ -137,6 +137,8 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 - `docs/plan/deterministic_replay_test_architecture.md`
 - `docs/reports/deterministic_replay_risk_audit.md`
+- `docs/plan/real_preview_replay_fixture_contract.md`
+- `docs/reports/real_preview_replay_fixture_risk_audit.md`
 
 핵심 원칙:
 
@@ -149,6 +151,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 상태:
 
 - Replay architecture와 risk audit은 완료됨.
+- Replay fixture contract와 fixture risk audit은 완료됨.
 - Replay fixtures/tests는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -196,12 +199,12 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 real preview provider implementation으로 바로 가기 전에 replay fixture/test bundle을 설계 또는 구현 준비하는 것이다.
+다음 안전한 방향은 real preview provider implementation으로 바로 가기 전에 replay fixture-only bundle을 구현하는 것이다.
 
 권장 다음 작업:
 
-1. Real preview provider replay fixture contract 작성
-2. Deterministic replay fixture-only bundle 구현
+1. Deterministic replay JSON fixtures 추가
+2. Replay fixture schema/contract tests 추가
 3. Replay validation integration 계획 수립
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.
