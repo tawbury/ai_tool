@@ -90,6 +90,7 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/plan/real_preview_replay_fixture_contract.md` | 8 | historical/superseded | human context | lazy | replay fixture tests | `docs/reports/real_preview_replay_fixture_bundle_report.md` | replay fixture contract before implementation |
 | `docs/reports/real_preview_replay_fixture_risk_audit.md` | 8 | risk audit | human context | lazy | none | none | replay fixture risk model |
 | `docs/reports/real_preview_replay_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | replay fixture tests | none | fixture-only replay bundle evidence |
+| `docs/reports/replay_manifest_validate_integration_report.md` | 8 | completed implementation report | human context | lazy | `aios validate <replay-manifest.json>` | none | replay manifest static validation integration evidence |
 
 ## Context control documents
 

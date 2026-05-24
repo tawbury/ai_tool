@@ -115,19 +115,23 @@ def _kind_for_path(root: Path, path: Path) -> str:
     try:
         relative = rel_path(root, path)
     except ValueError:
-        return "file"
-    if relative.startswith(".ai/agents/") and relative.endswith(".agent.md"):
-        return "agent"
-    if relative.endswith(".skill.md"):
-        return "skill"
-    if relative.startswith(".ai/workflows/") and relative.endswith(".workflow.md"):
-        return "workflow"
-    if relative == ".ai/validators/validator_index.md":
-        return "validator-index"
+        relative = ""
+    if relative:
+        if relative.startswith(".ai/agents/") and relative.endswith(".agent.md"):
+            return "agent"
+        if relative.endswith(".skill.md"):
+            return "skill"
+        if relative.startswith(".ai/workflows/") and relative.endswith(".workflow.md"):
+            return "workflow"
+        if relative == ".ai/validators/validator_index.md":
+            return "validator-index"
     if path.suffix.lower() in {".yaml", ".yml"} and _is_activation_file(path):
         return "activation"
-    if path.suffix.lower() == ".json" and _is_sync_manifest_file(path):
-        return "sync-manifest"
+    if path.suffix.lower() == ".json":
+        if _is_replay_manifest_file(path):
+            return "replay-manifest"
+        if _is_sync_manifest_file(path):
+            return "sync-manifest"
     return "file"
 
 
@@ -166,3 +170,19 @@ def _is_sync_manifest_file(path: Path) -> bool:
     # schema_version, without hijacking arbitrary JSON files.
     manifest_shape = {"repository_id", "generated_at", "source_root", "target_root", "managed_entries"}
     return manifest_shape.issubset(data)
+
+
+def _is_replay_manifest_file(path: Path) -> bool:
+    try:
+        data = json.loads(read_text(path))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    if data.get("schema_version") == "aios.preview_replay_manifest.v0":
+        return True
+    # Allow schema-error validation for replay-manifest-shaped JSON that forgot
+    # schema_version, without hijacking arbitrary JSON fixtures.
+    replay_shape = {"provider", "hash_policy", "cases"}
+    provider = data.get("provider")
+    return replay_shape.issubset(data) and isinstance(provider, dict) and "provider_id" in provider

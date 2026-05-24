@@ -35,6 +35,19 @@ from .preview import (
     load_preview_input,
     load_preview_output,
 )
+from .replay import (
+    PROVIDER_SNAPSHOT_SCHEMA_VERSION,
+    REAL_PREVIEW_INPUT_SCHEMA_VERSION,
+    REAL_PREVIEW_OUTPUT_SCHEMA_VERSION,
+    REPLAY_MANIFEST_SCHEMA_VERSION,
+    ProviderSnapshot,
+    ReplayCase,
+    ReplayIssue,
+    ReplayManifest,
+    ReplayValidationResult,
+    load_replay_manifest,
+    validate_replay_manifest_data,
+)
 from .dry_run import run_sync_dry_run
 from .result import SYNC_DRY_RUN_SCHEMA_VERSION, SyncDryRunResult
 
@@ -43,6 +56,10 @@ __all__ = [
     "MANIFEST_SCHEMA_VERSION",
     "PREVIEW_INPUT_SCHEMA_VERSION",
     "PREVIEW_OUTPUT_SCHEMA_VERSION",
+    "PROVIDER_SNAPSHOT_SCHEMA_VERSION",
+    "REAL_PREVIEW_INPUT_SCHEMA_VERSION",
+    "REAL_PREVIEW_OUTPUT_SCHEMA_VERSION",
+    "REPLAY_MANIFEST_SCHEMA_VERSION",
     "FixturePreviewProvider",
     "ManifestEntry",
     "ManifestIssue",
@@ -53,6 +70,11 @@ __all__ = [
     "ManifestValidationResult",
     "PreviewInput",
     "PreviewOutput",
+    "ProviderSnapshot",
+    "ReplayCase",
+    "ReplayIssue",
+    "ReplayManifest",
+    "ReplayValidationResult",
     "SyncManifest",
     "format_sha256",
     "hash_bytes",
@@ -63,10 +85,12 @@ __all__ = [
     "load_preview_index",
     "load_preview_input",
     "load_preview_output",
+    "load_replay_manifest",
     "parse_marker_file",
     "parse_marker_text",
     "run_sync_dry_run",
     "SYNC_DRY_RUN_SCHEMA_VERSION",
     "SyncDryRunResult",
     "validate_manifest_data",
+    "validate_replay_manifest_data",
 ]
