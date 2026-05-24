@@ -143,6 +143,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - `docs/reports/replay_manifest_validate_integration_report.md`
 - `docs/reports/replay_validate_output_contract_report.md`
 - `docs/reports/replay_validation_rule_promotion_audit.md`
+- `docs/reports/replay_validation_runtime_rule_promotion_report.md`
 
 핵심 원칙:
 
@@ -160,6 +161,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - `aios validate <replay-manifest.json>` 정적 검증 통합은 구현됨.
 - Replay validation native JSON/envelope v2 output contract tests는 구현됨.
 - Replay validation rule promotion audit는 완료되었고 split promotion을 권장함.
+- Replay validation behavior는 `sync.rules.md`와 `validation.rules.md`에 승격됨.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -208,13 +210,13 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 replay validation behavior를 runtime governance rules로 승격하는 것이다.
+다음 안전한 방향은 real provider execution 없이 replay comparison validator 설계 여부를 결정하는 것이다.
 
 권장 다음 작업:
 
-1. `.ai/rules/operations/sync.rules.md`에 replay manifest validation boundary 승격
-2. `.ai/rules/operations/validation.rules.md`에 짧은 replay manifest validate pointer 추가
-3. Real provider execution 없이 replay comparison validator 설계 여부 결정
+1. Real provider execution 없이 replay comparison validator 설계 여부 결정
+2. Replay provider execution boundary 재검토
+3. Real preview provider implementation readiness audit
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.
 

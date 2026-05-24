@@ -40,6 +40,12 @@ Load this rule when a task creates, edits, reviews, or verifies code, rules, tem
 5. Run executable validation scripts if the project provides them.
 6. Report validation results and any validation that could not be run.
 
+### Runtime JSON Targets
+
+`aios validate` may include runtime JSON/YAML targets such as activation files, sync manifests, and replay manifests.
+
+Replay manifest validation is static-only. It must not execute providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation. Sync-specific schema details and replay safety boundaries belong in `.ai/rules/operations/sync.rules.md`.
+
 ### Failure Handling
 
 - On template validation failure, identify the missing or invalid structure.

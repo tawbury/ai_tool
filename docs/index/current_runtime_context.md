@@ -34,7 +34,7 @@ Important boundary:
 | `.ai/rules/operations/documentation-governance.rules.md` | document taxonomy and promotion boundary | docs governance task |
 | `.ai/rules/operations/context-loading.rules.md` | semantic loader profiles and budget behavior | context loading task |
 | `.ai/rules/operations/activation.rules.md` | activation v0/v1 contract | activation task |
-| `.ai/rules/operations/sync.rules.md` | sync dry-run, manifest validation, marker, preview, mutation block | sync/manifest/preview task |
+| `.ai/rules/operations/sync.rules.md` | sync dry-run, manifest validation, replay validation, marker, preview, mutation block | sync/manifest/preview/replay task |
 | `.ai/rules/operations/validation.rules.md` | validation behavior | validate task |
 | `.ai/rules/operations/observability.rules.md` | future event/trace model | observability task |
 | `.ai/rules/operations/registry.rules.md` | future registry relationship layer | registry task |
@@ -180,7 +180,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- promote replay manifest validation boundary into sync and validation rules
+- decide whether to design replay comparison validation without provider execution
 - maintain fixture-only replay schema tests
 - plan provider validation integration
 

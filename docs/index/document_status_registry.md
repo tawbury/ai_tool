@@ -25,7 +25,7 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `.ai/rules/operations/documentation-governance.rules.md` | all | runtime-facing contract | runtime | task-load | self | none | docs authority boundary |
 | `.ai/rules/operations/context-loading.rules.md` | 5-8 | runtime-facing contract | runtime | task-load | self | none | semantic loader budget and provenance |
 | `.ai/rules/operations/activation.rules.md` | 5-8 | runtime-facing contract | runtime | task-load | self | none | activation v0/v1 runtime contract |
-| `.ai/rules/operations/sync.rules.md` | 6-8 | runtime-facing contract | runtime | task-load | self | none | sync dry-run, manifest, fixture preview runtime rules |
+| `.ai/rules/operations/sync.rules.md` | 6-8 | runtime-facing contract | runtime | task-load | self | none | sync dry-run, manifest, fixture preview, replay validation runtime rules |
 
 ## Phase 6 safety design
 
@@ -92,7 +92,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/real_preview_replay_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | replay fixture tests | none | fixture-only replay bundle evidence |
 | `docs/reports/replay_manifest_validate_integration_report.md` | 8 | completed implementation report | human context | lazy | `aios validate <replay-manifest.json>` | none | replay manifest static validation integration evidence |
 | `docs/reports/replay_validate_output_contract_report.md` | 8 | completed implementation report | human context | lazy | replay validate output contract tests | none | native JSON and envelope v2 contract evidence |
-| `docs/reports/replay_validation_rule_promotion_audit.md` | 8 | risk audit | human context | task-load | none | none | recommends split promotion to sync and validation rules |
+| `docs/reports/replay_validation_rule_promotion_audit.md` | 8 | historical/superseded | human context | lazy | `.ai/rules/operations/sync.rules.md` and `.ai/rules/operations/validation.rules.md` | `docs/reports/replay_validation_runtime_rule_promotion_report.md` | recommended split promotion |
+| `docs/reports/replay_validation_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/sync.rules.md` and `.ai/rules/operations/validation.rules.md` | none | replay validation rule promotion evidence |
 
 ## Context control documents
 

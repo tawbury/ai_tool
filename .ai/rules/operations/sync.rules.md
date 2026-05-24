@@ -25,6 +25,9 @@ The supported Phase 8 v0 commands are:
 - `python -m aios validate <sync-manifest.json>`
 - `python -m aios validate <sync-manifest.json> --json`
 - `python -m aios validate <sync-manifest.json> --json --envelope-v2`
+- `python -m aios validate <replay-manifest.json>`
+- `python -m aios validate <replay-manifest.json> --json`
+- `python -m aios validate <replay-manifest.json> --json --envelope-v2`
 
 `aios sync` requires `--dry-run`. `aios sync --dry-run` requires `--manifest <path>`. `--envelope-v2` requires `--json`. Preview support is opt-in only and requires both `--preview-provider fixture` and `--preview-fixtures <path>`.
 
@@ -106,6 +109,49 @@ Supported sync modes:
 Manifest paths must be repository-relative, non-empty, and must not use parent traversal. Hashes must use `sha256:<lowercase-hex>`. `managed-block` and `mixed-boundary` entries require marker metadata. `whole-file` entries must not use marker metadata.
 
 `aios validate <sync-manifest.json>` performs schema and static validation only. It must not perform source existence checks, target existence checks, marker parsing, hash comparison, drift classification, generated preview comparison, or sync action planning.
+
+## Replay Manifest Validation
+
+Replay manifest validation is a first-class read-only validation target for future real preview provider safety.
+
+Supported schemas:
+
+- `aios.preview_replay_manifest.v0`
+- `aios.preview_provider_snapshot.v0`
+- `aios.real_preview.input.v0`
+- `aios.real_preview.output.v0`
+
+`aios validate <replay-manifest.json>` performs static validation only.
+
+It may validate:
+
+- replay manifest required fields
+- provider snapshot required fields
+- provider id/version match
+- hash policy match
+- case id uniqueness
+- fixture path safety
+- referenced input/output fixture existence
+- replay dimensions
+- input/output fixture schema versions
+- hash format
+- placeholder hash rejection
+- unavailable output null generated hashes
+- provider metadata presence
+- provenance presence
+
+It must not:
+
+- execute providers
+- execute adapters
+- generate content
+- compare actual provider output to expected output
+- update snapshots
+- create a replay CLI
+- write files
+- authorize sync apply or mutation
+
+Native validate JSON output uses `target.kind: replay-manifest`. Envelope v2 output uses `command: validate`, preserves `target.kind: replay-manifest`, and must preserve replay validator details in `payload.results` and `messages`.
 
 ## Hash Policy
 
@@ -245,7 +291,7 @@ No write may proceed from any blocking drift or conflict state.
 
 ## Envelope v2 Compatibility
 
-Sync dry-run and sync manifest validation support envelope v2 when `--json --envelope-v2` is used.
+Sync dry-run, sync manifest validation, and replay manifest validation support envelope v2 when `--json --envelope-v2` is used.
 
 Sync envelope mapping:
 
@@ -264,10 +310,10 @@ Preview metadata and generated hash fields must be preserved in `payload.results
 Validate envelope mapping:
 
 - `command: validate`
-- `target.kind: sync-manifest`
+- `target.kind: sync-manifest` or `replay-manifest`
 - `meta.legacy_schema_version: aios.validate.result.v0`
 - `payload.results`: validation results
-- `messages`: validation messages with validator, field, and entry id details when available
+- `messages`: validation messages with validator, field, entry id, or case id details when available
 
 ## Mutation Blocked
 
