@@ -116,6 +116,7 @@ Typical loading examples:
 - `docs/adr/` contains decision records, not runtime contracts.
 - `docs/plan/` contains planning artifacts, not runtime contracts.
 - `docs/reports/` contains audits, implementation reports, and cleanup reports, not runtime contracts.
+- `docs/index/` contains summary-first navigation and document status context. Indexes are not runtime contracts.
 - Runtime loaders and validators must not automatically consume audits, plans, ADRs, examples, philosophy, or human-review-only criteria.
 - Durable runtime rules discovered in audits or plans become effective only after promotion into the smallest relevant `.ai/` source file or an active normative spec.
 - Load `.ai/rules/operations/documentation-governance.rules.md` for document taxonomy, authority hierarchy, promotion, deprecation, supersession, or runtime consumption boundary tasks.

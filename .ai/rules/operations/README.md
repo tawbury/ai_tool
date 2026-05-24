@@ -12,6 +12,7 @@ Operational rules define execution behavior and governance that can be reused ac
 - `registry.rules.md`: registry architecture, relationship layer boundaries, future extraction criteria, and read-only registry non-goals.
 - `observability.rules.md`: runtime observability, future event taxonomy, trace model, provenance preservation, and opt-in event output boundary.
 - `sync.rules.md`: read-only sync dry-run runtime, manifest validation, fixture preview comparison, drift-stop behavior, managed marker policy, envelope output, and mutation block.
+- `documentation-governance.rules.md`: document taxonomy, authority boundaries, promotion rules, summary index maintenance, and runtime consumption limits.
 
 ## Add an Operational Rule When
 

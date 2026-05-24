@@ -48,6 +48,16 @@ Runtime authority is ordered as follows:
 - Durable runtime behavior belongs in `.ai/rules/`, `.ai/commands/`, `.ai/agents/`, `.ai/skills/`, `.ai/workflows/`, or `.ai/validators/`.
 - Do not rely on `docs/plan/`, `docs/reports/`, or `docs/adr/` as the only source for runtime behavior.
 
+## Documentation Index Maintenance
+
+- `docs/index/` files are summary-first human context, not runtime contracts.
+- `.ai/rules/` remains the canonical runtime authority.
+- New `docs/plan/*` or `docs/reports/*` artifacts must consider whether `docs/index/document_status_registry.md` needs a new or updated entry.
+- Phase-level or runtime-impacting work must consider whether `docs/index/phase_6_8_summary.md` or a future phase summary needs an update.
+- Runtime-facing behavior changes must consider whether `docs/index/current_runtime_context.md` needs an update.
+- Index maintenance must not make docs indexes always-load runtime contracts.
+- Index maintenance must not add automatic docs loading.
+
 ## Selective Loading
 
 - Load this rule only for documentation governance, document taxonomy, runtime consumption boundary, promotion, deprecation, or supersession tasks.
@@ -58,3 +68,6 @@ Runtime authority is ordered as follows:
 - `docs/specs/documentation_governance_spec.md`
 - `docs/adr/0001-documentation-governance.md`
 - `docs/plan/documentation_migration_plan.md`
+- `docs/index/document_status_registry.md`
+- `docs/index/phase_6_8_summary.md`
+- `docs/index/current_runtime_context.md`
