@@ -180,7 +180,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- review replay validation governance rule promotion need
+- promote replay manifest validation boundary into sync and validation rules
 - maintain fixture-only replay schema tests
 - plan provider validation integration
 
