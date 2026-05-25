@@ -190,6 +190,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Provider execution trace fixture-only bundle은 구현되었고 valid/invalid/edge trace fixtures와 구조 검증 테스트를 추가함.
 - Provider execution trace validator helper는 구현되었고 parsed dict 정적 검증만 수행함.
 - `aios validate <provider-trace.json>` static-only 통합은 구현되었고 target kind `provider-execution-trace`, native JSON, envelope v2, non-execution metadata를 지원함.
+- Provider execution trace validate output contract tests는 안정화되었고 native JSON/envelope v2의 pass/fail, detection priority, non-execution metadata를 고정함.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -239,12 +240,12 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 provider execution trace validate output contract를 안정화하는 것이다. 현재 통합은 static-only validation이며 real provider execution은 아니다.
+다음 안전한 방향은 provider execution trace validation rule promotion audit를 수행하는 것이다. 현재 통합은 static-only validation이며 real provider execution은 아니다.
 
 권장 다음 작업:
 
-1. Trace validate output contract stabilization
-2. Trace validation rule promotion audit
+1. Trace validation rule promotion audit
+2. Trace validation runtime rule promotion
 3. Mock provider helper boundary audit
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.

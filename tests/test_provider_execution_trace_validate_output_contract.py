@@ -45,6 +45,13 @@ def test_provider_execution_trace_native_json_pass_contract() -> None:
     ]
 
     checked = data["results"][0]
+    assert checked["validator"] == "provider-execution-trace"
+    assert checked["path"] == VALID
+    assert checked["details"]["provider_id"] == "aios.mock.preview.fixture"
+    assert checked["details"]["provider_version"] == "0.1.0"
+    assert checked["details"]["deterministic_execution"] is True
+    assert checked["details"]["no_write_confirmed"] is True
+    assert checked["details"]["network_disabled"] is True
     assert checked["details"]["provider_execution"] is False
     assert checked["details"]["sandbox_execution"] is False
     assert checked["details"]["mutation_performed"] is False
@@ -64,6 +71,9 @@ def test_provider_execution_trace_native_json_fail_contract() -> None:
     assert error["severity"] == "error"
     assert error["status"] == "fail"
     assert error["details"]["field"] == "provider_mode"
+    assert error["details"]["provider_mode"] == "real-provider"
+    assert error["details"]["failure_code"] is None
+    assert error["details"]["unavailable_reason"] is None
     assert error["details"]["provider_execution"] is False
     assert error["details"]["sandbox_execution"] is False
     assert error["details"]["mutation_performed"] is False
@@ -85,7 +95,12 @@ def test_provider_execution_trace_envelope_v2_pass_contract() -> None:
     assert data["meta"]["mutation_performed"] is False
     assert data["meta"]["provider_mode"] == "fixture-mock"
 
-    assert any(result["code"] == "provider_execution_trace_checked" for result in data["payload"]["results"])
+    payload_result = next(result for result in data["payload"]["results"] if result["code"] == "provider_execution_trace_checked")
+    assert payload_result["details"]["provider_execution"] is False
+    assert payload_result["details"]["sandbox_execution"] is False
+    assert payload_result["details"]["mutation_performed"] is False
+    assert payload_result["details"]["provider_mode"] == "fixture-mock"
+
     message = next(message for message in data["messages"] if message["code"] == "provider_execution_trace_checked")
     assert message["severity"] == "info"
     assert message["status"] == "pass"
@@ -109,6 +124,15 @@ def test_provider_execution_trace_envelope_v2_fail_contract() -> None:
     assert data["meta"]["sandbox_execution"] is False
     assert data["meta"]["mutation_performed"] is False
     assert data["meta"]["provider_mode"] == "real-provider"
+
+    payload_result = next(result for result in data["payload"]["results"] if result["code"] == "invalid_provider_mode")
+    assert payload_result["details"]["field"] == "provider_mode"
+    assert payload_result["details"]["provider_mode"] == "real-provider"
+    assert payload_result["details"]["failure_code"] is None
+    assert payload_result["details"]["unavailable_reason"] is None
+    assert payload_result["details"]["provider_execution"] is False
+    assert payload_result["details"]["sandbox_execution"] is False
+    assert payload_result["details"]["mutation_performed"] is False
 
     message = next(message for message in data["messages"] if message["code"] == "invalid_provider_mode")
     assert message["severity"] == "error"
@@ -135,6 +159,30 @@ def test_trace_shaped_invalid_schema_contract(tmp_path: Path) -> None:
     assert error["details"]["provider_execution"] is False
     assert error["details"]["sandbox_execution"] is False
     assert error["details"]["mutation_performed"] is False
+
+
+def test_provider_execution_trace_envelope_v2_preserves_failure_metadata() -> None:
+    completed, data = json_cli(
+        "validate",
+        "tests/fixtures/providers/traces/invalid/invalid_failure_code.json",
+        "--json",
+        "--envelope-v2",
+    )
+
+    assert completed.returncode == 1
+    message = next(message for message in data["messages"] if message["code"] == "invalid_failure_code")
+    assert message["details"]["failure_code"] == "provider-random-failure"
+    assert message["details"]["unavailable_reason"] == "provider-output-invalid"
+    assert message["details"]["provider_execution"] is False
+    assert message["details"]["sandbox_execution"] is False
+    assert message["details"]["mutation_performed"] is False
+
+    payload_result = next(result for result in data["payload"]["results"] if result["code"] == "invalid_failure_code")
+    assert payload_result["details"]["failure_code"] == "provider-random-failure"
+    assert payload_result["details"]["unavailable_reason"] == "provider-output-invalid"
+    assert payload_result["details"]["provider_execution"] is False
+    assert payload_result["details"]["sandbox_execution"] is False
+    assert payload_result["details"]["mutation_performed"] is False
 
 
 def test_trace_unrelated_json_not_misclassified_contract() -> None:

@@ -187,8 +187,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- stabilize provider execution trace validate output contracts
-- audit provider execution trace validation rule promotion after stabilization
+- audit provider execution trace validation rule promotion
+- promote provider execution trace validation rules after audit if still appropriate
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only
 - maintain fixture-only replay schema tests
