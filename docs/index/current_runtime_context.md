@@ -187,8 +187,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- promote provider execution trace validation rules
 - keep sandbox architecture planning as a design-only parallel track if requested
+- audit provider execution trace validation closure if a phase boundary decision is needed
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only
 - maintain fixture-only replay schema tests

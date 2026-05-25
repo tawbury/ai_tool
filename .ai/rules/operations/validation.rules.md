@@ -42,7 +42,7 @@ Load this rule when a task creates, edits, reviews, or verifies code, rules, tem
 
 ### Runtime JSON Targets
 
-`aios validate` may include runtime JSON/YAML targets such as activation files, sync manifests, replay manifests, and provider capability declarations.
+`aios validate` may include runtime JSON/YAML targets such as activation files, sync manifests, replay manifests, provider capability declarations, and provider execution traces.
 
 Replay manifest validation is static-only by default. Opt-in replay comparison is allowed only through fixture-backed validation, such as `--replay-compare fixture`, and must preserve no-flag static validation behavior.
 
@@ -65,6 +65,26 @@ Provider capability JSON/envelope output must preserve non-execution metadata wh
 - `mutation_performed: false`
 
 Provider capability validation must not execute providers, launch sandboxes, discover or register providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation.
+
+Provider execution trace validation is supported for:
+
+- `python -m aios validate <provider-trace.json>`
+- `python -m aios validate <provider-trace.json> --json`
+- `python -m aios validate <provider-trace.json> --json --envelope-v2`
+
+Provider execution trace validation uses target kind `provider-execution-trace` and schema `aios.provider_execution_trace.v0`.
+
+Provider execution trace validation is static-only. It validates parsed JSON structure and safety evidence only.
+
+Provider execution trace JSON/envelope output must preserve non-execution metadata where applicable:
+
+- `provider_execution: false`
+- `sandbox_execution: false`
+- `mutation_performed: false`
+
+Provider execution trace validation must preserve `provider_mode` when it is available.
+
+Provider execution trace validation must not execute providers, launch sandboxes, dynamically load providers, discover or register providers, execute adapters, generate content, update snapshots, execute replay, write files, or authorize sync apply/mutation.
 
 ### Failure Handling
 
