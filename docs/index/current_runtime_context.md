@@ -189,7 +189,8 @@ The next safe direction is still read-only:
 
 - design sandbox trace fixtures as fixture-only/static-only artifacts if requested
 - design sandbox execution result fixtures as fixture-only/static-only artifacts if requested
-- keep sandbox policy fixtures fixture-only until a validator helper is separately approved
+- design sandbox policy validate output contract before any `aios validate <sandbox-policy.json>` integration
+- keep sandbox policy validation helper static-only and outside CLI/envelope integration until explicitly promoted
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only
 - maintain fixture-only replay schema tests

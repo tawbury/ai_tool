@@ -196,6 +196,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Subprocess sandbox architecture risk audit와 plan은 design-only track으로 완료되었고 temporary cwd, sanitized env, explicit input/output, timeout/resource limits, no-write verification requirement를 정의함.
 - Sandbox policy fixture contract plan과 risk audit는 완료되었고 `aios.sandbox_policy.v0` fixture-only schema, valid/invalid/edge layout, env/filesystem/resource policy, no-write evidence model을 정의함.
 - Sandbox policy fixture-only bundle은 구현되었고 valid/invalid/edge JSON fixtures, fixture index, fixture-only contract tests를 추가함.
+- Sandbox policy validator helper는 구현되었고 parsed dict 정적 검증만 수행함. `aios validate`, envelope v2, CLI, sandbox launcher, subprocess execution에는 아직 통합되지 않음.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -245,13 +246,13 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 sandbox trace fixture contract를 design-only로 정의하는 것이다. 현재 provider trace validation과 sandbox planning은 static-only/design-only이며 real provider execution은 아니다.
+다음 안전한 방향은 sandbox policy validate output contract를 design-only로 정의하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다. 현재 sandbox policy validator helper는 static helper 단계이며 real provider execution이나 sandbox execution이 아니다.
 
 권장 다음 작업:
 
-1. Sandbox trace fixture contract design
-2. Sandbox execution result fixture contract design
-3. Sandbox policy validator helper design
+1. Sandbox policy validate output contract design
+2. Sandbox trace fixture contract design
+3. Sandbox execution result fixture contract design
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.
 
