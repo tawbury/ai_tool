@@ -56,6 +56,7 @@ Current runtime supports:
 - `python -m aios validate <provider-capability.json>`
 - `python -m aios validate <provider-trace.json>`
 - `python -m aios validate <sandbox-policy.json>`
+- `python -m aios validate <sandbox-result.json>`
 - `python -m aios activation <path>`
 - `python -m aios activation <path> --json`
 - `python -m aios load-context <path>`
@@ -85,6 +86,7 @@ Envelope v2 is opt-in and requires `--json`.
 | `aios.provider_capability.v0` | provider capability declaration statically validated by `aios validate <provider-capability.json>` |
 | `aios.provider_execution_trace.v0` | provider execution trace statically validated by `aios validate <provider-trace.json>` |
 | `aios.sandbox_policy.v0` | sandbox policy statically validated by `aios validate <sandbox-policy.json>` |
+| `aios.sandbox_execution_result.v0` | sandbox execution result statically validated by `aios validate <sandbox-result.json>` |
 
 The real preview provider schemas are planning artifacts only until implemented and promoted. Replay manifest and provider snapshot schemas currently exist as fixture/test contracts with static validation integration, not provider execution contracts.
 
@@ -98,6 +100,7 @@ Allowed:
 - inventory `.ai` assets
 - validate agents, skills, workflows, activation files, validator index, sync manifests, replay manifests
 - validate provider capability declarations, provider execution traces, and sandbox policies statically
+- validate sandbox execution results statically
 - perform fixture-backed replay comparison when explicitly configured
 - load semantic context from `.ai` files with profile/budget filtering
 - evaluate sync dry-run against an explicit manifest
@@ -190,7 +193,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 The next safe direction is still read-only:
 
 - design sandbox trace fixtures as fixture-only/static-only artifacts if requested
-- implement sandbox execution result validate integration only as static validation if requested
+- stabilize sandbox execution result validate output contracts if requested
 - keep sandbox policy validation static-only under promoted validation/sync rules
 - design sandbox trace fixtures only as separate static design work if requested
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved

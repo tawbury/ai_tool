@@ -138,6 +138,8 @@ def _kind_for_path(root: Path, path: Path) -> str:
             return "provider-execution-trace"
         if _is_sandbox_policy_file(path):
             return "sandbox-policy"
+        if _is_sandbox_result_file(path):
+            return "sandbox-result"
     return "file"
 
 
@@ -282,3 +284,39 @@ def _is_sandbox_policy_file(path: Path) -> bool:
     }
     present = sandbox_policy_fields.intersection(data)
     return len(present) >= 5 and any(key in data for key in ("sandbox_mode", "env_policy", "filesystem_policy"))
+
+
+def _is_sandbox_result_file(path: Path) -> bool:
+    try:
+        data = json.loads(read_text(path))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    if data.get("schema_version") == "aios.sandbox_execution_result.v0":
+        return True
+    # Allow schema-error validation for sandbox-result-shaped JSON without
+    # hijacking arbitrary sandbox-ish JSON files. This runs after sandbox
+    # policy detection to preserve existing target priority.
+    sandbox_result_fields = {
+        "sandbox_mode",
+        "request_id",
+        "exit_code",
+        "status",
+        "duration_ms",
+        "stdout_bytes",
+        "stderr_bytes",
+        "stdout_truncated",
+        "stderr_truncated",
+        "output_json_valid",
+        "failure_code",
+        "failure_message",
+        "resource_limit",
+        "network_disabled",
+        "mutation_performed",
+        "no_write_confirmed",
+        "no_write_evidence",
+        "trace_id",
+    }
+    present = sandbox_result_fields.intersection(data)
+    return len(present) >= 6 and any(key in data for key in ("request_id", "status", "no_write_evidence"))

@@ -278,4 +278,6 @@ Sandbox execution result validator helper는 구현되었고 parsed dict만 정�
 
 Sandbox execution result validate output contract plan과 risk audit는 완료되었고 future `aios validate <sandbox-result.json>` target kind `sandbox-result`, native JSON/envelope v2 non-execution metadata, detection priority를 정의했다.
 
-다음 안전한 방향은 sandbox execution result validate integration을 static-only로 구현하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
+`aios validate <sandbox-result.json>` static-only 통합은 구현되었고 target kind `sandbox-result`, native JSON, envelope v2 non-execution metadata, 기존 target detection priority를 지원한다.
+
+다음 안전한 방향은 sandbox execution result validate output contract를 안정화하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
