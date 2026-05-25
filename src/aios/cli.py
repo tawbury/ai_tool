@@ -194,6 +194,15 @@ def main(argv: list[str] | None = None) -> int:
                                 "mutation_performed": False,
                             }
                         )
+                    if result.target.get("kind") == "provider-execution-trace":
+                        legacy["meta"].update(
+                            {
+                                "provider_execution": False,
+                                "sandbox_execution": False,
+                                "mutation_performed": False,
+                                "provider_mode": _first_result_detail(result, "provider_mode"),
+                            }
+                        )
                 print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_validate_summary(root, result)
@@ -556,3 +565,10 @@ def _is_relative_to(path, parent) -> bool:
         return True
     except ValueError:
         return False
+
+
+def _first_result_detail(result, key: str):
+    for item in result.results:
+        if key in item.details:
+            return item.details[key]
+    return None

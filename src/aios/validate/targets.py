@@ -128,12 +128,14 @@ def _kind_for_path(root: Path, path: Path) -> str:
     if path.suffix.lower() in {".yaml", ".yml"} and _is_activation_file(path):
         return "activation"
     if path.suffix.lower() == ".json":
-        if _is_replay_manifest_file(path):
-            return "replay-manifest"
         if _is_sync_manifest_file(path):
             return "sync-manifest"
+        if _is_replay_manifest_file(path):
+            return "replay-manifest"
         if _is_provider_capability_file(path):
             return "provider-capability"
+        if _is_provider_execution_trace_file(path):
+            return "provider-execution-trace"
     return "file"
 
 
@@ -217,3 +219,33 @@ def _is_provider_capability_file(path: Path) -> bool:
     }
     present = capability_fields.intersection(data)
     return len(present) >= 5 and ("provider_id" in data or "supported_sync_modes" in data)
+
+
+def _is_provider_execution_trace_file(path: Path) -> bool:
+    try:
+        data = json.loads(read_text(path))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    if data.get("schema_version") == "aios.provider_execution_trace.v0":
+        return True
+    # Allow schema-error validation for trace-shaped JSON without hijacking
+    # arbitrary provider-ish JSON files.
+    trace_fields = {
+        "trace_id",
+        "provider_id",
+        "provider_version",
+        "provider_mode",
+        "input_hash",
+        "output_hash",
+        "generated_hashes",
+        "duration_ms",
+        "deterministic_execution",
+        "no_write_confirmed",
+        "network_disabled",
+        "mutation_performed",
+        "provenance",
+    }
+    present = trace_fields.intersection(data)
+    return len(present) >= 6 and ("trace_id" in data or "provider_mode" in data)

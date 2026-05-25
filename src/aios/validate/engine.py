@@ -7,6 +7,7 @@ from .targets import ValidationTarget
 from .validators.activation import validate_activation
 from .validators.agent import validate_agent
 from .validators.provider_capability import validate_provider_capability
+from .validators.provider_execution_trace import validate_provider_execution_trace
 from .validators.replay_manifest import validate_replay_manifest
 from .validators.references import validate_validator_index
 from .validators.skill import validate_skill
@@ -36,6 +37,8 @@ def run_validation(root: Path, targets: list[ValidationTarget], replay_compare: 
             validate_replay_manifest(root, target, run, replay_compare=replay_compare)
         elif target.kind == "provider-capability":
             validate_provider_capability(root, target, run)
+        elif target.kind == "provider-execution-trace":
+            validate_provider_execution_trace(root, target, run)
         elif target.kind == "sync-manifest":
             validate_sync_manifest(root, target, run)
         elif target.kind == "workflow":
