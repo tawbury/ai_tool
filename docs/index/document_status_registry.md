@@ -130,6 +130,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/provider_execution_trace_validate_output_contract_report.md` | 8 | completed implementation report | human context | lazy | provider execution trace validate output contract tests | none | native JSON/envelope v2 contract stabilization evidence |
 | `docs/reports/provider_execution_trace_rule_promotion_audit.md` | 8 | historical/superseded | human context | lazy | `.ai/rules/operations/validation.rules.md` and `.ai/rules/operations/sync.rules.md` | `docs/reports/provider_execution_trace_runtime_rule_promotion_report.md` | recommended provider execution trace validation rule promotion targets and safe parallel follow-up tracks |
 | `docs/reports/provider_execution_trace_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/validation.rules.md` and `.ai/rules/operations/sync.rules.md` | none | provider execution trace validation rule promotion evidence |
+| `docs/reports/subprocess_sandbox_architecture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits subprocess sandbox risk tier, containment limits, and execution-blocking gates |
+| `docs/plan/subprocess_sandbox_architecture_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines design-only subprocess sandbox architecture requirements before any launcher or execution work |
 
 ## Context control documents
 
