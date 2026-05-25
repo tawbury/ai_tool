@@ -180,7 +180,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- design opt-in replay comparison validate output contracts before integration
+- implement opt-in replay comparison validation only after preserving no-flag output contracts
 - maintain fixture-only replay schema tests
 - plan provider validation integration
 
