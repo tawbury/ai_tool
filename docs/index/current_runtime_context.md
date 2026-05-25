@@ -190,7 +190,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 The next safe direction is still read-only:
 
 - design sandbox trace fixtures as fixture-only/static-only artifacts if requested
-- design sandbox execution result validate output contract before validate integration if requested
+- implement sandbox execution result validate integration only as static validation if requested
 - keep sandbox policy validation static-only under promoted validation/sync rules
 - design sandbox trace fixtures only as separate static design work if requested
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved

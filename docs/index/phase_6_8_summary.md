@@ -276,4 +276,6 @@ Sandbox execution result fixture-only bundle은 구현되었고 `aios.sandbox_ex
 
 Sandbox execution result validator helper는 구현되었고 parsed dict만 정적으로 검증한다. 이 helper는 file IO, validate integration, envelope v2 integration, sandbox launcher, subprocess execution, provider execution, replay execution을 수행하지 않는다.
 
-다음 안전한 방향은 sandbox execution result validate output contract를 먼저 설계하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
+Sandbox execution result validate output contract plan과 risk audit는 완료되었고 future `aios validate <sandbox-result.json>` target kind `sandbox-result`, native JSON/envelope v2 non-execution metadata, detection priority를 정의했다.
+
+다음 안전한 방향은 sandbox execution result validate integration을 static-only로 구현하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
