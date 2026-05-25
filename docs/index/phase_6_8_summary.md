@@ -184,6 +184,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Provider capability validate output contract tests는 안정화되었고 shaped JSON detection, unrelated JSON non-misclassification, sync/replay target priority를 고정함.
 - Provider capability rule promotion audit는 완료되었고 `validation.rules.md` primary, `sync.rules.md` short safety pointer의 split promotion을 권장함.
 - Provider capability validation behavior는 `validation.rules.md`와 `sync.rules.md`에 승격됨.
+- Deterministic mock provider boundary plan과 risk audit는 완료되었고 mock provider를 fixture-backed deterministic simulation으로만 정의함.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -233,13 +234,13 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 deterministic mock provider boundary를 설계하는 것이다.
+다음 안전한 방향은 deterministic mock provider fixture bundle을 설계하는 것이다. Mock provider는 real provider가 아니며 execution authorization이나 sandbox approval도 아니다.
 
 권장 다음 작업:
 
-1. Deterministic mock provider boundary design
-2. Subprocess sandbox architecture plan
-3. Provider execution readiness audit after sandbox and mock boundaries are documented
+1. Deterministic mock provider fixture bundle
+2. Execution trace schema design
+3. Subprocess sandbox architecture plan
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.
 

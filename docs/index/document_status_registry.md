@@ -117,6 +117,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/provider_capability_validate_output_contract_report.md` | 8 | completed implementation report | human context | lazy | provider capability validate output contract tests | none | native JSON/envelope v2 contract stabilization evidence |
 | `docs/reports/provider_capability_rule_promotion_audit.md` | 8 | risk audit | human context | task-load | none | none | recommends split promotion to validation rules with sync safety pointer |
 | `docs/reports/provider_capability_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/validation.rules.md` and `.ai/rules/operations/sync.rules.md` | none | provider capability validation rule promotion evidence |
+| `docs/plan/deterministic_mock_provider_boundary_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines deterministic mock provider boundary before execution or sandbox work |
+| `docs/reports/deterministic_mock_provider_boundary_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits mock provider simulation risks and execution-boundary confusion |
 
 ## Context control documents
 
