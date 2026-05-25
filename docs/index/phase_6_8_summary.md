@@ -188,6 +188,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Deterministic mock provider fixture-only bundle은 구현되었고 fixture index, valid/invalid input/output/snapshot fixtures, 구조 검증 테스트를 추가함.
 - Provider execution trace schema plan과 risk audit는 완료되었고 trace를 observability/replay evidence로만 정의함. Trace success는 execution authorization, sandbox approval, sync apply authorization이 아님.
 - Provider execution trace fixture-only bundle은 구현되었고 valid/invalid/edge trace fixtures와 구조 검증 테스트를 추가함.
+- Provider execution trace validator helper는 구현되었고 parsed dict 정적 검증만 수행함. `aios validate`, envelope v2, CLI, provider execution에는 아직 통합되지 않음.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -237,13 +238,13 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 provider execution trace validator helper를 추가하는 것이다. Trace fixtures는 추가되었지만 real provider execution, sandbox approval, sync apply authorization은 아니다.
+다음 안전한 방향은 provider execution trace validate output contract를 설계하는 것이다. Trace validator helper는 추가되었지만 `aios validate` 통합이나 real provider execution은 아니다.
 
 권장 다음 작업:
 
-1. Trace validator helper
-2. Trace validate output contract design
-3. Mock provider helper boundary audit
+1. Trace validate output contract design
+2. Trace validate integration
+3. Trace validate output contract stabilization
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.
 

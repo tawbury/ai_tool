@@ -185,7 +185,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- add provider execution trace validator helper before any mock provider helper
+- design provider execution trace validate output contract before validate integration
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability validation static-only
 - maintain fixture-only replay schema tests
