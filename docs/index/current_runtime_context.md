@@ -52,6 +52,7 @@ Current runtime supports:
 - `python -m aios validate <activation.yaml>`
 - `python -m aios validate <sync-manifest.json>`
 - `python -m aios validate <replay-manifest.json>`
+- `python -m aios validate <replay-manifest.json> --replay-compare fixture`
 - `python -m aios activation <path>`
 - `python -m aios activation <path> --json`
 - `python -m aios load-context <path>`
@@ -90,6 +91,7 @@ Allowed:
 - inspect repository structure
 - inventory `.ai` assets
 - validate agents, skills, workflows, activation files, validator index, sync manifests, replay manifests
+- perform fixture-backed replay comparison when explicitly configured
 - load semantic context from `.ai` files with profile/budget filtering
 - evaluate sync dry-run against an explicit manifest
 - parse managed markers
@@ -180,7 +182,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- implement opt-in replay comparison validation only after preserving no-flag output contracts
+- stabilize opt-in replay comparison native/envelope output contracts
 - maintain fixture-only replay schema tests
 - plan provider validation integration
 

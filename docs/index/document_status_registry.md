@@ -99,8 +99,9 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/fixture_backed_replay_comparison_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | risks for fixture-backed replay comparison |
 | `docs/reports/replay_comparison_helper_implementation_report.md` | 8 | completed implementation report | human context | lazy | `compare_replay_outputs` helper | none | pure helper implementation evidence |
 | `docs/reports/replay_comparison_integration_policy_audit.md` | 8 | risk audit | human context | task-load | none | none | recommends deferred opt-in validate integration instead of default comparison |
-| `docs/plan/replay_compare_output_contract_plan.md` | 8 | active implementation plan | human context | task-load | none | none | opt-in replay comparison native JSON/envelope v2 output contract |
+| `docs/plan/replay_compare_output_contract_plan.md` | 8 | historical/superseded | human context | lazy | opt-in replay comparison validation | `docs/reports/replay_compare_integration_implementation_report.md` | opt-in replay comparison native JSON/envelope v2 output contract |
 | `docs/reports/replay_compare_output_contract_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | risks for opt-in replay comparison output contract |
+| `docs/reports/replay_compare_integration_implementation_report.md` | 8 | completed implementation report | human context | lazy | `aios validate <replay-manifest.json> --replay-compare fixture` | none | opt-in replay comparison integration evidence |
 
 ## Context control documents
 

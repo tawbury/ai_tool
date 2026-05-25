@@ -75,6 +75,10 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="With --json, include explicit pass results when the result model records them",
     )
+    validate_parser.add_argument(
+        "--replay-compare",
+        help="Opt-in replay comparison mode for replay manifests. Supported: fixture",
+    )
 
     inventory_parser = subparsers.add_parser("inventory", help="Discover .ai OS repository inventory")
     inventory_parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
@@ -147,12 +151,21 @@ def main(argv: list[str] | None = None) -> int:
             return EXIT_FAIL if result.status == STATUS_FAIL else EXIT_PASS
 
         if args.command == "validate":
+            if args.replay_compare and not args.path:
+                print("aios validate: --replay-compare requires a replay manifest target", file=sys.stderr)
+                return EXIT_CRASH
+            if args.replay_compare and args.replay_compare != "fixture":
+                print(f"aios validate: unsupported replay compare mode: {args.replay_compare}", file=sys.stderr)
+                return EXIT_CRASH
             try:
                 targets = resolve_targets(root, path_arg=args.path, agent=args.agent, workflow=args.workflow)
             except ValueError as exc:
                 print(f"aios validate: {exc}", file=sys.stderr)
                 return EXIT_CRASH
-            result = run_validation(root, targets)
+            if args.replay_compare and (len(targets) != 1 or targets[0].kind != "replay-manifest"):
+                print("aios validate: --replay-compare is only valid for replay manifest targets", file=sys.stderr)
+                return EXIT_CRASH
+            result = run_validation(root, targets, replay_compare=args.replay_compare)
             if args.json:
                 legacy = result.to_dict(summary_only=args.summary_only, include_pass=args.include_pass)
                 if args.envelope_v2:
@@ -164,6 +177,15 @@ def main(argv: list[str] | None = None) -> int:
                         summary_only=args.summary_only,
                         full=full,
                     )
+                    if args.replay_compare:
+                        legacy["meta"].update(
+                            {
+                                "replay_compare": args.replay_compare,
+                                "comparison_mode": args.replay_compare,
+                                "provider_execution": False,
+                                "mutation_performed": False,
+                            }
+                        )
                 print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_validate_summary(root, result)

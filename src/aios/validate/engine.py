@@ -13,7 +13,7 @@ from .validators.sync_manifest import validate_sync_manifest
 from .validators.workflow import validate_workflow
 
 
-def run_validation(root: Path, targets: list[ValidationTarget]) -> ValidationRun:
+def run_validation(root: Path, targets: list[ValidationTarget], replay_compare: str | None = None) -> ValidationRun:
     run = ValidationRun(target=_target_summary(root, targets))
     for target in targets:
         if target.path is not None and not target.path.is_file():
@@ -32,7 +32,7 @@ def run_validation(root: Path, targets: list[ValidationTarget]) -> ValidationRun
         elif target.kind == "skill":
             validate_skill(root, target, run)
         elif target.kind == "replay-manifest":
-            validate_replay_manifest(root, target, run)
+            validate_replay_manifest(root, target, run, replay_compare=replay_compare)
         elif target.kind == "sync-manifest":
             validate_sync_manifest(root, target, run)
         elif target.kind == "workflow":
