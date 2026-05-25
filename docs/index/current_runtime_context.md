@@ -182,7 +182,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- stabilize opt-in replay comparison native/envelope output contracts
+- audit whether opt-in replay comparison should be promoted into runtime governance rules
 - maintain fixture-only replay schema tests
 - plan provider validation integration
 
