@@ -186,6 +186,14 @@ def main(argv: list[str] | None = None) -> int:
                                 "mutation_performed": False,
                             }
                         )
+                    if result.target.get("kind") == "provider-capability":
+                        legacy["meta"].update(
+                            {
+                                "provider_execution": False,
+                                "sandbox_execution": False,
+                                "mutation_performed": False,
+                            }
+                        )
                 print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_validate_summary(root, result)

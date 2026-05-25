@@ -53,6 +53,7 @@ Current runtime supports:
 - `python -m aios validate <sync-manifest.json>`
 - `python -m aios validate <replay-manifest.json>`
 - `python -m aios validate <replay-manifest.json> --replay-compare fixture`
+- `python -m aios validate <provider-capability.json>`
 - `python -m aios activation <path>`
 - `python -m aios activation <path> --json`
 - `python -m aios load-context <path>`
@@ -79,6 +80,7 @@ Envelope v2 is opt-in and requires `--json`.
 | `aios.real_preview.output.v0` | planned real preview provider output contract |
 | `aios.preview_replay_manifest.v0` | deterministic replay fixture manifest statically validated by `aios validate <replay-manifest.json>` |
 | `aios.preview_provider_snapshot.v0` | replay provider snapshot fixture statically validated from replay manifests |
+| `aios.provider_capability.v0` | provider capability declaration statically validated by `aios validate <provider-capability.json>` |
 
 The real preview provider schemas are planning artifacts only until implemented and promoted. Replay manifest and provider snapshot schemas currently exist as fixture/test contracts with static validation integration, not provider execution contracts.
 
@@ -91,6 +93,7 @@ Allowed:
 - inspect repository structure
 - inventory `.ai` assets
 - validate agents, skills, workflows, activation files, validator index, sync manifests, replay manifests
+- validate provider capability declarations statically
 - perform fixture-backed replay comparison when explicitly configured
 - load semantic context from `.ai` files with profile/budget filtering
 - evaluate sync dry-run against an explicit manifest
@@ -182,8 +185,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- implement provider capability validate integration as static-only
-- add provider capability native JSON/envelope v2 output contract tests
+- stabilize provider capability native JSON/envelope v2 output contract tests
+- audit provider capability validation runtime rule promotion
 - design deterministic mock provider and subprocess sandbox boundaries
 - maintain fixture-only replay schema tests
 - keep sync apply and mutation blocked

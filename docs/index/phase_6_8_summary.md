@@ -178,8 +178,9 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Provider isolation requirements audit와 plan은 완료되었고 real provider execution 전 capability, sandbox, no-write, deterministic replay gate가 필요하다고 확인함.
 - Provider capability fixture contract와 risk audit는 완료되었고 capability declaration이 execution authorization, provider registration, sandbox approval이 아님을 명확히 함.
 - Provider capability fixture-only bundle은 구현되었고 valid/invalid/edge fixture와 fixture-only contract tests가 추가됨.
-- Provider capability validator helper는 구현되었고 parsed dict 정적 검증만 수행하며 `aios validate` 통합은 아직 없음.
+- Provider capability validator helper는 구현되었고 helper 자체는 parsed dict 정적 검증만 수행함.
 - Provider capability validate output contract와 risk audit는 완료되었고 future `aios validate <provider-capability.json>` native JSON/envelope v2 경계를 정의함.
+- `aios validate <provider-capability.json>` static-only 통합은 구현되었고 native JSON/envelope v2 경계와 non-execution metadata를 보존함.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -229,13 +230,13 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 `aios validate <provider-capability.json>` static-only 통합을 구현하는 것이다.
+다음 안전한 방향은 provider capability validate output contract를 안정화하는 것이다.
 
 권장 다음 작업:
 
-1. `aios validate <provider-capability.json>` static-only integration
-2. Provider capability native JSON/envelope v2 output contract tests
-3. Provider capability runtime rule promotion audit
+1. Provider capability validate output contract stabilization
+2. Provider capability runtime rule promotion audit
+3. Provider capability validation behavior runtime rule promotion
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.
 

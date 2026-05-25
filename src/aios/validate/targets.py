@@ -132,6 +132,8 @@ def _kind_for_path(root: Path, path: Path) -> str:
             return "replay-manifest"
         if _is_sync_manifest_file(path):
             return "sync-manifest"
+        if _is_provider_capability_file(path):
+            return "provider-capability"
     return "file"
 
 
@@ -186,3 +188,32 @@ def _is_replay_manifest_file(path: Path) -> bool:
     replay_shape = {"provider", "hash_policy", "cases"}
     provider = data.get("provider")
     return replay_shape.issubset(data) and isinstance(provider, dict) and "provider_id" in provider
+
+
+def _is_provider_capability_file(path: Path) -> bool:
+    try:
+        data = json.loads(read_text(path))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    if data.get("schema_version") == "aios.provider_capability.v0":
+        return True
+    # Allow schema-error validation for capability-shaped JSON without
+    # hijacking arbitrary provider-ish JSON files.
+    capability_fields = {
+        "provider_id",
+        "provider_version",
+        "deterministic_capable",
+        "supported_sync_modes",
+        "hash_policy",
+        "output_affecting_config",
+        "no_write_capable",
+        "network_policy",
+        "timeout_policy",
+        "resource_policy",
+        "allowed_read_roots",
+        "provenance_required",
+    }
+    present = capability_fields.intersection(data)
+    return len(present) >= 5 and ("provider_id" in data or "supported_sync_modes" in data)

@@ -111,8 +111,9 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/provider_capability_fixture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits capability fixture confusion and execution authorization risks |
 | `docs/reports/provider_capability_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | provider capability fixture tests | none | fixture-only provider capability bundle evidence |
 | `docs/reports/provider_capability_validator_helper_report.md` | 8 | completed implementation report | human context | lazy | provider capability validator helper | none | pure static helper evidence without validate integration |
-| `docs/plan/provider_capability_validate_output_contract_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines future validate native JSON/envelope v2 output contract for provider capability static validation |
+| `docs/plan/provider_capability_validate_output_contract_plan.md` | 8 | historical/superseded | human context | lazy | provider capability validate integration | `docs/reports/provider_capability_validate_integration_report.md` | defines future validate native JSON/envelope v2 output contract for provider capability static validation |
 | `docs/reports/provider_capability_validate_output_contract_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits static validation output risks and provider execution confusion |
+| `docs/reports/provider_capability_validate_integration_report.md` | 8 | completed implementation report | human context | lazy | `aios validate <provider-capability.json>` | none | provider capability static validation integration evidence |
 
 ## Context control documents
 
