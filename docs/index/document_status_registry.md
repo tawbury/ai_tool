@@ -107,6 +107,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/replay_compare_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/sync.rules.md` and `.ai/rules/operations/validation.rules.md` | none | opt-in replay comparison rule promotion evidence |
 | `docs/reports/provider_isolation_requirements_audit.md` | 8 | risk audit | human context | task-load | none | none | audits real provider execution isolation risks and required gates |
 | `docs/plan/provider_isolation_requirements_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines provider isolation prerequisites before real execution design |
+| `docs/plan/provider_capability_fixture_contract.md` | 8 | active implementation plan | human context | task-load | none | none | defines provider capability fixture schema, layout, and validation boundaries |
+| `docs/reports/provider_capability_fixture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits capability fixture confusion and execution authorization risks |
 
 ## Context control documents
 

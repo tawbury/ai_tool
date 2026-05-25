@@ -182,7 +182,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- design provider capability schema fixture contracts before any real replay/provider execution
+- implement provider capability fixture-only bundle before any real replay/provider execution
+- design provider capability static validation after fixture contract stabilizes
 - design deterministic mock provider and subprocess sandbox boundaries
 - maintain fixture-only replay schema tests
 - keep sync apply and mutation blocked
