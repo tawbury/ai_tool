@@ -136,6 +136,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/sandbox_policy_fixture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits sandbox policy fixture confusion, path/env/resource risks, and execution-blocking boundaries |
 | `docs/reports/sandbox_policy_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | sandbox policy fixture tests | none | fixture-only sandbox policy bundle evidence without sandbox launcher or execution runtime |
 | `docs/reports/sandbox_policy_validator_helper_report.md` | 8 | completed implementation report | human context | lazy | sandbox policy validator helper | none | pure parsed-dict sandbox policy validator evidence without validate integration or execution runtime |
+| `docs/plan/sandbox_policy_validate_output_contract_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines future `aios validate <sandbox-policy.json>` native JSON/envelope v2 output contract without execution runtime |
+| `docs/reports/sandbox_policy_validate_output_contract_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits sandbox policy validate output, target detection, and execution-authorization confusion risks |
 
 ## Context control documents
 
