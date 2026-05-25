@@ -1,0 +1,38 @@
+{
+  "schema_version": "aios.sandbox_execution_result.v0",
+  "sandbox_mode": "subprocess-temp-cwd",
+  "request_id": "sandbox-request-success-subprocess-0001",
+  "exit_code": 0,
+  "status": "pass",
+  "duration_ms": 42,
+  "stdout_bytes": 512,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "output_json_valid": true,
+  "failure_code": null,
+  "failure_message": null,
+  "resource_limit": null,
+  "network_disabled": true,
+  "mutation_performed": false,
+  "no_write_confirmed": true,
+  "no_write_evidence": {
+    "protected_roots": ["source", "target", "manifest", "snapshots"],
+    "pre_hashes": {
+      "source": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "target": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "manifest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "snapshots": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    "post_hashes": {
+      "source": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "target": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "manifest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "snapshots": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    "mutation_detected": false,
+    "temp_root_cleaned": true,
+    "unexpected_outputs": []
+  },
+  "trace_id": "trace-sandbox-subprocess-0001"
+}

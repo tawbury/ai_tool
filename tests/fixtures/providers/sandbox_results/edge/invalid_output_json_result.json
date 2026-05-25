@@ -1,0 +1,29 @@
+{
+  "schema_version": "aios.sandbox_execution_result.v0",
+  "sandbox_mode": "subprocess-temp-cwd",
+  "request_id": "sandbox-edge-invalid-output-json-0001",
+  "exit_code": 0,
+  "status": "fail",
+  "duration_ms": 12,
+  "stdout_bytes": 42,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "output_json_valid": false,
+  "failure_code": "sandbox-output-invalid",
+  "failure_message": "Sandbox output JSON was invalid.",
+  "resource_limit": null,
+  "network_disabled": true,
+  "mutation_performed": false,
+  "no_write_confirmed": true,
+  "no_write_evidence": {
+    "protected_roots": ["source"],
+    "pre_hashes": {"source": "sha256:9999999999999999999999999999999999999999999999999999999999999999"},
+    "post_hashes": {"source": "sha256:9999999999999999999999999999999999999999999999999999999999999999"},
+    "mutation_detected": false,
+    "temp_root_cleaned": true,
+    "unexpected_outputs": []
+  },
+  "trace_id": "trace-sandbox-edge-invalid-json-0001",
+  "edge_classification": "invalid-output-json"
+}

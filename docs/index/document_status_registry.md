@@ -142,8 +142,9 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/sandbox_policy_validate_output_contract_report.md` | 8 | completed implementation report | human context | lazy | sandbox policy validate output contract tests | none | native JSON/envelope v2 contract stabilization evidence for sandbox policy static validation |
 | `docs/reports/sandbox_policy_rule_promotion_audit.md` | 8 | historical/superseded | human context | lazy | `.ai/rules/operations/validation.rules.md` and `.ai/rules/operations/sync.rules.md` | `docs/reports/sandbox_policy_runtime_rule_promotion_report.md` | recommends split promotion to validation rules with sync safety pointer for sandbox policy static validation |
 | `docs/reports/sandbox_policy_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/validation.rules.md` and `.ai/rules/operations/sync.rules.md` | none | sandbox policy validation runtime rule promotion evidence |
-| `docs/plan/sandbox_execution_result_fixture_contract_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines fixture-only sandbox execution result schema, no-write evidence, and status/failure-code contract before launcher work |
+| `docs/plan/sandbox_execution_result_fixture_contract_plan.md` | 8 | historical/superseded | human context | lazy | sandbox execution result fixtures/tests | `docs/reports/sandbox_execution_result_fixture_bundle_report.md` | defines fixture-only sandbox execution result schema, no-write evidence, and status/failure-code contract before launcher work |
 | `docs/reports/sandbox_execution_result_fixture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits sandbox result fixture authorization, no-write evidence, and trace/result boundary risks |
+| `docs/reports/sandbox_execution_result_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | sandbox execution result fixture tests | none | fixture-only sandbox result bundle evidence without sandbox launcher or execution runtime |
 
 ## Context control documents
 

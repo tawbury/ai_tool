@@ -1,0 +1,42 @@
+{
+  "schema_version": "aios.sandbox_execution_result.v0",
+  "sandbox_mode": "subprocess-temp-cwd",
+  "request_id": "sandbox-request-resource-limit-0001",
+  "exit_code": 1,
+  "status": "resource-limit",
+  "duration_ms": 88,
+  "stdout_bytes": 70000,
+  "stderr_bytes": 128,
+  "stdout_truncated": true,
+  "stderr_truncated": false,
+  "output_json_valid": false,
+  "failure_code": "sandbox-resource-limit",
+  "failure_message": "Sandbox stdout exceeded configured limit.",
+  "resource_limit": {
+    "limit_kind": "stdout",
+    "limit_bytes": 65536,
+    "observed_bytes": 70000
+  },
+  "network_disabled": true,
+  "mutation_performed": false,
+  "no_write_confirmed": true,
+  "no_write_evidence": {
+    "protected_roots": ["source", "target", "manifest", "snapshots"],
+    "pre_hashes": {
+      "source": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "target": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "manifest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "snapshots": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    "post_hashes": {
+      "source": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "target": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "manifest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "snapshots": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    "mutation_detected": false,
+    "temp_root_cleaned": true,
+    "unexpected_outputs": []
+  },
+  "trace_id": "trace-sandbox-resource-limit-0001"
+}

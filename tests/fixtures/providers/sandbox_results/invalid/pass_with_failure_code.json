@@ -1,0 +1,28 @@
+{
+  "schema_version": "aios.sandbox_execution_result.v0",
+  "sandbox_mode": "fixture-mock",
+  "request_id": "sandbox-invalid-pass-failure-code-0001",
+  "exit_code": 0,
+  "status": "pass",
+  "duration_ms": 1,
+  "stdout_bytes": 1,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "output_json_valid": true,
+  "failure_code": "sandbox-output-invalid",
+  "failure_message": "Pass result must not carry a failure code.",
+  "resource_limit": null,
+  "network_disabled": true,
+  "mutation_performed": false,
+  "no_write_confirmed": true,
+  "no_write_evidence": {
+    "protected_roots": ["source"],
+    "pre_hashes": {"source": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    "post_hashes": {"source": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    "mutation_detected": false,
+    "temp_root_cleaned": true,
+    "unexpected_outputs": []
+  },
+  "trace_id": null
+}

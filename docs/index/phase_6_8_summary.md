@@ -269,3 +269,9 @@ Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤�
 3. `docs/index/current_runtime_context.md`
 4. this document
 5. detailed plans/reports only if needed
+
+## Sandbox result fixture status
+
+Sandbox execution result fixture-only bundle은 구현되었고 `aios.sandbox_execution_result.v0` 예시 결과, fixture index, fixture-only contract tests를 추가했다. 이 작업은 sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation을 구현하거나 승인하지 않는다.
+
+다음 안전한 방향은 sandbox execution result validator helper를 parsed-dict static helper로 설계/구현하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.

@@ -1,0 +1,42 @@
+{
+  "schema_version": "aios.sandbox_execution_result.v0",
+  "sandbox_mode": "subprocess-temp-cwd",
+  "request_id": "sandbox-request-timeout-0001",
+  "exit_code": null,
+  "status": "timeout",
+  "duration_ms": 5000,
+  "stdout_bytes": 64,
+  "stderr_bytes": 32,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "output_json_valid": false,
+  "failure_code": "sandbox-timeout",
+  "failure_message": "Sandbox subprocess exceeded timeout.",
+  "resource_limit": {
+    "limit_kind": "duration",
+    "limit_bytes": 5000,
+    "observed_bytes": 5001
+  },
+  "network_disabled": true,
+  "mutation_performed": false,
+  "no_write_confirmed": true,
+  "no_write_evidence": {
+    "protected_roots": ["source", "target", "manifest", "snapshots"],
+    "pre_hashes": {
+      "source": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "target": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "manifest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "snapshots": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    "post_hashes": {
+      "source": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "target": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "manifest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "snapshots": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    "mutation_detected": false,
+    "temp_root_cleaned": true,
+    "unexpected_outputs": []
+  },
+  "trace_id": "trace-sandbox-timeout-0001"
+}
