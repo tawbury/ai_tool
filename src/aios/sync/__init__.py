@@ -42,9 +42,11 @@ from .replay import (
     REPLAY_MANIFEST_SCHEMA_VERSION,
     ProviderSnapshot,
     ReplayCase,
+    ReplayComparisonIssue,
     ReplayIssue,
     ReplayManifest,
     ReplayValidationResult,
+    compare_replay_outputs,
     load_replay_manifest,
     validate_replay_manifest_data,
 )
@@ -72,6 +74,7 @@ __all__ = [
     "PreviewOutput",
     "ProviderSnapshot",
     "ReplayCase",
+    "ReplayComparisonIssue",
     "ReplayIssue",
     "ReplayManifest",
     "ReplayValidationResult",
@@ -91,6 +94,7 @@ __all__ = [
     "run_sync_dry_run",
     "SYNC_DRY_RUN_SCHEMA_VERSION",
     "SyncDryRunResult",
+    "compare_replay_outputs",
     "validate_manifest_data",
     "validate_replay_manifest_data",
 ]

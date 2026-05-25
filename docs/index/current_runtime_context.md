@@ -180,7 +180,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- decide whether to implement a pure fixture comparison helper without provider execution
+- design replay comparison native/envelope result contracts before validate integration
 - maintain fixture-only replay schema tests
 - plan provider validation integration
 

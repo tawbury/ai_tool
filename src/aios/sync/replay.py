@@ -31,6 +31,34 @@ MARKER_STYLE_VALUES = {"markdown-html-comment", "hash-line-comment", "yaml-line-
 
 _WINDOWS_ABSOLUTE_RE = re.compile(r"^[A-Za-z]:[\\/]")
 _PLACEHOLDER_RE = re.compile(r"<|>|TODO|placeholder", re.IGNORECASE)
+_MISSING = object()
+
+REPLAY_COMPARISON_FIELDS = (
+    "schema_version",
+    "entry_id",
+    "preview_available",
+    "generated_content_kind",
+    "generated_bytes_hash",
+    "generated_target_hash",
+    "generated_managed_block_hash",
+    "deterministic",
+    "provider_metadata",
+    "provenance",
+    "unavailable_reason",
+)
+_COMPARISON_FIELD_CODES = {
+    "schema_version": "replay-schema-mismatch",
+    "entry_id": "replay-entry-id-mismatch",
+    "preview_available": "replay-preview-available-mismatch",
+    "generated_content_kind": "replay-content-kind-mismatch",
+    "generated_bytes_hash": "replay-hash-mismatch",
+    "generated_target_hash": "replay-hash-mismatch",
+    "generated_managed_block_hash": "replay-hash-mismatch",
+    "deterministic": "replay-deterministic-flag-mismatch",
+    "provider_metadata": "replay-provider-metadata-mismatch",
+    "provenance": "replay-provenance-mismatch",
+    "unavailable_reason": "replay-unavailable-reason-mismatch",
+}
 
 
 @dataclass(frozen=True)
@@ -60,6 +88,47 @@ class ReplayIssue:
             data["field"] = self.field
         if self.case_id:
             data["case_id"] = self.case_id
+        return data
+
+
+@dataclass(frozen=True)
+class ReplayComparisonIssue:
+    code: str
+    severity: str
+    message: str
+    case_id: str | None
+    comparison_field: str
+    expected_value: Any | None = None
+    actual_value: Any | None = None
+    expected_summary: str | None = None
+    actual_summary: str | None = None
+
+    @property
+    def status(self) -> str:
+        if self.severity == SEVERITY_ERROR:
+            return STATUS_FAIL
+        if self.severity == SEVERITY_WARNING:
+            return STATUS_WARN
+        return STATUS_PASS
+
+    def to_dict(self) -> dict[str, Any]:
+        data: dict[str, Any] = {
+            "code": self.code,
+            "severity": self.severity,
+            "status": self.status,
+            "message": self.message,
+            "comparison_field": self.comparison_field,
+        }
+        if self.case_id:
+            data["case_id"] = self.case_id
+        if self.expected_summary is not None:
+            data["expected_summary"] = self.expected_summary
+        else:
+            data["expected_value"] = self.expected_value
+        if self.actual_summary is not None:
+            data["actual_summary"] = self.actual_summary
+        else:
+            data["actual_value"] = self.actual_value
         return data
 
 
@@ -203,6 +272,34 @@ def validate_replay_manifest_data(data: Any, manifest_path: Path) -> ReplayValid
             raw=data,
         )
     return ReplayValidationResult(manifest, issues)
+
+
+def compare_replay_outputs(
+    expected: dict[str, Any],
+    candidate: dict[str, Any],
+    case_id: str | None = None,
+) -> list[ReplayComparisonIssue]:
+    """Compare replay output objects exactly without I/O or provider execution."""
+    issues: list[ReplayComparisonIssue] = []
+    for field in REPLAY_COMPARISON_FIELDS:
+        expected_value = expected[field] if field in expected else _MISSING
+        actual_value = candidate[field] if field in candidate else _MISSING
+        if _exact_equal(expected_value, actual_value):
+            continue
+        issues.append(
+            ReplayComparisonIssue(
+                code=_COMPARISON_FIELD_CODES[field],
+                severity=SEVERITY_ERROR,
+                message=f"Replay comparison field mismatch: {field}",
+                case_id=case_id,
+                comparison_field=field,
+                expected_value=None if expected_value is _MISSING else _scalar_value(expected_value),
+                actual_value=None if actual_value is _MISSING else _scalar_value(actual_value),
+                expected_summary=_summary_value(expected_value),
+                actual_summary=_summary_value(actual_value),
+            )
+        )
+    return issues
 
 
 def _load_and_validate_provider_snapshot(
@@ -676,6 +773,38 @@ def _validate_hash_fields(value: Any, field: str, case_id: str, issues: list[Rep
     elif isinstance(value, list):
         for index, item in enumerate(value):
             _validate_hash_fields(item, f"{field}[{index}]", case_id, issues)
+
+
+def _exact_equal(left: Any, right: Any) -> bool:
+    if left is _MISSING or right is _MISSING:
+        return left is right
+    if type(left) is not type(right):
+        return False
+    if isinstance(left, dict):
+        if list(left.keys()) != list(right.keys()):
+            return False
+        return all(_exact_equal(left[key], right[key]) for key in left)
+    if isinstance(left, list):
+        if len(left) != len(right):
+            return False
+        return all(_exact_equal(left_item, right_item) for left_item, right_item in zip(left, right))
+    return left == right
+
+
+def _scalar_value(value: Any) -> Any | None:
+    if value is _MISSING or isinstance(value, (dict, list)):
+        return None
+    return value
+
+
+def _summary_value(value: Any) -> str | None:
+    if value is _MISSING:
+        return "<missing>"
+    if isinstance(value, dict):
+        return f"object(keys={','.join(value.keys())})"
+    if isinstance(value, list):
+        return f"list(len={len(value)})"
+    return None
 
 
 def _validate_hash_policy(data: Any, field: str, issues: list[ReplayIssue], case_id: str | None = None) -> str:
