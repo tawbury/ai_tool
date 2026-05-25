@@ -182,7 +182,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- design provider capability static validator helper after fixture contract stabilization
+- design provider capability validate output contracts before CLI integration
 - keep provider capability validation static-only when implemented later
 - design deterministic mock provider and subprocess sandbox boundaries
 - maintain fixture-only replay schema tests

@@ -110,6 +110,7 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/plan/provider_capability_fixture_contract.md` | 8 | historical/superseded | human context | lazy | provider capability fixtures/tests | `docs/reports/provider_capability_fixture_bundle_report.md` | defines provider capability fixture schema, layout, and validation boundaries |
 | `docs/reports/provider_capability_fixture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits capability fixture confusion and execution authorization risks |
 | `docs/reports/provider_capability_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | provider capability fixture tests | none | fixture-only provider capability bundle evidence |
+| `docs/reports/provider_capability_validator_helper_report.md` | 8 | completed implementation report | human context | lazy | provider capability validator helper | none | pure static helper evidence without validate integration |
 
 ## Context control documents
 
