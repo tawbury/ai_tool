@@ -103,6 +103,7 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/replay_compare_output_contract_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | risks for opt-in replay comparison output contract |
 | `docs/reports/replay_compare_integration_implementation_report.md` | 8 | completed implementation report | human context | lazy | `aios validate <replay-manifest.json> --replay-compare fixture` | none | opt-in replay comparison integration evidence |
 | `docs/reports/replay_compare_output_contract_report.md` | 8 | completed implementation report | human context | lazy | replay comparison output contract tests | none | opt-in replay comparison native JSON/envelope v2 contract evidence |
+| `docs/reports/phase_8_replay_comparison_runtime_completion_audit.md` | 8 | reference-only | human context | summary-first | none | none | closes replay comparison runtime v0 and recommends rule promotion next |
 
 ## Context control documents
 
