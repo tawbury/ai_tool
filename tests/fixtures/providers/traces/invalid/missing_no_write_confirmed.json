@@ -1,0 +1,28 @@
+{
+  "schema_version": "aios.provider_execution_trace.v0",
+  "trace_id": "trace-invalid-missing-no-write-0001",
+  "provider_id": "aios.mock.preview.fixture",
+  "provider_version": "0.1.0",
+  "provider_mode": "fixture-mock",
+  "case_id": "missing_no_write_confirmed",
+  "input_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "output_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "generated_hashes": {
+    "generated_bytes_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "generated_target_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "generated_managed_block_hash": null
+  },
+  "duration_ms": 1,
+  "deterministic_execution": true,
+  "network_disabled": true,
+  "mutation_performed": false,
+  "unavailable_reason": null,
+  "failure_code": null,
+  "provenance": {
+    "source_paths": [".ai/rules/rules.md"],
+    "source_hashes": {
+      ".ai/rules/rules.md": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "generated_by": "aios.mock_provider.fixture.v0"
+  }
+}

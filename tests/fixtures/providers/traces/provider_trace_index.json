@@ -1,0 +1,90 @@
+{
+  "schema_version": "aios.provider_execution_trace_fixture_index.v0",
+  "valid_traces": [
+    {
+      "case_id": "successful_fixture_mock",
+      "fixture": "valid/successful_fixture_mock_trace.json"
+    },
+    {
+      "case_id": "unavailable_fixture_mock",
+      "fixture": "valid/unavailable_fixture_mock_trace.json"
+    },
+    {
+      "case_id": "managed_block",
+      "fixture": "valid/managed_block_trace.json"
+    },
+    {
+      "case_id": "whole_file",
+      "fixture": "valid/whole_file_trace.json"
+    }
+  ],
+  "invalid_traces": [
+    {
+      "case_id": "missing_trace_id",
+      "fixture": "invalid/missing_trace_id.json",
+      "expected_issue": "missing_trace_id"
+    },
+    {
+      "case_id": "invalid_provider_mode",
+      "fixture": "invalid/invalid_provider_mode.json",
+      "expected_issue": "invalid_provider_mode"
+    },
+    {
+      "case_id": "mutation_performed_true",
+      "fixture": "invalid/mutation_performed_true.json",
+      "expected_issue": "mutation_performed_true"
+    },
+    {
+      "case_id": "network_disabled_false",
+      "fixture": "invalid/network_disabled_false.json",
+      "expected_issue": "network_not_disabled"
+    },
+    {
+      "case_id": "missing_no_write_confirmed",
+      "fixture": "invalid/missing_no_write_confirmed.json",
+      "expected_issue": "missing_no_write_confirmed"
+    },
+    {
+      "case_id": "invalid_failure_code",
+      "fixture": "invalid/invalid_failure_code.json",
+      "expected_issue": "invalid_failure_code"
+    },
+    {
+      "case_id": "invalid_hash_format",
+      "fixture": "invalid/invalid_hash_format.json",
+      "expected_issue": "invalid_hash_format"
+    },
+    {
+      "case_id": "missing_provenance",
+      "fixture": "invalid/missing_provenance.json",
+      "expected_issue": "missing_provenance"
+    },
+    {
+      "case_id": "nondeterministic_execution_false",
+      "fixture": "invalid/nondeterministic_execution_false.json",
+      "expected_issue": "nondeterministic_execution_false"
+    }
+  ],
+  "edge_traces": [
+    {
+      "case_id": "zero_duration_trace",
+      "fixture": "edge_cases/zero_duration_trace.json"
+    },
+    {
+      "case_id": "null_output_hash_unavailable",
+      "fixture": "edge_cases/null_output_hash_unavailable.json"
+    },
+    {
+      "case_id": "failure_without_generated_hashes",
+      "fixture": "edge_cases/failure_without_generated_hashes.json"
+    }
+  ],
+  "contract": {
+    "provider_execution": false,
+    "sandbox_execution": false,
+    "dynamic_loading": false,
+    "network_access": false,
+    "generated_content_creation": false,
+    "mutation_performed": false
+  }
+}

@@ -187,6 +187,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Deterministic mock provider boundary plan과 risk audit는 완료되었고 mock provider를 fixture-backed deterministic simulation으로만 정의함.
 - Deterministic mock provider fixture-only bundle은 구현되었고 fixture index, valid/invalid input/output/snapshot fixtures, 구조 검증 테스트를 추가함.
 - Provider execution trace schema plan과 risk audit는 완료되었고 trace를 observability/replay evidence로만 정의함. Trace success는 execution authorization, sandbox approval, sync apply authorization이 아님.
+- Provider execution trace fixture-only bundle은 구현되었고 valid/invalid/edge trace fixtures와 구조 검증 테스트를 추가함.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -236,13 +237,13 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 provider execution trace fixture bundle을 추가하는 것이다. Trace schema는 정의되었지만 real provider execution, sandbox approval, sync apply authorization은 아니다.
+다음 안전한 방향은 provider execution trace validator helper를 추가하는 것이다. Trace fixtures는 추가되었지만 real provider execution, sandbox approval, sync apply authorization은 아니다.
 
 권장 다음 작업:
 
-1. Provider execution trace fixture bundle
-2. Trace validator helper
-3. Mock provider helper design
+1. Trace validator helper
+2. Trace validate output contract design
+3. Mock provider helper boundary audit
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.
 

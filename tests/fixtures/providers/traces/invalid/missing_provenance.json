@@ -1,0 +1,22 @@
+{
+  "schema_version": "aios.provider_execution_trace.v0",
+  "trace_id": "trace-invalid-missing-provenance-0001",
+  "provider_id": "aios.mock.preview.fixture",
+  "provider_version": "0.1.0",
+  "provider_mode": "fixture-mock",
+  "case_id": "missing_provenance",
+  "input_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "output_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "generated_hashes": {
+    "generated_bytes_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "generated_target_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "generated_managed_block_hash": null
+  },
+  "duration_ms": 1,
+  "deterministic_execution": true,
+  "no_write_confirmed": true,
+  "network_disabled": true,
+  "mutation_performed": false,
+  "unavailable_reason": null,
+  "failure_code": null
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "aios.provider_execution_trace.v0",
+  "trace_id": "trace-fixture-mock-managed-block-0001",
+  "provider_id": "aios.mock.preview.fixture",
+  "provider_version": "0.1.0",
+  "provider_mode": "fixture-mock",
+  "case_id": "managed_block",
+  "input_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "output_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "generated_hashes": {
+    "generated_bytes_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "generated_target_hash": null,
+    "generated_managed_block_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "duration_ms": 1,
+  "deterministic_execution": true,
+  "no_write_confirmed": true,
+  "network_disabled": true,
+  "mutation_performed": false,
+  "unavailable_reason": null,
+  "failure_code": null,
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "normalization": "none",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "managed_block_marker_lines": "exclude"
+  },
+  "provenance": {
+    "source_paths": [".ai/rules/operations/sync.rules.md"],
+    "source_hashes": {
+      ".ai/rules/operations/sync.rules.md": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "generated_by": "aios.mock_provider.fixture.v0"
+  }
+}
