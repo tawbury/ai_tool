@@ -145,6 +145,7 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/plan/sandbox_execution_result_fixture_contract_plan.md` | 8 | historical/superseded | human context | lazy | sandbox execution result fixtures/tests | `docs/reports/sandbox_execution_result_fixture_bundle_report.md` | defines fixture-only sandbox execution result schema, no-write evidence, and status/failure-code contract before launcher work |
 | `docs/reports/sandbox_execution_result_fixture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits sandbox result fixture authorization, no-write evidence, and trace/result boundary risks |
 | `docs/reports/sandbox_execution_result_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | sandbox execution result fixture tests | none | fixture-only sandbox result bundle evidence without sandbox launcher or execution runtime |
+| `docs/reports/sandbox_execution_result_validator_helper_report.md` | 8 | completed implementation report | human context | lazy | sandbox execution result validator helper | none | pure parsed-dict sandbox result validator evidence without validate integration or execution runtime |
 
 ## Context control documents
 
