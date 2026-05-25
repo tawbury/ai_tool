@@ -120,6 +120,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/plan/deterministic_mock_provider_boundary_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines deterministic mock provider boundary before execution or sandbox work |
 | `docs/reports/deterministic_mock_provider_boundary_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits mock provider simulation risks and execution-boundary confusion |
 | `docs/reports/deterministic_mock_provider_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | deterministic mock provider fixture tests | none | fixture-only mock provider bundle evidence without execution runtime |
+| `docs/plan/provider_execution_trace_schema_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines provider-like execution trace schema before mock helper or sandbox work |
+| `docs/reports/provider_execution_trace_schema_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits trace schema authorization, privacy, and false-confidence risks |
 
 ## Context control documents
 
