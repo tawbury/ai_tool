@@ -1,0 +1,20 @@
+{
+  "schema_version": "aios.provider_capability.v0",
+  "provider_id": "aios.preview.timeout_invalid",
+  "provider_version": "0.1.0",
+  "deterministic_capable": true,
+  "supported_sync_modes": ["whole-file"],
+  "hash_policy": "aios.hash_policy.v0",
+  "output_affecting_config": {},
+  "no_write_capable": true,
+  "network_policy": "disabled",
+  "timeout_policy": {
+    "timeout_ms": 0
+  },
+  "resource_policy": {
+    "max_input_bytes": 262144,
+    "max_output_bytes": 262144
+  },
+  "allowed_read_roots": [],
+  "provenance_required": true
+}

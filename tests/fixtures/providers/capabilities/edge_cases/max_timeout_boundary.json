@@ -1,0 +1,24 @@
+{
+  "schema_version": "aios.provider_capability.v0",
+  "provider_id": "aios.preview.max_timeout",
+  "provider_version": "0.1.0",
+  "deterministic_capable": true,
+  "supported_sync_modes": ["whole-file", "managed-block"],
+  "hash_policy": "aios.hash_policy.v0",
+  "output_affecting_config": {
+    "template_set": "max-timeout-v0",
+    "normalization": "none"
+  },
+  "no_write_capable": true,
+  "network_policy": "disabled",
+  "timeout_policy": {
+    "timeout_ms": 600000
+  },
+  "resource_policy": {
+    "max_input_bytes": 524288,
+    "max_output_bytes": 524288,
+    "max_memory_bytes": 134217728
+  },
+  "allowed_read_roots": ["tests/fixtures/providers/capabilities"],
+  "provenance_required": true
+}

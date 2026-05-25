@@ -1,0 +1,20 @@
+{
+  "schema_version": "aios.provider_capability.v0",
+  "provider_id": "aios.preview.minimal_config",
+  "provider_version": "0.1.0",
+  "deterministic_capable": true,
+  "supported_sync_modes": ["mixed-boundary"],
+  "hash_policy": "aios.hash_policy.v0",
+  "output_affecting_config": {},
+  "no_write_capable": true,
+  "network_policy": "disabled",
+  "timeout_policy": {
+    "timeout_ms": 2000
+  },
+  "resource_policy": {
+    "max_input_bytes": 98304,
+    "max_output_bytes": 98304
+  },
+  "allowed_read_roots": ["tests/fixtures/sync/markers"],
+  "provenance_required": true
+}

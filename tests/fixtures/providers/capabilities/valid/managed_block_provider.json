@@ -1,0 +1,25 @@
+{
+  "schema_version": "aios.provider_capability.v0",
+  "provider_id": "aios.preview.managed_block",
+  "provider_version": "0.1.0",
+  "deterministic_capable": true,
+  "supported_sync_modes": ["managed-block"],
+  "hash_policy": "aios.hash_policy.v0",
+  "output_affecting_config": {
+    "template_set": "managed-block-v0",
+    "normalization": "none",
+    "marker_boundary": "exclude-marker-lines"
+  },
+  "no_write_capable": true,
+  "network_policy": "disabled",
+  "timeout_policy": {
+    "timeout_ms": 4000
+  },
+  "resource_policy": {
+    "max_input_bytes": 196608,
+    "max_output_bytes": 196608,
+    "max_memory_bytes": 50331648
+  },
+  "allowed_read_roots": ["tests/fixtures/sync/markers"],
+  "provenance_required": true
+}
