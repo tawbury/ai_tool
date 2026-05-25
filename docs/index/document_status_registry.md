@@ -105,6 +105,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/replay_compare_output_contract_report.md` | 8 | completed implementation report | human context | lazy | replay comparison output contract tests | none | opt-in replay comparison native JSON/envelope v2 contract evidence |
 | `docs/reports/phase_8_replay_comparison_runtime_completion_audit.md` | 8 | reference-only | human context | summary-first | none | none | closes replay comparison runtime v0 and recommends rule promotion next |
 | `docs/reports/replay_compare_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/sync.rules.md` and `.ai/rules/operations/validation.rules.md` | none | opt-in replay comparison rule promotion evidence |
+| `docs/reports/provider_isolation_requirements_audit.md` | 8 | risk audit | human context | task-load | none | none | audits real provider execution isolation risks and required gates |
+| `docs/plan/provider_isolation_requirements_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines provider isolation prerequisites before real execution design |
 
 ## Context control documents
 
