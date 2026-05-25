@@ -185,8 +185,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- audit provider capability validation runtime rule promotion
-- promote provider capability validation behavior only after the promotion audit recommends it
+- promote provider capability validation behavior into validation rules with a short sync safety pointer
 - design deterministic mock provider and subprocess sandbox boundaries
 - maintain fixture-only replay schema tests
 - keep sync apply and mutation blocked
