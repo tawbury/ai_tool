@@ -182,8 +182,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- promote opt-in replay comparison behavior into runtime governance rules
+- audit provider isolation requirements before any real replay/provider execution
 - maintain fixture-only replay schema tests
-- audit provider isolation before any real provider validation integration
+- keep sync apply and mutation blocked
 
 Do not start sync apply or mutation design until real provider/replay boundaries are stable.

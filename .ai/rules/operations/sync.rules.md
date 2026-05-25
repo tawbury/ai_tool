@@ -28,10 +28,13 @@ The supported Phase 8 v0 commands are:
 - `python -m aios validate <replay-manifest.json>`
 - `python -m aios validate <replay-manifest.json> --json`
 - `python -m aios validate <replay-manifest.json> --json --envelope-v2`
+- `python -m aios validate <replay-manifest.json> --replay-compare fixture`
+- `python -m aios validate <replay-manifest.json> --json --replay-compare fixture`
+- `python -m aios validate <replay-manifest.json> --json --envelope-v2 --replay-compare fixture`
 
 `aios sync` requires `--dry-run`. `aios sync --dry-run` requires `--manifest <path>`. `--envelope-v2` requires `--json`. Preview support is opt-in only and requires both `--preview-provider fixture` and `--preview-fixtures <path>`.
 
-Usage and configuration errors must exit with code `2`, including provider without fixtures, fixtures without provider, and unsupported preview provider.
+Usage and configuration errors must exit with code `2`, including provider without fixtures, fixtures without provider, unsupported preview provider, unsupported replay compare mode, replay compare on a non replay-manifest target, and replay compare without a target.
 
 ## Source of Truth
 
@@ -152,6 +155,57 @@ It must not:
 - authorize sync apply or mutation
 
 Native validate JSON output uses `target.kind: replay-manifest`. Envelope v2 output uses `command: validate`, preserves `target.kind: replay-manifest`, and must preserve replay validator details in `payload.results` and `messages`.
+
+## Replay Comparison Validation
+
+Replay comparison validation is opt-in only.
+
+Supported mode:
+
+- `--replay-compare fixture`
+
+No-flag replay manifest validation remains static-only. It must not run replay comparison, add comparison results, or add replay comparison envelope metadata.
+
+Rules:
+
+- Only `fixture` mode is supported.
+- Comparison runs only after static replay manifest validation passes.
+- Static validation failure must short-circuit comparison.
+- Comparison is fixture-backed only.
+- Comparison compares expected output fixtures with fixture-derived candidate objects.
+- Comparison must preserve `ReplayComparisonIssue.code` as the validation result code.
+- Comparison must never execute providers, execute adapters, generate content, update snapshots, create a replay CLI, write files, or authorize sync apply/mutation.
+
+Native validate JSON behavior:
+
+- `schema_version: aios.validate.result.v0`
+- `target.kind: replay-manifest`
+- Static validation results remain included.
+- Success result code: `replay_comparison_checked`
+- Mismatch results use the helper-provided `ReplayComparisonIssue.code`.
+- Mismatch details preserve:
+  - `case_id`
+  - `comparison_field`
+  - `comparison_mode: fixture`
+  - expected/actual value or expected/actual summary
+
+Envelope v2 behavior:
+
+- `command: validate`
+- `target.kind: replay-manifest`
+- `meta.legacy_schema_version: aios.validate.result.v0`
+- `meta.replay_compare: fixture`
+- `meta.comparison_mode: fixture`
+- `meta.provider_execution: false`
+- `meta.mutation_performed: false`
+- `payload.results` includes static validation and comparison results.
+- `messages` preserve comparison errors and details.
+
+Usage/configuration errors:
+
+- Unsupported `--replay-compare` value exits with code `2`.
+- `--replay-compare` on a non replay-manifest target exits with code `2`.
+- `--replay-compare` without a target exits with code `2`.
 
 ## Hash Policy
 

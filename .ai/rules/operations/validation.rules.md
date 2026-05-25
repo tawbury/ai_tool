@@ -44,7 +44,9 @@ Load this rule when a task creates, edits, reviews, or verifies code, rules, tem
 
 `aios validate` may include runtime JSON/YAML targets such as activation files, sync manifests, and replay manifests.
 
-Replay manifest validation is static-only. It must not execute providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation. Sync-specific schema details and replay safety boundaries belong in `.ai/rules/operations/sync.rules.md`.
+Replay manifest validation is static-only by default. Opt-in replay comparison is allowed only through fixture-backed validation, such as `--replay-compare fixture`, and must preserve no-flag static validation behavior.
+
+Replay validation and comparison must not execute providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation. Sync-specific schema details, replay comparison output details, and replay safety boundaries belong in `.ai/rules/operations/sync.rules.md`.
 
 ### Failure Handling
 
