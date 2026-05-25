@@ -136,6 +136,8 @@ def _kind_for_path(root: Path, path: Path) -> str:
             return "provider-capability"
         if _is_provider_execution_trace_file(path):
             return "provider-execution-trace"
+        if _is_sandbox_policy_file(path):
+            return "sandbox-policy"
     return "file"
 
 
@@ -249,3 +251,34 @@ def _is_provider_execution_trace_file(path: Path) -> bool:
     }
     present = trace_fields.intersection(data)
     return len(present) >= 6 and ("trace_id" in data or "provider_mode" in data)
+
+
+def _is_sandbox_policy_file(path: Path) -> bool:
+    try:
+        data = json.loads(read_text(path))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    if data.get("schema_version") == "aios.sandbox_policy.v0":
+        return True
+    # Allow schema-error validation for sandbox-policy-shaped JSON without
+    # hijacking arbitrary JSON files. This runs after provider capability and
+    # provider execution trace detection to preserve existing target priority.
+    sandbox_policy_fields = {
+        "sandbox_mode",
+        "timeout_ms",
+        "max_input_bytes",
+        "max_output_bytes",
+        "stdout_limit_bytes",
+        "stderr_limit_bytes",
+        "allowed_read_roots",
+        "allowed_output_roots",
+        "network_disabled",
+        "deterministic_execution",
+        "no_write_required",
+        "env_policy",
+        "filesystem_policy",
+    }
+    present = sandbox_policy_fields.intersection(data)
+    return len(present) >= 5 and any(key in data for key in ("sandbox_mode", "env_policy", "filesystem_policy"))

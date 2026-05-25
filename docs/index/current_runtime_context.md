@@ -55,6 +55,7 @@ Current runtime supports:
 - `python -m aios validate <replay-manifest.json> --replay-compare fixture`
 - `python -m aios validate <provider-capability.json>`
 - `python -m aios validate <provider-trace.json>`
+- `python -m aios validate <sandbox-policy.json>`
 - `python -m aios activation <path>`
 - `python -m aios activation <path> --json`
 - `python -m aios load-context <path>`
@@ -83,6 +84,7 @@ Envelope v2 is opt-in and requires `--json`.
 | `aios.preview_provider_snapshot.v0` | replay provider snapshot fixture statically validated from replay manifests |
 | `aios.provider_capability.v0` | provider capability declaration statically validated by `aios validate <provider-capability.json>` |
 | `aios.provider_execution_trace.v0` | provider execution trace statically validated by `aios validate <provider-trace.json>` |
+| `aios.sandbox_policy.v0` | sandbox policy statically validated by `aios validate <sandbox-policy.json>` |
 
 The real preview provider schemas are planning artifacts only until implemented and promoted. Replay manifest and provider snapshot schemas currently exist as fixture/test contracts with static validation integration, not provider execution contracts.
 
@@ -95,7 +97,7 @@ Allowed:
 - inspect repository structure
 - inventory `.ai` assets
 - validate agents, skills, workflows, activation files, validator index, sync manifests, replay manifests
-- validate provider capability declarations and provider execution traces statically
+- validate provider capability declarations, provider execution traces, and sandbox policies statically
 - perform fixture-backed replay comparison when explicitly configured
 - load semantic context from `.ai` files with profile/budget filtering
 - evaluate sync dry-run against an explicit manifest
@@ -189,8 +191,8 @@ The next safe direction is still read-only:
 
 - design sandbox trace fixtures as fixture-only/static-only artifacts if requested
 - design sandbox execution result fixtures as fixture-only/static-only artifacts if requested
-- implement sandbox policy validate integration only as static validation if explicitly requested
-- keep sandbox policy validation helper static-only and outside CLI/envelope integration until explicitly promoted
+- stabilize sandbox policy validate output contracts if requested
+- keep sandbox policy validation static-only until rule promotion and later readiness gates
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only
 - maintain fixture-only replay schema tests

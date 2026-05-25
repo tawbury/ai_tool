@@ -203,6 +203,16 @@ def main(argv: list[str] | None = None) -> int:
                                 "provider_mode": _first_result_detail(result, "provider_mode"),
                             }
                         )
+                    if result.target.get("kind") == "sandbox-policy":
+                        legacy["meta"].update(
+                            {
+                                "sandbox_execution": False,
+                                "subprocess_execution": False,
+                                "provider_execution": False,
+                                "mutation_performed": False,
+                                "sandbox_mode": _first_result_detail(result, "sandbox_mode"),
+                            }
+                        )
                 print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_validate_summary(root, result)

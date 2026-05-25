@@ -10,6 +10,7 @@ from .validators.provider_capability import validate_provider_capability
 from .validators.provider_execution_trace import validate_provider_execution_trace
 from .validators.replay_manifest import validate_replay_manifest
 from .validators.references import validate_validator_index
+from .validators.sandbox_policy import validate_sandbox_policy
 from .validators.skill import validate_skill
 from .validators.sync_manifest import validate_sync_manifest
 from .validators.workflow import validate_workflow
@@ -39,6 +40,8 @@ def run_validation(root: Path, targets: list[ValidationTarget], replay_compare: 
             validate_provider_capability(root, target, run)
         elif target.kind == "provider-execution-trace":
             validate_provider_execution_trace(root, target, run)
+        elif target.kind == "sandbox-policy":
+            validate_sandbox_policy(root, target, run)
         elif target.kind == "sync-manifest":
             validate_sync_manifest(root, target, run)
         elif target.kind == "workflow":
