@@ -182,8 +182,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- design provider capability validate output contracts before CLI integration
-- keep provider capability validation static-only when implemented later
+- implement provider capability validate integration as static-only
+- add provider capability native JSON/envelope v2 output contract tests
 - design deterministic mock provider and subprocess sandbox boundaries
 - maintain fixture-only replay schema tests
 - keep sync apply and mutation blocked
