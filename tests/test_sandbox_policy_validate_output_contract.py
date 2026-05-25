@@ -47,6 +47,9 @@ def test_sandbox_policy_native_json_pass_contract() -> None:
     ]
 
     checked = data["results"][0]
+    assert checked["validator"] == "sandbox-policy"
+    assert checked["severity"] == "info"
+    assert checked["status"] == "pass"
     assert checked["path"] == VALID
     assert checked["details"]["sandbox_mode"] == "subprocess-temp-cwd"
     assert checked["details"]["network_disabled"] is True
@@ -68,13 +71,21 @@ def test_sandbox_policy_native_json_fail_contract() -> None:
     assert data["summary"]["errors"] == 1
 
     error = next(result for result in data["results"] if result["code"] == "network_not_disabled")
+    assert error["validator"] == "sandbox-policy"
     assert error["severity"] == "error"
     assert error["status"] == "fail"
+    assert error["message"] == "network_disabled must be true."
+    assert error["path"] == INVALID
     assert error["details"]["field"] == "network_disabled"
+    assert error["details"]["sandbox_mode"] == "fixture-mock"
+    assert error["details"]["network_disabled"] is False
+    assert error["details"]["deterministic_execution"] is True
+    assert error["details"]["no_write_required"] is True
     assert error["details"]["sandbox_execution"] is False
     assert error["details"]["subprocess_execution"] is False
     assert error["details"]["provider_execution"] is False
     assert error["details"]["mutation_performed"] is False
+    assert not any(result["code"] == "sandbox_policy_checked" for result in data["results"])
 
 
 def test_sandbox_policy_envelope_v2_pass_contract() -> None:
@@ -95,6 +106,12 @@ def test_sandbox_policy_envelope_v2_pass_contract() -> None:
     assert data["meta"]["sandbox_mode"] == "subprocess-temp-cwd"
 
     payload_result = next(result for result in data["payload"]["results"] if result["code"] == "sandbox_policy_checked")
+    assert payload_result["validator"] == "sandbox-policy"
+    assert payload_result["path"] == VALID
+    assert payload_result["details"]["sandbox_mode"] == "subprocess-temp-cwd"
+    assert payload_result["details"]["network_disabled"] is True
+    assert payload_result["details"]["deterministic_execution"] is True
+    assert payload_result["details"]["no_write_required"] is True
     assert payload_result["details"]["sandbox_execution"] is False
     assert payload_result["details"]["subprocess_execution"] is False
     assert payload_result["details"]["provider_execution"] is False
@@ -103,7 +120,12 @@ def test_sandbox_policy_envelope_v2_pass_contract() -> None:
     message = next(message for message in data["messages"] if message["code"] == "sandbox_policy_checked")
     assert message["severity"] == "info"
     assert message["status"] == "pass"
+    assert message["path"] == VALID
     assert message["details"]["validator"] == "sandbox-policy"
+    assert message["details"]["sandbox_mode"] == "subprocess-temp-cwd"
+    assert message["details"]["network_disabled"] is True
+    assert message["details"]["deterministic_execution"] is True
+    assert message["details"]["no_write_required"] is True
     assert message["details"]["sandbox_execution"] is False
     assert message["details"]["subprocess_execution"] is False
     assert message["details"]["provider_execution"] is False
@@ -126,11 +148,25 @@ def test_sandbox_policy_envelope_v2_fail_contract() -> None:
     assert data["meta"]["mutation_performed"] is False
     assert data["meta"]["sandbox_mode"] == "fixture-mock"
 
+    payload_result = next(result for result in data["payload"]["results"] if result["code"] == "network_not_disabled")
+    assert payload_result["validator"] == "sandbox-policy"
+    assert payload_result["path"] == INVALID
+    assert payload_result["details"]["field"] == "network_disabled"
+    assert payload_result["details"]["sandbox_mode"] == "fixture-mock"
+    assert payload_result["details"]["network_disabled"] is False
+    assert payload_result["details"]["sandbox_execution"] is False
+    assert payload_result["details"]["subprocess_execution"] is False
+    assert payload_result["details"]["provider_execution"] is False
+    assert payload_result["details"]["mutation_performed"] is False
+
     message = next(message for message in data["messages"] if message["code"] == "network_not_disabled")
     assert message["severity"] == "error"
     assert message["status"] == "fail"
+    assert message["path"] == INVALID
     assert message["details"]["validator"] == "sandbox-policy"
     assert message["details"]["field"] == "network_disabled"
+    assert message["details"]["sandbox_mode"] == "fixture-mock"
+    assert message["details"]["network_disabled"] is False
     assert message["details"]["sandbox_execution"] is False
     assert message["details"]["subprocess_execution"] is False
     assert message["details"]["provider_execution"] is False
@@ -148,7 +184,11 @@ def test_sandbox_policy_shaped_invalid_schema_contract(tmp_path: Path) -> None:
     assert completed.returncode == 1
     assert result["target"]["kind"] == "sandbox-policy"
     error = next(item for item in result["results"] if item["code"] == "unsupported_schema_version")
+    assert error["validator"] == "sandbox-policy"
+    assert error["severity"] == "error"
+    assert error["status"] == "fail"
     assert error["details"]["field"] == "schema_version"
+    assert error["details"]["sandbox_mode"] == "subprocess-temp-cwd"
     assert error["details"]["sandbox_execution"] is False
     assert error["details"]["subprocess_execution"] is False
     assert error["details"]["provider_execution"] is False
@@ -161,6 +201,7 @@ def test_sandbox_policy_unrelated_json_not_misclassified_contract() -> None:
     assert completed.returncode == 0
     assert data["target"]["kind"] == "file"
     assert not any(result["validator"] == "sandbox-policy" for result in data["results"])
+    assert any(result["code"] == "unsupported_target_kind" for result in data["results"])
 
 
 def test_existing_target_detection_contracts_remain_unchanged() -> None:
@@ -171,12 +212,16 @@ def test_existing_target_detection_contracts_remain_unchanged() -> None:
 
     assert capability_completed.returncode == 0
     assert capability_data["target"]["kind"] == "provider-capability"
+    assert any(result["code"] == "provider_capability_checked" for result in capability_data["results"])
     assert trace_completed.returncode == 0
     assert trace_data["target"]["kind"] == "provider-execution-trace"
+    assert any(result["code"] == "provider_execution_trace_checked" for result in trace_data["results"])
     assert replay_completed.returncode == 0
     assert replay_data["target"]["kind"] == "replay-manifest"
+    assert any(result["code"] == "replay_comparison_checked" for result in replay_data["results"])
     assert sync_completed.returncode == 0
     assert sync_data["target"]["kind"] == "sync-manifest"
+    assert any(result["code"] == "sync_manifest_checked" for result in sync_data["results"])
 
 
 def test_envelope_v2_without_json_usage_contract() -> None:

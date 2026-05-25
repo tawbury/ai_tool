@@ -96,6 +96,27 @@ def test_sandbox_policy_shaped_json_with_invalid_schema_is_detected_and_fails(tm
     assert error["details"]["mutation_performed"] is False
 
 
+def test_sandbox_policy_shaped_json_with_missing_schema_is_detected_and_fails(tmp_path: Path) -> None:
+    path = tmp_path / "sandbox_policy_missing_schema.json"
+    data = json.loads((ROOT / VALID).read_text(encoding="utf-8"))
+    data.pop("schema_version")
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+    completed, result = json_cli("validate", str(path), "--json")
+
+    assert completed.returncode == 1
+    assert result["target"]["kind"] == "sandbox-policy"
+    assert any(item["code"] == "missing_required_field" for item in result["results"])
+    error = next(item for item in result["results"] if item["code"] == "unsupported_schema_version")
+    assert error["details"]["field"] == "schema_version"
+    assert error["details"]["sandbox_mode"] == "subprocess-temp-cwd"
+    assert error["details"]["sandbox_execution"] is False
+    assert error["details"]["subprocess_execution"] is False
+    assert error["details"]["provider_execution"] is False
+    assert error["details"]["mutation_performed"] is False
+    assert not any(item["code"] == "sandbox_policy_checked" for item in result["results"])
+
+
 def test_unrelated_json_is_not_sandbox_policy() -> None:
     completed, data = json_cli("validate", UNRELATED_JSON, "--json")
 

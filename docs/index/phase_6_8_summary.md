@@ -199,6 +199,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Sandbox policy validator helper는 구현되었고 parsed dict 정적 검증만 수행함. `aios validate`, envelope v2, CLI, sandbox launcher, subprocess execution에는 아직 통합되지 않음.
 - Sandbox policy validate output contract plan과 risk audit는 완료되었고 future `aios validate <sandbox-policy.json>` target kind `sandbox-policy`, native JSON/envelope v2 non-execution metadata, detection priority를 정의함.
 - `aios validate <sandbox-policy.json>` static-only 통합은 구현되었고 target kind `sandbox-policy`, native JSON, envelope v2, non-execution metadata를 지원함.
+- Sandbox policy validate output contract tests는 안정화되었고 native JSON/envelope v2 pass/fail, shaped invalid schema, target detection priority, non-execution metadata를 고정함.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -248,11 +249,11 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 sandbox policy validate output contract tests를 안정화하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다. 현재 sandbox policy validation은 static-only이며 real provider execution이나 sandbox execution이 아니다.
+다음 안전한 방향은 sandbox policy validation rule promotion audit를 수행하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다. 현재 sandbox policy validation은 static-only이며 real provider execution이나 sandbox execution이 아니다.
 
 권장 다음 작업:
 
-1. Sandbox policy validate output contract stabilization
+1. Sandbox policy validation rule promotion audit
 2. Sandbox trace fixture contract design
 3. Sandbox execution result fixture contract design
 
