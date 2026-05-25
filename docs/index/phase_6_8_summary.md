@@ -169,6 +169,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Replay comparison next step audit는 fixture-backed replay comparison validation design을 다음 단계로 권장함.
 - Fixture-backed replay comparison validation design과 risk audit는 완료됨.
 - Pure replay comparison helper와 mismatch tests는 구현됨.
+- Replay comparison integration policy audit는 default validate 통합을 거부하고 opt-in validation integration 설계를 권장함.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -217,12 +218,12 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 replay comparison native/envelope result contract를 설계하는 것이다.
+다음 안전한 방향은 opt-in replay comparison validate output contract를 설계하는 것이다.
 
 권장 다음 작업:
 
-1. Replay comparison native/envelope result contract design
-2. `aios validate <replay-manifest.json>` comparison extension boundary audit
+1. Opt-in replay comparison validate output contract design
+2. `aios validate <replay-manifest.json> --replay-compare fixture` interface design
 3. Real preview provider execution boundary 재검토
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.

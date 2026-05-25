@@ -98,6 +98,7 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/plan/fixture_backed_replay_comparison_validation_plan.md` | 8 | historical/superseded | human context | lazy | replay comparison helper | `docs/reports/replay_comparison_helper_implementation_report.md` | design for no-provider replay comparison validation |
 | `docs/reports/fixture_backed_replay_comparison_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | risks for fixture-backed replay comparison |
 | `docs/reports/replay_comparison_helper_implementation_report.md` | 8 | completed implementation report | human context | lazy | `compare_replay_outputs` helper | none | pure helper implementation evidence |
+| `docs/reports/replay_comparison_integration_policy_audit.md` | 8 | risk audit | human context | task-load | none | none | recommends deferred opt-in validate integration instead of default comparison |
 
 ## Context control documents
 

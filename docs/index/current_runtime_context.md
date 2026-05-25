@@ -180,7 +180,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- design replay comparison native/envelope result contracts before validate integration
+- design opt-in replay comparison validate output contracts before integration
 - maintain fixture-only replay schema tests
 - plan provider validation integration
 
