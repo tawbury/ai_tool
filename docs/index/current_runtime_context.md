@@ -185,8 +185,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- promote provider capability validation behavior into validation rules with a short sync safety pointer
 - design deterministic mock provider and subprocess sandbox boundaries
+- keep provider capability validation static-only
 - maintain fixture-only replay schema tests
 - keep sync apply and mutation blocked
 

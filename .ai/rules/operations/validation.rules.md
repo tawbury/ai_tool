@@ -42,11 +42,29 @@ Load this rule when a task creates, edits, reviews, or verifies code, rules, tem
 
 ### Runtime JSON Targets
 
-`aios validate` may include runtime JSON/YAML targets such as activation files, sync manifests, and replay manifests.
+`aios validate` may include runtime JSON/YAML targets such as activation files, sync manifests, replay manifests, and provider capability declarations.
 
 Replay manifest validation is static-only by default. Opt-in replay comparison is allowed only through fixture-backed validation, such as `--replay-compare fixture`, and must preserve no-flag static validation behavior.
 
 Replay validation and comparison must not execute providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation. Sync-specific schema details, replay comparison output details, and replay safety boundaries belong in `.ai/rules/operations/sync.rules.md`.
+
+Provider capability validation is supported for:
+
+- `python -m aios validate <provider-capability.json>`
+- `python -m aios validate <provider-capability.json> --json`
+- `python -m aios validate <provider-capability.json> --json --envelope-v2`
+
+Provider capability validation uses target kind `provider-capability` and schema `aios.provider_capability.v0`.
+
+Provider capability validation is static-only. It validates declaration shape and safety flags only.
+
+Provider capability JSON/envelope output must preserve non-execution metadata where applicable:
+
+- `provider_execution: false`
+- `sandbox_execution: false`
+- `mutation_performed: false`
+
+Provider capability validation must not execute providers, launch sandboxes, discover or register providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation.
 
 ### Failure Handling
 

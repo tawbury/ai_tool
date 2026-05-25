@@ -183,6 +183,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - `aios validate <provider-capability.json>` static-only 통합은 구현되었고 native JSON/envelope v2 경계와 non-execution metadata를 보존함.
 - Provider capability validate output contract tests는 안정화되었고 shaped JSON detection, unrelated JSON non-misclassification, sync/replay target priority를 고정함.
 - Provider capability rule promotion audit는 완료되었고 `validation.rules.md` primary, `sync.rules.md` short safety pointer의 split promotion을 권장함.
+- Provider capability validation behavior는 `validation.rules.md`와 `sync.rules.md`에 승격됨.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -232,13 +233,13 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 provider capability validation behavior를 runtime rules에 승격하는 것이다.
+다음 안전한 방향은 deterministic mock provider boundary를 설계하는 것이다.
 
 권장 다음 작업:
 
-1. Provider capability validation behavior runtime rule promotion
-2. Deterministic mock provider boundary design
-3. Subprocess sandbox architecture plan
+1. Deterministic mock provider boundary design
+2. Subprocess sandbox architecture plan
+3. Provider execution readiness audit after sandbox and mock boundaries are documented
 
 Mutation/apply 설계는 real provider와 replay 검증 경계가 안정된 뒤에 검토한다.
 

@@ -207,6 +207,12 @@ Usage/configuration errors:
 - `--replay-compare` on a non replay-manifest target exits with code `2`.
 - `--replay-compare` without a target exits with code `2`.
 
+## Provider Capability Validation
+
+Provider capability validation is available through `aios validate <provider-capability.json>` as static-only readiness context for future preview/replay provider safety.
+
+It does not authorize provider execution, sandbox execution, provider registry/discovery, adapter execution, generated content, snapshot update, sync apply, or mutation. Detailed validation command and output behavior belongs in `.ai/rules/operations/validation.rules.md`.
+
 ## Hash Policy
 
 Phase 8 v0 continues to use observed UTF-8 bytes.
