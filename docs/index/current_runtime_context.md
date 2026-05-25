@@ -185,7 +185,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- design provider execution trace validate output contract before validate integration
+- integrate provider execution trace validation into `aios validate` as static-only target
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability validation static-only
 - maintain fixture-only replay schema tests

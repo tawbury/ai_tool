@@ -124,6 +124,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/provider_execution_trace_schema_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits trace schema authorization, privacy, and false-confidence risks |
 | `docs/reports/provider_execution_trace_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | provider execution trace fixture tests | none | fixture-only trace bundle evidence without provider execution runtime |
 | `docs/reports/provider_execution_trace_validator_helper_report.md` | 8 | completed implementation report | human context | lazy | provider execution trace validator helper | none | pure parsed-dict trace validator evidence without validate integration or execution runtime |
+| `docs/plan/provider_execution_trace_validate_output_contract_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines future validate target/output contract for provider execution trace static validation |
+| `docs/reports/provider_execution_trace_validate_output_contract_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits trace validate output misclassification and execution-authorization confusion risks |
 
 ## Context control documents
 
