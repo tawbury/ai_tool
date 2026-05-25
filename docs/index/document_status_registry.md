@@ -94,7 +94,9 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/replay_validate_output_contract_report.md` | 8 | completed implementation report | human context | lazy | replay validate output contract tests | none | native JSON and envelope v2 contract evidence |
 | `docs/reports/replay_validation_rule_promotion_audit.md` | 8 | historical/superseded | human context | lazy | `.ai/rules/operations/sync.rules.md` and `.ai/rules/operations/validation.rules.md` | `docs/reports/replay_validation_runtime_rule_promotion_report.md` | recommended split promotion |
 | `docs/reports/replay_validation_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/sync.rules.md` and `.ai/rules/operations/validation.rules.md` | none | replay validation rule promotion evidence |
-| `docs/reports/replay_comparison_next_step_audit.md` | 8 | risk audit | human context | task-load | none | none | recommends fixture-backed replay comparison design next |
+| `docs/reports/replay_comparison_next_step_audit.md` | 8 | historical/superseded | human context | lazy | none | `docs/plan/fixture_backed_replay_comparison_validation_plan.md` | recommended fixture-backed replay comparison design |
+| `docs/plan/fixture_backed_replay_comparison_validation_plan.md` | 8 | active implementation plan | human context | task-load | none | none | design for no-provider replay comparison validation |
+| `docs/reports/fixture_backed_replay_comparison_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | risks for fixture-backed replay comparison |
 
 ## Context control documents
 

@@ -145,6 +145,8 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - `docs/reports/replay_validation_rule_promotion_audit.md`
 - `docs/reports/replay_validation_runtime_rule_promotion_report.md`
 - `docs/reports/replay_comparison_next_step_audit.md`
+- `docs/plan/fixture_backed_replay_comparison_validation_plan.md`
+- `docs/reports/fixture_backed_replay_comparison_risk_audit.md`
 
 핵심 원칙:
 
@@ -164,6 +166,7 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 - Replay validation rule promotion audit는 완료되었고 split promotion을 권장함.
 - Replay validation behavior는 `sync.rules.md`와 `validation.rules.md`에 승격됨.
 - Replay comparison next step audit는 fixture-backed replay comparison validation design을 다음 단계로 권장함.
+- Fixture-backed replay comparison validation design과 risk audit는 완료됨.
 - Replay provider execution, output replay comparison, snapshot update는 아직 구현되지 않음.
 
 ## 현재 지원 런타임 기능
@@ -212,11 +215,11 @@ Real provider 구현 전에 deterministic replay architecture가 필요하다.
 
 ## 다음 권장 방향
 
-다음 안전한 방향은 real provider execution 없이 fixture-backed replay comparison validation을 설계하는 것이다.
+다음 안전한 방향은 real provider execution 없이 fixture comparison helper 구현 여부를 결정하는 것이다.
 
 권장 다음 작업:
 
-1. Fixture-backed replay comparison validation design
+1. Pure fixture comparison helper implementation bundle 검토
 2. Replay comparison native/envelope result contract design
 3. Real preview provider execution boundary 재검토
 
