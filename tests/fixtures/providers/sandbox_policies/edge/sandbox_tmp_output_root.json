@@ -1,0 +1,40 @@
+{
+  "schema_version": "aios.sandbox_policy.v0",
+  "sandbox_mode": "subprocess-temp-cwd",
+  "timeout_ms": 1000,
+  "max_input_bytes": 65536,
+  "max_output_bytes": 65536,
+  "stdout_limit_bytes": 16384,
+  "stderr_limit_bytes": 16384,
+  "allowed_read_roots": [
+    ".ai"
+  ],
+  "allowed_output_roots": [
+    "{sandbox_tmp}/outputs",
+    "{sandbox_tmp}/trace"
+  ],
+  "network_disabled": true,
+  "deterministic_execution": true,
+  "no_write_required": true,
+  "env_policy": {
+    "mode": "allowlist",
+    "allowed": [
+      "PYTHONUTF8"
+    ],
+    "forbidden_prefixes": [
+      "AWS_"
+    ]
+  },
+  "filesystem_policy": {
+    "cwd": "{sandbox_tmp}",
+    "temp_root_required": true,
+    "symlink_policy": "reject",
+    "parent_traversal": "reject",
+    "absolute_paths": "reject",
+    "protected_roots": [
+      "source",
+      "target"
+    ]
+  },
+  "edge_classification": "sandbox-token-output-root"
+}

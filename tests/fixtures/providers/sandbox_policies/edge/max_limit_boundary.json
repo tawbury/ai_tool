@@ -1,0 +1,46 @@
+{
+  "schema_version": "aios.sandbox_policy.v0",
+  "sandbox_mode": "subprocess-temp-cwd",
+  "timeout_ms": 30000,
+  "max_input_bytes": 1048576,
+  "max_output_bytes": 1048576,
+  "stdout_limit_bytes": 262144,
+  "stderr_limit_bytes": 262144,
+  "allowed_read_roots": [
+    "tests/fixtures/providers"
+  ],
+  "allowed_output_roots": [
+    "{sandbox_tmp}/outputs"
+  ],
+  "network_disabled": true,
+  "deterministic_execution": true,
+  "no_write_required": true,
+  "env_policy": {
+    "mode": "allowlist",
+    "allowed": [
+      "PYTHONUTF8",
+      "AIOS_SANDBOX_MODE"
+    ],
+    "forbidden_prefixes": [
+      "AWS_",
+      "AZURE_",
+      "GCP_",
+      "OPENAI_",
+      "ANTHROPIC_"
+    ]
+  },
+  "filesystem_policy": {
+    "cwd": "{sandbox_tmp}",
+    "temp_root_required": true,
+    "symlink_policy": "reject",
+    "parent_traversal": "reject",
+    "absolute_paths": "reject",
+    "protected_roots": [
+      "source",
+      "target",
+      "manifest",
+      "snapshots"
+    ]
+  },
+  "edge_classification": "max-limit-boundary"
+}

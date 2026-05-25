@@ -187,8 +187,9 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- implement sandbox policy fixtures as fixture-only/static-only artifacts if requested
 - design sandbox trace fixtures as fixture-only/static-only artifacts if requested
+- design sandbox execution result fixtures as fixture-only/static-only artifacts if requested
+- keep sandbox policy fixtures fixture-only until a validator helper is separately approved
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only
 - maintain fixture-only replay schema tests

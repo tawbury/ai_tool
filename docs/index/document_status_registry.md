@@ -132,8 +132,9 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/provider_execution_trace_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/validation.rules.md` and `.ai/rules/operations/sync.rules.md` | none | provider execution trace validation rule promotion evidence |
 | `docs/reports/subprocess_sandbox_architecture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits subprocess sandbox risk tier, containment limits, and execution-blocking gates |
 | `docs/plan/subprocess_sandbox_architecture_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines design-only subprocess sandbox architecture requirements before any launcher or execution work |
-| `docs/plan/sandbox_policy_fixture_contract_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines fixture-only sandbox policy schema, layout, validation expectations, and no-write evidence model |
+| `docs/plan/sandbox_policy_fixture_contract_plan.md` | 8 | historical/superseded | human context | lazy | sandbox policy fixtures/tests | `docs/reports/sandbox_policy_fixture_bundle_report.md` | defines fixture-only sandbox policy schema, layout, validation expectations, and no-write evidence model |
 | `docs/reports/sandbox_policy_fixture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits sandbox policy fixture confusion, path/env/resource risks, and execution-blocking boundaries |
+| `docs/reports/sandbox_policy_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | sandbox policy fixture tests | none | fixture-only sandbox policy bundle evidence without sandbox launcher or execution runtime |
 
 ## Context control documents
 

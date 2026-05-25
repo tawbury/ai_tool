@@ -1,0 +1,34 @@
+{
+  "schema_version": "aios.sandbox_policy_index.v0",
+  "sandbox_execution": false,
+  "provider_execution": false,
+  "subprocess_execution": false,
+  "dynamic_loading": false,
+  "network_access": false,
+  "generated_content_creation": false,
+  "mutation_performed": false,
+  "valid": [
+    "valid/fixture_mock_default_policy.json",
+    "valid/subprocess_temp_cwd_policy.json",
+    "valid/no_read_roots_policy.json"
+  ],
+  "invalid": [
+    "invalid/unsupported_sandbox_mode.json",
+    "invalid/zero_timeout.json",
+    "invalid/absolute_read_root.json",
+    "invalid/parent_traversal_output_root.json",
+    "invalid/duplicate_read_root.json",
+    "invalid/network_enabled.json",
+    "invalid/wildcard_env_rule.json",
+    "invalid/malformed_filesystem_policy.json",
+    "invalid/null_env_policy.json",
+    "invalid/output_root_repo_target.json"
+  ],
+  "edge": [
+    "edge/empty_allowed_read_roots.json",
+    "edge/max_limit_boundary.json",
+    "edge/overlapping_roots.json",
+    "edge/minimal_env_allowlist.json",
+    "edge/sandbox_tmp_output_root.json"
+  ]
+}
