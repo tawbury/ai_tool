@@ -1,0 +1,70 @@
+{
+  "schema_version": "aios.mock_provider_fixture_index.v0",
+  "provider_snapshot": "snapshots/aios_mock_provider_0_1_0.json",
+  "valid_cases": [
+    {
+      "case_id": "deterministic_available",
+      "input_fixture": "inputs/deterministic_available_input.json",
+      "output_fixture": "outputs/deterministic_available_output.json",
+      "expected_behavior": "available"
+    },
+    {
+      "case_id": "deterministic_unavailable",
+      "input_fixture": "inputs/deterministic_unavailable_input.json",
+      "output_fixture": "outputs/deterministic_unavailable_output.json",
+      "expected_behavior": "unavailable"
+    },
+    {
+      "case_id": "managed_block",
+      "input_fixture": "inputs/managed_block_input.json",
+      "output_fixture": "outputs/managed_block_output.json",
+      "expected_behavior": "available"
+    },
+    {
+      "case_id": "whole_file",
+      "input_fixture": "inputs/whole_file_input.json",
+      "output_fixture": "outputs/whole_file_output.json",
+      "expected_behavior": "available"
+    }
+  ],
+  "invalid_cases": [
+    {
+      "case_id": "missing_provenance",
+      "fixture": "expected/missing_provenance_output.json",
+      "expected_issue": "missing_provenance"
+    },
+    {
+      "case_id": "hash_mismatch",
+      "fixture": "expected/hash_mismatch_output.json",
+      "expected_issue": "generated_hash_mismatch"
+    },
+    {
+      "case_id": "nondeterministic_duplicate_output",
+      "fixture": "expected/nondeterministic_duplicate_output.json",
+      "expected_issue": "nondeterministic_duplicate_output"
+    },
+    {
+      "case_id": "invalid_provider_version",
+      "fixture": "expected/invalid_provider_version_output.json",
+      "expected_issue": "invalid_provider_version"
+    },
+    {
+      "case_id": "unavailable_with_generated_hash",
+      "fixture": "expected/unavailable_with_generated_hash_output.json",
+      "expected_issue": "unavailable_generated_hash_present"
+    },
+    {
+      "case_id": "missing_no_write_confirmed",
+      "fixture": "expected/missing_no_write_confirmed_output.json",
+      "expected_issue": "missing_no_write_confirmed"
+    }
+  ],
+  "contract": {
+    "provider_execution": false,
+    "sandbox_execution": false,
+    "dynamic_loading": false,
+    "network_access": false,
+    "generated_content_creation": false,
+    "mutation_performed": false
+  }
+}

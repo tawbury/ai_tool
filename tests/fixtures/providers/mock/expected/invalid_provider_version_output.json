@@ -1,0 +1,31 @@
+{
+  "schema_version": "aios.mock_provider.output.v0",
+  "case_id": "invalid_provider_version",
+  "entry_id": "invalid_provider_version",
+  "execution_trace_id": "trace-mock-invalid-provider-version-0001",
+  "preview_available": true,
+  "generated_content_kind": "whole-file",
+  "generated_bytes_hash": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+  "generated_target_hash": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+  "generated_managed_block_hash": null,
+  "unavailable_reason": null,
+  "provider_metadata": {
+    "provider_id": "aios.mock.preview.fixture",
+    "provider_version": "0.2.0",
+    "hash_policy": "aios.hash_policy.v0",
+    "output_affecting_config_ref": "snapshots/aios_mock_provider_0_1_0.json"
+  },
+  "deterministic_execution": true,
+  "no_write_confirmed": true,
+  "network_disabled": true,
+  "input_hash": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+  "output_hash": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+  "duration_ms": 1,
+  "provenance": {
+    "source_paths": [".ai/rules/rules.md"],
+    "source_hashes": {
+      ".ai/rules/rules.md": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "generated_by": "aios.mock_provider.fixture.v0"
+  }
+}

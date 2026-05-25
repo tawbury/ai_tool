@@ -1,0 +1,31 @@
+{
+  "schema_version": "aios.mock_provider.output.v0",
+  "case_id": "managed_block",
+  "entry_id": "managed_block",
+  "execution_trace_id": "trace-mock-managed-block-0001",
+  "preview_available": true,
+  "generated_content_kind": "managed-block",
+  "generated_bytes_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "generated_target_hash": null,
+  "generated_managed_block_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "unavailable_reason": null,
+  "provider_metadata": {
+    "provider_id": "aios.mock.preview.fixture",
+    "provider_version": "0.1.0",
+    "hash_policy": "aios.hash_policy.v0",
+    "output_affecting_config_ref": "snapshots/aios_mock_provider_0_1_0.json"
+  },
+  "deterministic_execution": true,
+  "no_write_confirmed": true,
+  "network_disabled": true,
+  "input_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "output_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "duration_ms": 1,
+  "provenance": {
+    "source_paths": [".ai/rules/operations/sync.rules.md"],
+    "source_hashes": {
+      ".ai/rules/operations/sync.rules.md": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "generated_by": "aios.mock_provider.fixture.v0"
+  }
+}

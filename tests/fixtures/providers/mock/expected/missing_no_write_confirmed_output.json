@@ -1,0 +1,30 @@
+{
+  "schema_version": "aios.mock_provider.output.v0",
+  "case_id": "missing_no_write_confirmed",
+  "entry_id": "missing_no_write_confirmed",
+  "execution_trace_id": "trace-mock-invalid-missing-no-write-0001",
+  "preview_available": true,
+  "generated_content_kind": "whole-file",
+  "generated_bytes_hash": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+  "generated_target_hash": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+  "generated_managed_block_hash": null,
+  "unavailable_reason": null,
+  "provider_metadata": {
+    "provider_id": "aios.mock.preview.fixture",
+    "provider_version": "0.1.0",
+    "hash_policy": "aios.hash_policy.v0",
+    "output_affecting_config_ref": "snapshots/aios_mock_provider_0_1_0.json"
+  },
+  "deterministic_execution": true,
+  "network_disabled": true,
+  "input_hash": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+  "output_hash": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+  "duration_ms": 1,
+  "provenance": {
+    "source_paths": [".ai/rules/rules.md"],
+    "source_hashes": {
+      ".ai/rules/rules.md": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "generated_by": "aios.mock_provider.fixture.v0"
+  }
+}

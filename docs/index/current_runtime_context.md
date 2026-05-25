@@ -185,8 +185,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- add deterministic mock provider fixture bundle before any mock execution helper
 - design execution trace schema before sandbox/provider execution
+- keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability validation static-only
 - maintain fixture-only replay schema tests
 - keep sync apply and mutation blocked

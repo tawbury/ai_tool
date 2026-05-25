@@ -1,0 +1,23 @@
+{
+  "schema_version": "aios.mock_provider.input.v0",
+  "case_id": "deterministic_unavailable",
+  "entry_id": "deterministic_unavailable",
+  "provider": {
+    "provider_id": "aios.mock.preview.fixture",
+    "provider_version": "0.1.0"
+  },
+  "sync_mode": "whole-file",
+  "source_evidence": {
+    "source_paths": [".ai/rules/missing.md"],
+    "source_hashes": {
+      ".ai/rules/missing.md": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  },
+  "input_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "normalization": "none"
+  }
+}

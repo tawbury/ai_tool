@@ -1,0 +1,31 @@
+{
+  "schema_version": "aios.mock_provider.output.v0",
+  "case_id": "unavailable_with_generated_hash",
+  "entry_id": "unavailable_with_generated_hash",
+  "execution_trace_id": "trace-mock-invalid-unavailable-hash-0001",
+  "preview_available": false,
+  "generated_content_kind": null,
+  "generated_bytes_hash": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+  "generated_target_hash": null,
+  "generated_managed_block_hash": null,
+  "unavailable_reason": "source-missing",
+  "provider_metadata": {
+    "provider_id": "aios.mock.preview.fixture",
+    "provider_version": "0.1.0",
+    "hash_policy": "aios.hash_policy.v0",
+    "output_affecting_config_ref": "snapshots/aios_mock_provider_0_1_0.json"
+  },
+  "deterministic_execution": true,
+  "no_write_confirmed": true,
+  "network_disabled": true,
+  "input_hash": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+  "output_hash": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+  "duration_ms": 1,
+  "provenance": {
+    "source_paths": [".ai/rules/missing.md"],
+    "source_hashes": {
+      ".ai/rules/missing.md": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "generated_by": "aios.mock_provider.fixture.v0"
+  }
+}

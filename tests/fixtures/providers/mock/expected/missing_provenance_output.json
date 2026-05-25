@@ -1,0 +1,24 @@
+{
+  "schema_version": "aios.mock_provider.output.v0",
+  "case_id": "missing_provenance",
+  "entry_id": "missing_provenance",
+  "execution_trace_id": "trace-mock-invalid-missing-provenance-0001",
+  "preview_available": true,
+  "generated_content_kind": "whole-file",
+  "generated_bytes_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "generated_target_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "generated_managed_block_hash": null,
+  "unavailable_reason": null,
+  "provider_metadata": {
+    "provider_id": "aios.mock.preview.fixture",
+    "provider_version": "0.1.0",
+    "hash_policy": "aios.hash_policy.v0",
+    "output_affecting_config_ref": "snapshots/aios_mock_provider_0_1_0.json"
+  },
+  "deterministic_execution": true,
+  "no_write_confirmed": true,
+  "network_disabled": true,
+  "input_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "output_hash": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "duration_ms": 1
+}

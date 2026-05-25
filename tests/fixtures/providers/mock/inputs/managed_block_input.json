@@ -1,0 +1,29 @@
+{
+  "schema_version": "aios.mock_provider.input.v0",
+  "case_id": "managed_block",
+  "entry_id": "managed_block",
+  "provider": {
+    "provider_id": "aios.mock.preview.fixture",
+    "provider_version": "0.1.0"
+  },
+  "sync_mode": "managed-block",
+  "marker": {
+    "entry_id": "managed_block",
+    "marker_version": "0",
+    "marker_style": "markdown-html-comment"
+  },
+  "source_evidence": {
+    "source_paths": [".ai/rules/operations/sync.rules.md"],
+    "source_hashes": {
+      ".ai/rules/operations/sync.rules.md": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    }
+  },
+  "input_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "normalization": "none",
+    "managed_block_marker_lines": "exclude"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "aios.mock_provider.input.v0",
+  "case_id": "whole_file",
+  "entry_id": "whole_file",
+  "provider": {
+    "provider_id": "aios.mock.preview.fixture",
+    "provider_version": "0.1.0"
+  },
+  "sync_mode": "whole-file",
+  "source_evidence": {
+    "source_paths": [".ai/rules/operations/validation.rules.md"],
+    "source_hashes": {
+      ".ai/rules/operations/validation.rules.md": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    }
+  },
+  "input_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "hash_policy": {
+    "version": "aios.hash_policy.v0",
+    "line_endings": "preserve",
+    "trailing_newline": "preserve",
+    "normalization": "none"
+  }
+}
