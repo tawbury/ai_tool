@@ -140,7 +140,8 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/reports/sandbox_policy_validate_output_contract_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits sandbox policy validate output, target detection, and execution-authorization confusion risks |
 | `docs/reports/sandbox_policy_validate_integration_report.md` | 8 | completed implementation report | human context | lazy | `aios validate <sandbox-policy.json>` | none | sandbox policy static validation integration evidence without sandbox launcher or execution runtime |
 | `docs/reports/sandbox_policy_validate_output_contract_report.md` | 8 | completed implementation report | human context | lazy | sandbox policy validate output contract tests | none | native JSON/envelope v2 contract stabilization evidence for sandbox policy static validation |
-| `docs/reports/sandbox_policy_rule_promotion_audit.md` | 8 | risk audit | human context | task-load | none | none | recommends split promotion to validation rules with sync safety pointer for sandbox policy static validation |
+| `docs/reports/sandbox_policy_rule_promotion_audit.md` | 8 | historical/superseded | human context | lazy | `.ai/rules/operations/validation.rules.md` and `.ai/rules/operations/sync.rules.md` | `docs/reports/sandbox_policy_runtime_rule_promotion_report.md` | recommends split promotion to validation rules with sync safety pointer for sandbox policy static validation |
+| `docs/reports/sandbox_policy_runtime_rule_promotion_report.md` | 8 | completed implementation report | human context | lazy | `.ai/rules/operations/validation.rules.md` and `.ai/rules/operations/sync.rules.md` | none | sandbox policy validation runtime rule promotion evidence |
 
 ## Context control documents
 

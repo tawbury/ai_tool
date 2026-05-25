@@ -86,6 +86,27 @@ Provider execution trace validation must preserve `provider_mode` when it is ava
 
 Provider execution trace validation must not execute providers, launch sandboxes, dynamically load providers, discover or register providers, execute adapters, generate content, update snapshots, execute replay, write files, or authorize sync apply/mutation.
 
+Sandbox policy validation is supported for:
+
+- `python -m aios validate <sandbox-policy.json>`
+- `python -m aios validate <sandbox-policy.json> --json`
+- `python -m aios validate <sandbox-policy.json> --json --envelope-v2`
+
+Sandbox policy validation uses target kind `sandbox-policy` and schema `aios.sandbox_policy.v0`.
+
+Sandbox policy validation is static-only. It validates parsed JSON structure and policy safety flags only.
+
+Sandbox policy JSON/envelope output must preserve non-execution metadata where applicable:
+
+- `sandbox_execution: false`
+- `subprocess_execution: false`
+- `provider_execution: false`
+- `mutation_performed: false`
+
+Sandbox policy validation must preserve `sandbox_mode` when it is available.
+
+Sandbox policy validation must not launch sandboxes, execute subprocesses, execute providers, execute replay, dynamically load providers, discover or register providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation.
+
 ### Failure Handling
 
 - On template validation failure, identify the missing or invalid structure.
