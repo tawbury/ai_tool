@@ -1,0 +1,37 @@
+{
+  "schema_version": "aios.sandbox_trace.v0",
+  "trace_id": "trace-sandbox-fixture-0001",
+  "request_id": "sandbox-request-success-fixture-0001",
+  "sandbox_mode": "fixture-mock",
+  "provider_mode": null,
+  "sandbox_policy_ref": "tests/fixtures/providers/sandbox_policies/valid/fixture_mock_default_policy.json",
+  "sandbox_result_ref": "tests/fixtures/providers/sandbox_results/valid/successful_fixture_mock_result.json",
+  "provider_trace_ref": null,
+  "started_at": "1970-01-01T00:00:00Z",
+  "completed_at": "1970-01-01T00:00:00Z",
+  "duration_ms": 3,
+  "status": "pass",
+  "failure_code": null,
+  "network_disabled": true,
+  "mutation_performed": false,
+  "no_write_confirmed": true,
+  "observed_inputs": [
+    {
+      "kind": "sandbox-result",
+      "ref": "tests/fixtures/providers/sandbox_results/valid/successful_fixture_mock_result.json",
+      "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "observed_outputs": [],
+  "provenance": {
+    "source_refs": [
+      "tests/fixtures/providers/sandbox_results/valid/successful_fixture_mock_result.json"
+    ],
+    "source_hashes": {
+      "tests/fixtures/providers/sandbox_results/valid/successful_fixture_mock_result.json": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "relationship": "sandbox-result-without-provider-trace",
+    "generated_by": "fixture-contract"
+  },
+  "edge_classification": "provider-trace-ref-unavailable"
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "aios.sandbox_trace.v0",
+  "trace_id": "trace-sandbox-subprocess-0001",
+  "request_id": "sandbox-request-mismatch-0001",
+  "sandbox_mode": "subprocess-temp-cwd",
+  "provider_mode": "subprocess-sandbox",
+  "sandbox_policy_ref": "tests/fixtures/providers/sandbox_policies/valid/subprocess_temp_cwd_policy.json",
+  "sandbox_result_ref": "tests/fixtures/providers/sandbox_results/valid/successful_subprocess_result.json",
+  "provider_trace_ref": "tests/fixtures/providers/traces/valid/whole_file_trace.json",
+  "started_at": "1970-01-01T00:00:00Z",
+  "completed_at": "1970-01-01T00:00:00Z",
+  "duration_ms": 42,
+  "status": "pass",
+  "failure_code": null,
+  "network_disabled": true,
+  "mutation_performed": false,
+  "no_write_confirmed": true,
+  "observed_inputs": [],
+  "observed_outputs": [],
+  "provenance": {
+    "source_refs": ["tests/fixtures/providers/sandbox_results/valid/successful_subprocess_result.json"],
+    "source_hashes": {
+      "tests/fixtures/providers/sandbox_results/valid/successful_subprocess_result.json": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "relationship": "sandbox-result-to-provider-trace",
+    "generated_by": "fixture-contract"
+  }
+}

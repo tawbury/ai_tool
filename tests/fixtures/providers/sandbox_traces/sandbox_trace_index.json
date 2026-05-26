@@ -1,0 +1,40 @@
+{
+  "schema_version": "aios.sandbox_trace_fixture_index.v0",
+  "sandbox_execution": false,
+  "subprocess_execution": false,
+  "provider_execution": false,
+  "replay_execution": false,
+  "generated_content_creation": false,
+  "mutation_performed": false,
+  "valid": [
+    "valid/successful_sandbox_trace.json",
+    "valid/fixture_mock_trace.json",
+    "valid/timeout_sandbox_trace.json",
+    "valid/resource_limit_sandbox_trace.json"
+  ],
+  "invalid": [
+    "invalid/missing_trace_id.json",
+    "invalid/request_id_mismatch.json",
+    "invalid/invalid_status.json",
+    "invalid/pass_with_failure_code.json",
+    "invalid/mutation_performed_true.json",
+    "invalid/network_disabled_false.json",
+    "invalid/unsafe_observed_output_path.json",
+    "invalid/missing_provenance.json"
+  ],
+  "edge": [
+    "edge/trace_without_provider_trace_ref.json",
+    "edge/zero_duration_trace.json",
+    "edge/partial_observed_outputs_trace.json"
+  ],
+  "expected_invalid_issues": {
+    "invalid/missing_trace_id.json": "missing_trace_id",
+    "invalid/request_id_mismatch.json": "request_id_mismatch",
+    "invalid/invalid_status.json": "invalid_status",
+    "invalid/pass_with_failure_code.json": "pass_with_failure_code",
+    "invalid/mutation_performed_true.json": "mutation_performed_true",
+    "invalid/network_disabled_false.json": "network_not_disabled",
+    "invalid/unsafe_observed_output_path.json": "unsafe_observed_output_ref",
+    "invalid/missing_provenance.json": "missing_provenance"
+  }
+}

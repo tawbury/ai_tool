@@ -1,0 +1,37 @@
+{
+  "schema_version": "aios.sandbox_trace.v0",
+  "trace_id": "trace-sandbox-resource-limit-0001",
+  "request_id": "sandbox-request-resource-limit-0001",
+  "sandbox_mode": "subprocess-temp-cwd",
+  "provider_mode": "subprocess-sandbox",
+  "sandbox_policy_ref": "tests/fixtures/providers/sandbox_policies/valid/subprocess_temp_cwd_policy.json",
+  "sandbox_result_ref": "tests/fixtures/providers/sandbox_results/valid/resource_limit_result.json",
+  "provider_trace_ref": "tests/fixtures/providers/traces/edge_cases/failure_without_generated_hashes.json",
+  "started_at": "1970-01-01T00:00:00Z",
+  "completed_at": "1970-01-01T00:00:00Z",
+  "duration_ms": 88,
+  "status": "resource-limit",
+  "failure_code": "sandbox-resource-limit",
+  "network_disabled": true,
+  "mutation_performed": false,
+  "no_write_confirmed": true,
+  "observed_inputs": [
+    {
+      "kind": "sandbox-result",
+      "ref": "tests/fixtures/providers/sandbox_results/valid/resource_limit_result.json",
+      "hash": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+  ],
+  "observed_outputs": [],
+  "provenance": {
+    "source_refs": [
+      "tests/fixtures/providers/sandbox_results/valid/resource_limit_result.json"
+    ],
+    "source_hashes": {
+      "tests/fixtures/providers/sandbox_results/valid/resource_limit_result.json": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    "relationship": "sandbox-result-to-provider-trace",
+    "generated_by": "fixture-contract"
+  },
+  "edge_classification": "partial-observed-outputs-after-resource-limit"
+}
