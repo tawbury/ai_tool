@@ -282,4 +282,6 @@ Sandbox execution result validate output contract plan과 risk audit는 완료�
 
 Sandbox result validate output contract tests는 안정화되었고 native JSON/envelope v2 pass/fail, shaped invalid/missing schema, target detection priority, non-execution metadata를 고정했다.
 
-다음 안전한 방향은 sandbox result validation rule promotion audit를 진행하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
+Sandbox result validation rule promotion audit는 완료되었고 `validation.rules.md` primary, `sync.rules.md` short safety pointer의 split promotion을 권장했다.
+
+다음 안전한 방향은 sandbox result validation behavior를 runtime governance rules에 승격하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
