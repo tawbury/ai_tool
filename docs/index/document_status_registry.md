@@ -155,6 +155,7 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/plan/sandbox_trace_fixture_contract_plan.md` | 8 | historical/superseded | human context | lazy | sandbox trace fixtures/tests | `docs/reports/sandbox_trace_fixture_bundle_report.md` | defines fixture-only sandbox trace schema linking sandbox result evidence to provider execution trace metadata without execution authorization |
 | `docs/reports/sandbox_trace_fixture_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits sandbox trace fixture relationship, authorization, output approval, and false-confidence risks |
 | `docs/reports/sandbox_trace_fixture_bundle_report.md` | 8 | completed implementation report | human context | lazy | sandbox trace fixture tests | none | fixture-only sandbox trace bundle evidence without sandbox launcher or execution runtime |
+| `docs/reports/sandbox_trace_validator_helper_report.md` | 8 | completed implementation report | human context | lazy | sandbox trace validator helper | none | pure parsed-dict sandbox trace validator evidence without validate integration or execution runtime |
 
 ## Context control documents
 

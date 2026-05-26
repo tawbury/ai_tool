@@ -297,3 +297,7 @@ Sandbox trace fixture contract plan과 risk audit이 완료되었다. `aios.sand
 Sandbox trace fixture-only bundle이 구현되었고 `aios.sandbox_trace.v0` valid/invalid/edge fixtures, fixture index, fixture-only contract tests가 추가되었다. 관계 검증은 sandbox result의 `trace_id`/`request_id` consistency에 한정되며 provider trace body 전체 검증이나 execution authorization은 포함하지 않는다.
 
 다음 안전한 방향은 sandbox trace validator helper를 parsed dict static validation 범위로 설계/구현하는 것이다. `aios validate <sandbox-trace.json>` 통합은 helper와 output contract 이후에만 검토한다.
+
+Sandbox trace validator helper가 구현되었고 `validate_sandbox_trace_data(data)`는 parsed dict만 정적으로 검증한다. Helper는 referenced sandbox result/provider trace 파일을 열지 않으며, 관계 검증 중 `request_id_mismatch` 같은 cross-fixture 검사는 fixture contract tests에 남긴다.
+
+다음 안전한 방향은 sandbox trace validate output contract를 설계하는 것이다. `aios validate <sandbox-trace.json>` 통합은 output contract 이후에만 검토한다.
