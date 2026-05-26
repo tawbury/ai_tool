@@ -192,8 +192,8 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- design sandbox trace validate output contract if requested
-- keep `aios validate <sandbox-trace.json>` integration sequentially after output contract design
+- implement `aios validate <sandbox-trace.json>` static integration if requested
+- keep sandbox trace validation output contract tests bundled with or immediately after integration
 - keep sandbox policy validation static-only under promoted validation/sync rules
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only

@@ -301,3 +301,7 @@ Sandbox trace fixture-only bundle이 구현되었고 `aios.sandbox_trace.v0` val
 Sandbox trace validator helper가 구현되었고 `validate_sandbox_trace_data(data)`는 parsed dict만 정적으로 검증한다. Helper는 referenced sandbox result/provider trace 파일을 열지 않으며, 관계 검증 중 `request_id_mismatch` 같은 cross-fixture 검사는 fixture contract tests에 남긴다.
 
 다음 안전한 방향은 sandbox trace validate output contract를 설계하는 것이다. `aios validate <sandbox-trace.json>` 통합은 output contract 이후에만 검토한다.
+
+Sandbox trace validate output contract plan과 risk audit이 완료되었다. Future `aios validate <sandbox-trace.json>`는 target kind `sandbox-trace`, native schema `aios.validate.result.v0`, success code `sandbox_trace_checked`, envelope v2 non-execution metadata를 사용하도록 설계되었다. Detection priority는 sandbox result 이후이며, sandbox launcher/subprocess/provider/replay execution은 계속 차단된다.
+
+다음 안전한 방향은 sandbox trace validate integration과 output contract tests를 static-only 범위로 구현하는 것이다.
