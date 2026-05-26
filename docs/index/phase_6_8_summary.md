@@ -284,4 +284,6 @@ Sandbox result validate output contract tests는 안정화되었고 native JSON/
 
 Sandbox result validation rule promotion audit는 완료되었고 `validation.rules.md` primary, `sync.rules.md` short safety pointer의 split promotion을 권장했다.
 
-다음 안전한 방향은 sandbox result validation behavior를 runtime governance rules에 승격하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
+Sandbox result validation behavior는 `validation.rules.md`와 `sync.rules.md`에 승격되었고 static-only boundary와 non-execution prohibition을 runtime governance에 반영했다.
+
+다음 안전한 방향은 sandbox trace fixture contract를 별도 design-only track으로 진행하거나 sandbox result validation runtime completion 상태를 감사하는 것이다.

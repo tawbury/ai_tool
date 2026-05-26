@@ -107,6 +107,32 @@ Sandbox policy validation must preserve `sandbox_mode` when it is available.
 
 Sandbox policy validation must not launch sandboxes, execute subprocesses, execute providers, execute replay, dynamically load providers, discover or register providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation.
 
+Sandbox result validation is supported for:
+
+- `python -m aios validate <sandbox-result.json>`
+- `python -m aios validate <sandbox-result.json> --json`
+- `python -m aios validate <sandbox-result.json> --json --envelope-v2`
+
+Sandbox result validation uses target kind `sandbox-result` and schema `aios.sandbox_execution_result.v0`.
+
+Sandbox result validation is static-only. It validates parsed JSON structure and sandbox result evidence only.
+
+Sandbox result JSON/envelope output must preserve non-execution metadata where applicable:
+
+- `sandbox_execution: false`
+- `subprocess_execution: false`
+- `provider_execution: false`
+- `replay_execution: false`
+- `mutation_performed: false`
+
+Sandbox result validation must preserve evidence identifiers when available:
+
+- `sandbox_mode`
+- `request_id`
+- `failure_code`
+
+Sandbox result validation must not launch sandboxes, execute subprocesses, execute providers, execute replay, dynamically load providers, discover or register providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation.
+
 ### Failure Handling
 
 - On template validation failure, identify the missing or invalid structure.
