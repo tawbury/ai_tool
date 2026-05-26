@@ -226,6 +226,19 @@ def main(argv: list[str] | None = None) -> int:
                                 "failure_code": _first_result_detail(result, "failure_code"),
                             }
                         )
+                    if result.target.get("kind") == "sandbox-trace":
+                        legacy["meta"].update(
+                            {
+                                "sandbox_execution": False,
+                                "subprocess_execution": False,
+                                "provider_execution": False,
+                                "replay_execution": False,
+                                "mutation_performed": False,
+                                "trace_id": _first_result_detail(result, "trace_id"),
+                                "request_id": _first_result_detail(result, "request_id"),
+                                "failure_code": _first_result_detail(result, "failure_code"),
+                            }
+                        )
                 print(json.dumps(legacy, ensure_ascii=False, indent=2))
             else:
                 _print_validate_summary(root, result)

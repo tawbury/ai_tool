@@ -140,6 +140,8 @@ def _kind_for_path(root: Path, path: Path) -> str:
             return "sandbox-policy"
         if _is_sandbox_result_file(path):
             return "sandbox-result"
+        if _is_sandbox_trace_file(path):
+            return "sandbox-trace"
     return "file"
 
 
@@ -252,7 +254,13 @@ def _is_provider_execution_trace_file(path: Path) -> bool:
         "provenance",
     }
     present = trace_fields.intersection(data)
-    return len(present) >= 6 and ("trace_id" in data or "provider_mode" in data)
+    return len(present) >= 6 and (
+        "provider_id" in data
+        or "provider_version" in data
+        or "generated_hashes" in data
+        or "input_hash" in data
+        or "output_hash" in data
+    )
 
 
 def _is_sandbox_policy_file(path: Path) -> bool:
@@ -319,4 +327,40 @@ def _is_sandbox_result_file(path: Path) -> bool:
         "trace_id",
     }
     present = sandbox_result_fields.intersection(data)
-    return len(present) >= 6 and any(key in data for key in ("request_id", "status", "no_write_evidence"))
+    return len(present) >= 6 and any(key in data for key in ("no_write_evidence", "exit_code", "stdout_bytes", "stderr_bytes"))
+
+
+def _is_sandbox_trace_file(path: Path) -> bool:
+    try:
+        data = json.loads(read_text(path))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if not isinstance(data, dict):
+        return False
+    if data.get("schema_version") == "aios.sandbox_trace.v0":
+        return True
+    # Allow schema-error validation for sandbox-trace-shaped JSON without
+    # hijacking arbitrary sandbox-ish JSON files. This runs after sandbox
+    # result detection to preserve existing target priority.
+    sandbox_trace_fields = {
+        "trace_id",
+        "request_id",
+        "sandbox_mode",
+        "provider_mode",
+        "sandbox_policy_ref",
+        "sandbox_result_ref",
+        "provider_trace_ref",
+        "started_at",
+        "completed_at",
+        "duration_ms",
+        "status",
+        "failure_code",
+        "network_disabled",
+        "mutation_performed",
+        "no_write_confirmed",
+        "observed_inputs",
+        "observed_outputs",
+        "provenance",
+    }
+    present = sandbox_trace_fields.intersection(data)
+    return len(present) >= 6 and any(key in data for key in ("trace_id", "request_id", "observed_inputs", "observed_outputs"))

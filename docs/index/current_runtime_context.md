@@ -57,6 +57,7 @@ Current runtime supports:
 - `python -m aios validate <provider-trace.json>`
 - `python -m aios validate <sandbox-policy.json>`
 - `python -m aios validate <sandbox-result.json>`
+- `python -m aios validate <sandbox-trace.json>`
 - `python -m aios activation <path>`
 - `python -m aios activation <path> --json`
 - `python -m aios load-context <path>`
@@ -87,6 +88,7 @@ Envelope v2 is opt-in and requires `--json`.
 | `aios.provider_execution_trace.v0` | provider execution trace statically validated by `aios validate <provider-trace.json>` |
 | `aios.sandbox_policy.v0` | sandbox policy statically validated by `aios validate <sandbox-policy.json>` |
 | `aios.sandbox_execution_result.v0` | sandbox execution result statically validated by `aios validate <sandbox-result.json>` |
+| `aios.sandbox_trace.v0` | sandbox trace statically validated by `aios validate <sandbox-trace.json>` |
 
 The real preview provider schemas are planning artifacts only until implemented and promoted. Replay manifest and provider snapshot schemas currently exist as fixture/test contracts with static validation integration, not provider execution contracts.
 
@@ -101,6 +103,7 @@ Allowed:
 - validate agents, skills, workflows, activation files, validator index, sync manifests, replay manifests
 - validate provider capability declarations, provider execution traces, and sandbox policies statically
 - validate sandbox execution results statically
+- validate sandbox traces statically
 - perform fixture-backed replay comparison when explicitly configured
 - load semantic context from `.ai` files with profile/budget filtering
 - evaluate sync dry-run against an explicit manifest
@@ -194,7 +197,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 The next safe direction is still read-only:
 
 - use `docs/roadmap/static_validation_and_execution_readiness_roadmap.md` to group remaining work into roadmap-driven bundles
-- implement `aios validate <sandbox-trace.json>` static integration and output contract tests as one bundle if requested
+- stabilize `aios validate <sandbox-trace.json>` output contracts before rule promotion audit
 - audit sandbox trace rule promotion only after output contract stabilization
 - keep sandbox policy validation static-only under promoted validation/sync rules
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
