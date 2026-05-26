@@ -133,6 +133,35 @@ Sandbox result validation must preserve evidence identifiers when available:
 
 Sandbox result validation must not launch sandboxes, execute subprocesses, execute providers, execute replay, dynamically load providers, discover or register providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation.
 
+Sandbox trace validation is supported for:
+
+- `python -m aios validate <sandbox-trace.json>`
+- `python -m aios validate <sandbox-trace.json> --json`
+- `python -m aios validate <sandbox-trace.json> --json --envelope-v2`
+
+Sandbox trace validation uses target kind `sandbox-trace` and schema `aios.sandbox_trace.v0`.
+
+Sandbox trace validation is static-only. It validates parsed JSON structure and sandbox trace evidence only.
+
+Sandbox trace JSON/envelope output must preserve non-execution metadata where applicable:
+
+- `sandbox_execution: false`
+- `subprocess_execution: false`
+- `provider_execution: false`
+- `replay_execution: false`
+- `mutation_performed: false`
+
+Sandbox trace validation must preserve evidence identifiers when available:
+
+- `trace_id`
+- `request_id`
+- `sandbox_mode`
+- `provider_mode`
+- `status`
+- `failure_code`
+
+Sandbox trace validation must not launch sandboxes, execute subprocesses, execute providers, execute replay, dynamically load providers, discover or register providers, execute adapters, generate content, update snapshots, write files, or authorize sync apply/mutation.
+
 ### Failure Handling
 
 - On template validation failure, identify the missing or invalid structure.

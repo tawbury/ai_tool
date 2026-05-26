@@ -231,6 +231,12 @@ Sandbox result validation is available through `aios validate <sandbox-result.js
 
 It does not authorize sandbox launcher implementation, subprocess execution, provider execution, replay execution, dynamic provider loading, provider registry/discovery, adapter execution, generated content, snapshot update, sync apply, or mutation. Detailed validation command and output behavior belongs in `.ai/rules/operations/validation.rules.md`.
 
+## Sandbox Trace Validation
+
+Sandbox trace validation is available through `aios validate <sandbox-trace.json>` as static-only evidence for future sandbox/provider safety.
+
+It does not authorize sandbox launcher implementation, subprocess execution, provider execution, replay execution, dynamic provider loading, provider registry/discovery, adapter execution, generated content, snapshot update, sync apply, or mutation. Detailed validation command and output behavior belongs in `.ai/rules/operations/validation.rules.md`.
+
 ## Hash Policy
 
 Phase 8 v0 continues to use observed UTF-8 bytes.
