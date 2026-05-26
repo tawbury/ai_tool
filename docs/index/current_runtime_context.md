@@ -192,10 +192,9 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
-- design sandbox trace fixtures as fixture-only/static-only artifacts if requested
-- design sandbox trace fixtures only as separate static design work if requested
+- implement sandbox trace fixture-only bundle as static artifacts if requested
+- keep sandbox trace validator helper sequentially after the fixture bundle
 - keep sandbox policy validation static-only under promoted validation/sync rules
-- design sandbox trace fixtures only as separate static design work if requested
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only
 - maintain fixture-only replay schema tests

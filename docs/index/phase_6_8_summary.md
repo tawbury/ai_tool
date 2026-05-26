@@ -287,3 +287,9 @@ Sandbox result validation rule promotion audit는 완료되었고 `validation.ru
 Sandbox result validation behavior는 `validation.rules.md`와 `sync.rules.md`에 승격되었고 static-only boundary와 non-execution prohibition을 runtime governance에 반영했다.
 
 다음 안전한 방향은 sandbox trace fixture contract를 별도 design-only track으로 진행하거나 sandbox result validation runtime completion 상태를 감사하는 것이다.
+
+## Sandbox trace fixture contract status
+
+Sandbox trace fixture contract plan과 risk audit이 완료되었다. `aios.sandbox_trace.v0`는 sandbox result evidence의 `trace_id`/`request_id`를 provider execution trace metadata와 연결하는 fixture-only bridge로 정의되며, sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation을 승인하지 않는다.
+
+다음 안전한 방향은 sandbox trace fixture-only bundle과 fixture contract tests를 구현하는 것이다. Sandbox trace validator helper는 fixture bundle 이후에 진행해야 하며, sandbox launcher/execution implementation은 계속 차단된다.
