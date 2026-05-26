@@ -208,6 +208,33 @@ def test_sandbox_result_shaped_invalid_schema_contract(tmp_path: Path) -> None:
     assert error["details"]["mutation_performed"] is False
 
 
+def test_sandbox_result_shaped_missing_schema_contract(tmp_path: Path) -> None:
+    path = tmp_path / "sandbox_result_missing_schema.json"
+    data = json.loads((ROOT / VALID).read_text(encoding="utf-8"))
+    data.pop("schema_version")
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+    completed, result = json_cli("validate", str(path), "--json")
+
+    assert completed.returncode == 1
+    assert result["target"]["kind"] == "sandbox-result"
+    assert any(item["code"] == "missing_required_field" for item in result["results"])
+    error = next(item for item in result["results"] if item["code"] == "unsupported_schema_version")
+    assert error["validator"] == "sandbox-result"
+    assert error["severity"] == "error"
+    assert error["status"] == "fail"
+    assert error["details"]["field"] == "schema_version"
+    assert error["details"]["sandbox_mode"] == "subprocess-temp-cwd"
+    assert error["details"]["request_id"] == "sandbox-request-success-subprocess-0001"
+    assert error["details"]["failure_code"] is None
+    assert error["details"]["sandbox_execution"] is False
+    assert error["details"]["subprocess_execution"] is False
+    assert error["details"]["provider_execution"] is False
+    assert error["details"]["replay_execution"] is False
+    assert error["details"]["mutation_performed"] is False
+    assert not any(item["code"] == "sandbox_result_checked" for item in result["results"])
+
+
 def test_sandbox_result_unrelated_json_not_misclassified_contract() -> None:
     completed, data = json_cli("validate", UNRELATED_JSON, "--json")
 

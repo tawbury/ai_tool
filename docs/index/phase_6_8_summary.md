@@ -280,4 +280,6 @@ Sandbox execution result validate output contract plan과 risk audit는 완료�
 
 `aios validate <sandbox-result.json>` static-only 통합은 구현되었고 target kind `sandbox-result`, native JSON, envelope v2 non-execution metadata, 기존 target detection priority를 지원한다.
 
-다음 안전한 방향은 sandbox execution result validate output contract를 안정화하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
+Sandbox result validate output contract tests는 안정화되었고 native JSON/envelope v2 pass/fail, shaped invalid/missing schema, target detection priority, non-execution metadata를 고정했다.
+
+다음 안전한 방향은 sandbox result validation rule promotion audit를 진행하거나 sandbox trace fixture contract를 별도 design-only track으로 진행하는 것이다.
