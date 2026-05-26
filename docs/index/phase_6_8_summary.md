@@ -326,10 +326,14 @@ Static validation surface completion audit이 완료되었고 Phase 8 static val
 
 다음 순차 gate는 execution readiness audit이다. 이 진입 판단은 execution authorization이 아니며 sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation은 계속 차단된다.
 
+Execution readiness audit이 완료되었고 execution architecture approval 검토로 넘어갈 수 있다고 판단되었다. 다만 no-write verification, network isolation, sandbox/process enforcement, provider/replay execution은 아직 runtime으로 구현되지 않았으므로 execution implementation은 계속 차단된다.
+
+다음 순차 gate는 execution architecture approval plan/risk audit이다.
+
 ## Static validation readiness roadmap status
 
 `docs/roadmap/static_validation_and_execution_readiness_roadmap.md`가 추가되었고, 남은 작업은 micro prompt가 아니라 roadmap-driven bundle로 진행하는 것이 권장된다.
 
-즉시 다음 안전한 bundle은 Phase 9 execution readiness audit과 docs index update이다.
+즉시 다음 안전한 bundle은 Phase 9 execution architecture approval plan/risk audit과 docs index update이다.
 
 Execution layer는 계속 차단된다. sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation, rollback execution, dynamic loading, registry/discovery는 static validation surface completion audit와 execution readiness audit 전까지 시작하지 않는다.
