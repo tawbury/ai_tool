@@ -197,11 +197,11 @@ If more than five docs appear necessary, first check whether this index or `phas
 The next safe direction is still read-only:
 
 - use `docs/roadmap/static_validation_and_execution_readiness_roadmap.md` to group remaining work into roadmap-driven bundles
-- define execution architecture approval boundaries as the next design-only gate
+- plan a future execution prototype as the next design-only gate after execution architecture approval
 - keep sandbox policy validation static-only under promoted validation/sync rules
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only
 - maintain fixture-only replay schema tests
 - keep sync apply and mutation blocked
 
-Do not start sync apply, mutation design, sandbox launcher, subprocess execution, provider execution, or replay execution until architecture approval and later prototype planning explicitly allow the next step.
+Do not start sync apply, mutation design, sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, dynamic loading, or registry/discovery until a later implementation readiness gate explicitly allows code work.

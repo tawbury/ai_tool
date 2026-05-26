@@ -330,10 +330,14 @@ Execution readiness audit이 완료되었고 execution architecture approval 검
 
 다음 순차 gate는 execution architecture approval plan/risk audit이다.
 
+Execution architecture approval plan과 risk audit이 완료되었다. 승인된 범위는 future execution prototype planning으로 넘어가기 위한 design-only boundary이며, sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation 구현은 계속 금지된다.
+
+다음 순차 gate는 Phase 10 execution prototype planning이다.
+
 ## Static validation readiness roadmap status
 
 `docs/roadmap/static_validation_and_execution_readiness_roadmap.md`가 추가되었고, 남은 작업은 micro prompt가 아니라 roadmap-driven bundle로 진행하는 것이 권장된다.
 
-즉시 다음 안전한 bundle은 Phase 9 execution architecture approval plan/risk audit과 docs index update이다.
+즉시 다음 안전한 bundle은 Phase 10 execution prototype planning과 docs index update이다.
 
 Execution layer는 계속 차단된다. sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation, rollback execution, dynamic loading, registry/discovery는 static validation surface completion audit와 execution readiness audit 전까지 시작하지 않는다.
