@@ -197,7 +197,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 The next safe direction is still read-only:
 
 - use `docs/roadmap/static_validation_and_execution_readiness_roadmap.md` to group remaining work into roadmap-driven bundles
-- audit static validation surface completion after sandbox trace validation rule promotion
+- run execution readiness audit as the next gate after Phase 8 static validation surface completion
 - keep sandbox policy validation static-only under promoted validation/sync rules
 - keep deterministic mock provider fixtures fixture-only until a helper boundary is separately approved
 - keep provider capability and provider trace validation static-only

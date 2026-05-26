@@ -322,10 +322,14 @@ Sandbox trace validation behavior가 runtime governance rules에 승격되었다
 
 다음 안전한 방향은 static validation surface completion audit이다. 이 감사는 sync/replay/provider/sandbox static validation surface가 동일한 governance 수준에 도달했는지 확인하고 execution readiness audit 진입 가능 여부를 판단해야 한다.
 
+Static validation surface completion audit이 완료되었고 Phase 8 static validation surface v0는 완료 상태로 판단되었다. Sync, replay, provider capability, provider execution trace, sandbox policy, sandbox result, sandbox trace validation은 모두 implementation, output stabilization, governance promotion 수준에 도달했다.
+
+다음 순차 gate는 execution readiness audit이다. 이 진입 판단은 execution authorization이 아니며 sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation은 계속 차단된다.
+
 ## Static validation readiness roadmap status
 
 `docs/roadmap/static_validation_and_execution_readiness_roadmap.md`가 추가되었고, 남은 작업은 micro prompt가 아니라 roadmap-driven bundle로 진행하는 것이 권장된다.
 
-즉시 다음 안전한 bundle은 static validation surface completion audit과 docs index update이다.
+즉시 다음 안전한 bundle은 Phase 9 execution readiness audit과 docs index update이다.
 
 Execution layer는 계속 차단된다. sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation, rollback execution, dynamic loading, registry/discovery는 static validation surface completion audit와 execution readiness audit 전까지 시작하지 않는다.
