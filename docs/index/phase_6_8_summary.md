@@ -310,10 +310,14 @@ Sandbox trace validate output contract plan과 risk audit이 완료되었다. Fu
 
 다음 안전한 방향은 sandbox trace output contract stabilization을 수행한 뒤 sandbox trace rule promotion audit로 넘어가는 것이다.
 
+Sandbox trace validate output contract tests가 안정화되었다. Native JSON과 envelope v2 pass/fail, shaped invalid/missing schema detection, unrelated JSON non-misclassification, existing target detection regression, helper issue details preservation이 고정되었다.
+
+다음 안전한 방향은 sandbox trace rule promotion audit이다. Audit 전에는 `.ai/rules`를 수정하지 않는다.
+
 ## Static validation readiness roadmap status
 
 `docs/roadmap/static_validation_and_execution_readiness_roadmap.md`가 추가되었고, 남은 작업은 micro prompt가 아니라 roadmap-driven bundle로 진행하는 것이 권장된다.
 
-즉시 다음 안전한 bundle은 sandbox trace native JSON/envelope v2 output contract stabilization, target detection regression 강화, report/index update이다.
+즉시 다음 안전한 bundle은 sandbox trace rule promotion audit과 report/index update이다.
 
 Execution layer는 계속 차단된다. sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation, rollback execution, dynamic loading, registry/discovery는 static validation surface completion audit와 execution readiness audit 전까지 시작하지 않는다.

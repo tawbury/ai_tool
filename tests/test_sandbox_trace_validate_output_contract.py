@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TRACES = "tests/fixtures/providers/sandbox_traces"
 VALID = f"{TRACES}/valid/successful_sandbox_trace.json"
 INVALID = f"{TRACES}/invalid/network_disabled_false.json"
+INVALID_STATUS = f"{TRACES}/invalid/invalid_status.json"
 UNRELATED_JSON = "tests/fixtures/sync/manifests/non_manifest.json"
 SANDBOX_RESULT = "tests/fixtures/providers/sandbox_results/valid/successful_subprocess_result.json"
 SANDBOX_POLICY = "tests/fixtures/providers/sandbox_policies/valid/subprocess_temp_cwd_policy.json"
@@ -97,6 +98,31 @@ def test_sandbox_trace_native_json_fail_contract() -> None:
     assert error["details"]["provider_execution"] is False
     assert error["details"]["replay_execution"] is False
     assert not any(result["code"] == "sandbox_trace_checked" for result in data["results"])
+
+
+def test_sandbox_trace_helper_issue_code_message_field_and_details_are_preserved() -> None:
+    completed, data = json_cli("validate", INVALID_STATUS, "--json")
+
+    assert completed.returncode == 1
+    assert data["target"]["kind"] == "sandbox-trace"
+
+    error = next(result for result in data["results"] if result["code"] == "invalid_status")
+    assert error["validator"] == "sandbox-trace"
+    assert error["severity"] == "error"
+    assert error["status"] == "fail"
+    assert error["message"] == "status is unsupported."
+    assert error["details"]["field"] == "status"
+    assert error["details"]["trace_id"] == "trace-sandbox-subprocess-0001"
+    assert error["details"]["request_id"] == "sandbox-request-success-subprocess-0001"
+    assert error["details"]["sandbox_mode"] == "subprocess-temp-cwd"
+    assert error["details"]["provider_mode"] == "subprocess-sandbox"
+    assert error["details"]["status"] == "unknown"
+    assert error["details"]["failure_code"] is None
+    assert error["details"]["sandbox_execution"] is False
+    assert error["details"]["subprocess_execution"] is False
+    assert error["details"]["provider_execution"] is False
+    assert error["details"]["replay_execution"] is False
+    assert error["details"]["mutation_performed"] is False
 
 
 def test_sandbox_trace_envelope_v2_pass_contract() -> None:
