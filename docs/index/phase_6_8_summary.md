@@ -305,3 +305,11 @@ Sandbox trace validator helper가 구현되었고 `validate_sandbox_trace_data(d
 Sandbox trace validate output contract plan과 risk audit이 완료되었다. Future `aios validate <sandbox-trace.json>`는 target kind `sandbox-trace`, native schema `aios.validate.result.v0`, success code `sandbox_trace_checked`, envelope v2 non-execution metadata를 사용하도록 설계되었다. Detection priority는 sandbox result 이후이며, sandbox launcher/subprocess/provider/replay execution은 계속 차단된다.
 
 다음 안전한 방향은 sandbox trace validate integration과 output contract tests를 static-only 범위로 구현하는 것이다.
+
+## Static validation readiness roadmap status
+
+`docs/roadmap/static_validation_and_execution_readiness_roadmap.md`가 추가되었고, 남은 작업은 micro prompt가 아니라 roadmap-driven bundle로 진행하는 것이 권장된다.
+
+즉시 다음 안전한 bundle은 `aios validate <sandbox-trace.json>` static integration, sandbox trace native JSON/envelope v2 output contract tests, target detection regression, report/index update이다.
+
+Execution layer는 계속 차단된다. sandbox launcher, subprocess execution, provider execution, replay execution, generated content, snapshot update, sync apply/mutation, rollback execution, dynamic loading, registry/discovery는 static validation surface completion audit와 execution readiness audit 전까지 시작하지 않는다.

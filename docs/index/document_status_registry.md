@@ -159,6 +159,7 @@ Phase 6-8 동안 생성된 주요 계획서와 보고서의 상태, 권한, 로�
 | `docs/plan/sandbox_trace_validate_output_contract_plan.md` | 8 | active implementation plan | human context | task-load | none | none | defines future sandbox trace validate native JSON/envelope v2 output contract without runtime integration |
 | `docs/reports/sandbox_trace_validate_output_contract_risk_audit.md` | 8 | risk audit | human context | task-load | none | none | audits sandbox trace validate target detection, output metadata, and execution-authorization risks |
 | `docs/reports/current_repository_status_and_remaining_work_audit.md` | 8 | reference-only | human context | summary-first | none | none | audits current repository status, completed capabilities, remaining static work, blocked execution areas, and workflow transition recommendation |
+| `docs/roadmap/static_validation_and_execution_readiness_roadmap.md` | 8 | active implementation plan | human context | summary-first | none | none | consolidated roadmap for remaining static validation work, execution readiness gates, blocked execution areas, and bundle-based workflow |
 
 ## Context control documents
 

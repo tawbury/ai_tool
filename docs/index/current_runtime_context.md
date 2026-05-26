@@ -182,9 +182,10 @@ Recommended order:
 1. `.ai/rules/rules.md`
 2. relevant operation rule
 3. `docs/index/current_runtime_context.md`
-4. `docs/index/phase_6_8_summary.md`
-5. `docs/index/document_status_registry.md` when document authority/status is needed
-6. detailed plans/reports only if needed
+4. `docs/roadmap/static_validation_and_execution_readiness_roadmap.md` when planning remaining work or bundles
+5. `docs/index/phase_6_8_summary.md`
+6. `docs/index/document_status_registry.md` when document authority/status is needed
+7. detailed plans/reports only if needed
 
 If more than five docs appear necessary, first check whether this index or `phase_6_8_summary.md` can answer the question.
 
@@ -192,6 +193,7 @@ If more than five docs appear necessary, first check whether this index or `phas
 
 The next safe direction is still read-only:
 
+- use `docs/roadmap/static_validation_and_execution_readiness_roadmap.md` to group remaining work into roadmap-driven bundles
 - implement `aios validate <sandbox-trace.json>` static integration and output contract tests as one bundle if requested
 - audit sandbox trace rule promotion only after output contract stabilization
 - keep sandbox policy validation static-only under promoted validation/sync rules
